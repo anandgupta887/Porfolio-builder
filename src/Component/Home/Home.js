@@ -5,7 +5,10 @@ function Home() {
   return (
     <>
       <Header />
-      shfhfhfghffy
+      <div style={{display:'flex'}}>
+        <p>Hello</p>
+        <p>Bhsfhufhuyfhi</p>
+      </div>
     </>
   );
 }
