@@ -7,7 +7,7 @@ function Home() {
       <Header />
       <div style={{display:'flex'}}>
         <p>Hello</p>
-        <p>Bhsfhufhuyfhi</p>
+        <p>Htnfjkhdeufhuifhufhhfudfhuifdhufuhu</p>
       </div>
     </>
   );
