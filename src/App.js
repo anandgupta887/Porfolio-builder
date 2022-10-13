@@ -1,8 +1,14 @@
-import './App.css';
+import "./App.css";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import Home from "./Component/Home/Home";
 
 function App() {
   return (
-    <h1>Hello indecoders</h1>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Home/>} />
+      </Routes>
+    </Router>
   );
 }
 
