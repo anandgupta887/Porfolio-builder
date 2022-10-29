@@ -2,7 +2,7 @@
  text-align: center;
  justify-content: center;
  display: flex;
- padding: 90px e 90px 0;
+ padding: 90px 0 90px 0;
  background-color: rgb(252, 252, 252);
 }
 .sub-main{
@@ -19,10 +19,12 @@ background-color: white;
 padding-top: 20px;
 justify-content: center;
 display: flex;
+
 }
 .container-image{
 background-color: rgb(223, 221, 221);
 border-radius: 150px;
+justify-content: center;
 align-items: center;
 display: flex;
 height: 115px;
@@ -38,16 +40,18 @@ input{
 width: 300px;
 height: 50px;
 border-radius: 60px;
-box-shadow: inset 0px 0px 25px 0px #888;
+box-shadow: inset 0px 0px 25px 0px rgb(200, 191, 191);
 border: none;
 outline: none;
 background-color: #fff;
+
 }
 .email{
     height: 25px;
     width: 25px;
     position: absolute;
     padding: 14px 0 0 25px;
+    
 }
 .name{
 padding-left: 70px;
@@ -60,11 +64,19 @@ button{
 width: 380px;
 height: 50px;
 border-radius: 60px; 
-background-color: #356dd7;
+background-color: #4d82d2;
 color: white;
 font-size: 25px;
 border: none;
 }
 .login-button{
     padding-top: 25px;
+}
+
+.link{
+    font-size: 25px;
+    font-weight: 400;
+}
+a{
+    color: blue;
 }
