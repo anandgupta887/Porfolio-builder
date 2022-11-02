@@ -10,8 +10,8 @@ function ChooseTemplate() {
       <Box
         sx={{
           display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(350px, 1fr))",
-          gridAutoRows: "minmax(450px, auto)",
+          gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+          gridAutoRows: "minmax(250px, auto)",
           gap: "2rem",
           paddingTop: "16px",
         }}

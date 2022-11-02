@@ -8,16 +8,19 @@ import {
 
 function TemplateCard() {
   return (
-    <Card sx={{borderRadius:"30px"}}>
-      <CardActionArea sx={{height:450}}>
+    <Card sx={{ borderRadius: "30px" }}>
+      <CardActionArea
+        sx={{ minHeight: 350, display: "flex", flexDirection: "column",alignItems:'start' }}
+      >
         <CardMedia
+          sx={{ flex: 1, objectFit: "fill" }}
           component="img"
-        //   height="350"
-        //   width="400"
+          //   height="350"
+          //   width="400"
           image="https://cdn.dribbble.com/userupload/2795421/file/original-da3b77c9c5eec77d571a48a273cbba1a.jpg?compress=1&resize=1200x900"
           alt="template-1"
         />
-        <CardContent>
+        <CardContent sx={{}}>
           <Typography variant="h6" sx={{ fontWeight: 600 }}>
             Elegant
           </Typography>
