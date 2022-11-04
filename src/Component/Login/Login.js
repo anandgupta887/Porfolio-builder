@@ -15,8 +15,8 @@ function Login() {
           boxShadow: "11px 12px 13px 12px rgb(207, 207, 207)",
         }}
       >
-        <Box sx={{ flex: 1, mr: {xs:0,md:3}, alignSelf: "center",p:2 }}>
-          <Box sx={{ maxWidth: {xs:'auto',md:"350px"}, margin: "auto" }}>
+        <Box sx={{ flex: 1, mr: { xs: 0, md: 3 }, alignSelf: "center", p: 2 }}>
+          <Box sx={{ maxWidth: { xs: "auto", md: "350px" }, margin: "auto" }}>
             <Typography variant="h6" sx={{ mb: 1 }}>
               Welcome back
             </Typography>
@@ -25,20 +25,21 @@ function Login() {
             </Typography>
             <Input sx={{ p: 1, pb: 0, mb: 1 }} placeholder="Email" fullWidth />
             <Input
+              type="password"
               sx={{ p: 1, pb: 0, mb: 2 }}
               placeholder="Password"
               fullWidth
             />
-            <Button variant="contained" fullWidth sx={{ mt: 1 ,mb:1}}>
+            <Button variant="contained" fullWidth sx={{ mt: 1, mb: 1 }}>
               Login
             </Button>
-            <Box sx={{display:'flex',justifyContent:'space-between'}}>
+            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Link href="/forgot-password">Forgot password</Link>
               <Link href="/register">New user ?</Link>
             </Box>
           </Box>
         </Box>
-        <Box sx={{ flex: 1,display:{md:'flex',xs:'none'} }}>
+        <Box sx={{ flex: 1, display: { md: "flex", xs: "none" } }}>
           <img
             width="100%"
             style={{ height: "-webkit-fill-available" }}

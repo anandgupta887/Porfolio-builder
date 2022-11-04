@@ -148,6 +148,7 @@ const Header = () => {
                   color: "white",
                 },
               }}
+              href="/login"
             >
               Login
             </Button>
@@ -161,6 +162,7 @@ const Header = () => {
                   color: "white",
                 },
               }}
+              href="/register"
             >
               Sign up
             </Button>
