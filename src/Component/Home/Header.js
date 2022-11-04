@@ -38,9 +38,16 @@ const Header = () => {
   return (
     <AppBar
       position="static"
-      sx={{ backgroundColor: "white", color: "black", boxShadow: "none" }}
+      sx={{
+        backgroundColor: "white",
+        color: "black",
+        boxShadow: "none",
+        borderBottom: "1px solid gainsboro",
+        px: 2,
+        maxHeight: "64px",
+      }}
     >
-      <Container maxWidth="xl" sx={{p:'0 !important'}}>
+      <Container maxWidth="xl" sx={{ p: "0 !important" }}>
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
@@ -141,6 +148,7 @@ const Header = () => {
                   color: "white",
                 },
               }}
+              href="/login"
             >
               Login
             </Button>
@@ -154,6 +162,7 @@ const Header = () => {
                   color: "white",
                 },
               }}
+              href="/register"
             >
               Sign up
             </Button>
