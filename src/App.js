@@ -4,6 +4,7 @@ import Home from "./Component/Home/Home";
 import Login from "./Component/Login/Login";
 import Header from "./Component/Home/Header";
 import ChooseTemplate from "./Component/ChooseTemplate/ChooseTemplate";
+import Register from "./Component/Register/Register";
 
 function App() {
   return (
@@ -14,6 +15,9 @@ function App() {
         </Route>
         <Route path="/login">
           <Login />
+        </Route>
+        <Route path="/register">
+          <Register />
         </Route>
         <Route path="/">
           <Home />

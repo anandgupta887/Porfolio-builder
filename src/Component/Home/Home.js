@@ -4,7 +4,7 @@ import React from "react";
 function Home() {
   return (
     <>
-      <Box sx={{ display: "flex" }}>
+      <Box sx={{ display: "flex" ,px:2}}>
         <Box sx={{ flex: 2, p: 10, textAlign: "center", m: "auto" }}>
           <Typography variant="h2">Create Your Portfolio Now!!</Typography>
           <Typography variant="h4" sx={{ my: 2 }}>
