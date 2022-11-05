@@ -37,18 +37,17 @@ const Header = () => {
 
   return (
     <AppBar
-      position="static"
+      position="sticky"
       sx={{
         backgroundColor: "white",
         color: "black",
         boxShadow: "none",
         borderBottom: "1px solid gainsboro",
         px: 2,
-        maxHeight: "64px",
       }}
     >
       <Container maxWidth="xl" sx={{ p: "0 !important" }}>
-        <Toolbar disableGutters>
+        <Toolbar disableGutters sx={{ maxHeight: { xs: "56px", md: "64px" } }}>
           <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
@@ -135,11 +134,11 @@ const Header = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: "flex" }}>
             <Button
               variant="contained"
               sx={{
-                mr: 2,
+                mr: { xs: 0, md: 2 },
                 background: "transparent",
                 backgroundColor: "##9e9e9e",
                 color: "black",
@@ -161,6 +160,7 @@ const Header = () => {
                   backgroundColor: "#B57EDC",
                   color: "white",
                 },
+                display: { xs: "none", md: "block" },
               }}
               href="/register"
             >
