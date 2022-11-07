@@ -57,12 +57,26 @@ function Login() {
               placeholder="Password"
               fullWidth
             />
-            <Button variant="contained" fullWidth sx={{ mt: 1, mb: 1 }}>
+            <Button
+              variant="contained"
+              fullWidth
+              sx={{
+                mt: 1,
+                mb: 1,
+                background: "transparent",
+                backgroundColor: "##9e9e9e",
+                color: "black",
+                "&:hover": {
+                  backgroundColor: "#B57EDC",
+                  color: "white",
+                },
+              }}
+            >
               Login
             </Button>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Link href="/forgot-password">Forgot password</Link>
-              <Link href="/register">New user ?</Link>
+              <Link href="/register">New user?</Link>
             </Box>
           </Box>
         </Box>

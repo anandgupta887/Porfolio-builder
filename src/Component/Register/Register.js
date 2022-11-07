@@ -66,8 +66,22 @@ function Register() {
               placeholder="Password"
               fullWidth
             />
-            <Button variant="contained" fullWidth sx={{ mt: 1, mb: 1 }}>
-              Login
+            <Button
+              variant="contained"
+              fullWidth
+              sx={{
+                mt: 1,
+                mb: 1,
+                background: "transparent",
+                backgroundColor: "##9e9e9e",
+                color: "black",
+                "&:hover": {
+                  backgroundColor: "#B57EDC",
+                  color: "white",
+                },
+              }}
+            >
+              Register
             </Button>
             <Box sx={{ textAlign: "center" }}>
               Already registered? &nbsp;
