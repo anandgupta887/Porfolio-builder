@@ -1,6 +1,8 @@
 import {
+  Box,
   Button,
   Card,
+  CircularProgress,
   Container,
   Divider,
   Grid,
@@ -12,16 +14,59 @@ import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
+import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+
+function CircularProgressWithLabel(props) {
+  return (
+    <Box sx={{ position: "relative", display: "inline-flex" }}>
+      <CircularProgress
+        variant="determinate"
+        size={120}
+        thickness={6}
+        {...props}
+      />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: "absolute",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        <Typography
+          variant="body1"
+          component="div"
+          color="text.secondary"
+          sx={{ fontSize: "24px" }}
+        >
+          {`${Math.round(props.value)}%`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
 
 function PersonalDetails() {
-  const [profileData, setProfileData] = useState({});
+  const [profileData, setProfileData] = useState({ gender: "Male" });
+  const handleInput = (e) => {
+    console.log(profileData);
+    setProfileData({
+      ...profileData,
+      [e.target.name]: e.target.textContent,
+    });
+  };
+
   return (
     <Container maxWidth="lg">
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography variant="h4">Personal details</Typography>
         </Grid>
-        <Grid item xs={7} sx={{ display: "flex" }}>
+        <Grid item xs={6} sx={{ display: "flex" }}>
           <Grid container spacing={2}>
             <Grid item xs={12} sx={{ mb: 2 }}>
               <Divider>
@@ -30,13 +75,36 @@ function PersonalDetails() {
             </Grid>
             <Grid item xs={12} sx={{ display: "flex" }}>
               <Button
+                name="gender"
                 startIcon={<MaleIcon />}
                 variant="contained"
-                sx={{ mr: 2 }}
+                sx={{
+                  mr: 2,
+                  backgroundColor: `${
+                    profileData.gender === "Male" ? "#E9D8FF" : "#F6EFFF"
+                  }`,
+                  borderRadius: "15px",
+                  fontSize: "24px",
+                  textTransform: "none",
+                }}
+                onClick={handleInput}
               >
                 Male
               </Button>
-              <Button startIcon={<FemaleIcon />} variant="contained">
+              <Button
+                name="gender"
+                startIcon={<FemaleIcon />}
+                variant="contained"
+                sx={{
+                  backgroundColor: `${
+                    profileData.gender === "Female" ? "#E9D8FF" : "#F6EFFF"
+                  }`,
+                  borderRadius: "15px",
+                  fontSize: "24px",
+                  textTransform: "none",
+                }}
+                onClick={handleInput}
+              >
                 Female
               </Button>
             </Grid>
@@ -56,6 +124,7 @@ function PersonalDetails() {
                   variant="contained"
                   endIcon={<CloudUploadOutlinedIcon />}
                   component="span"
+                  sx={{ backgroundColor: "rgba(217, 209, 209, 1)" }}
                 >
                   Upload
                 </Button>
@@ -63,26 +132,37 @@ function PersonalDetails() {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="body2" sx={{ mb: 1 }}>
-                Enter full name
+                Enter Full name
               </Typography>
-              <TextField size="small" fullWidth />
+              <TextField size="small" fullWidth placeholder="Eg. John Doe" />
             </Grid>
             <Grid item xs={12}>
               <Typography variant="body2" sx={{ mb: 1 }}>
                 Enter Email address
               </Typography>
-              <TextField size="small" fullWidth />
+              <TextField
+                size="small"
+                fullWidth
+                placeholder="Eg. contact@port4leo.com"
+              />
             </Grid>
             <Grid item xs={12}>
               <Typography variant="body2" sx={{ mb: 1 }}>
                 Enter Linkedin url
               </Typography>
-              <TextField size="small" fullWidth />
+              <TextField
+                size="small"
+                fullWidth
+                placeholder="Eg. www.linkedin.com/Port4leo"
+              />
             </Grid>
             <Grid item xs={12}>
               <Button
                 variant="contained"
-                sx={{ backgroundColor: "#B57EDC", color: "white" }}
+                sx={{
+                  backgroundColor: "rgba(81, 13, 225, 0.64)",
+                  color: "white",
+                }}
                 endIcon={<EastOutlinedIcon />}
               >
                 Next
@@ -90,8 +170,48 @@ function PersonalDetails() {
             </Grid>
           </Grid>
         </Grid>
+        <Grid item xs={1}></Grid>
         <Grid item xs={5}>
-          <Card sx={{ p: 2 }}>Process</Card>
+          <Card
+            sx={{
+              p: 2,
+              py: 5,
+              backgroundColor: "#E9D8FF",
+              borderRadius: "30px",
+              maxWidth: "350px",
+              ml: "auto",
+            }}
+          >
+            <Box sx={{ textAlign: "center" }}>
+              <CircularProgressWithLabel value={"50"} />
+            </Box>
+            <Box sx={{ width: "70%", m: "auto", mt: 2 }}>
+              <Box sx={{ display: "flex", pt: 1 }}>
+                <Typography variant="body1" sx={{ flex: 1 }}>
+                  Personal details
+                </Typography>
+                <CheckCircleOutlineIcon />
+              </Box>
+              <Box sx={{ display: "flex", pt: 1 }}>
+                <Typography variant="body1" sx={{ flex: 1 }}>
+                  Skills
+                </Typography>
+                <CheckCircleOutlineIcon />
+              </Box>
+              <Box sx={{ display: "flex", pt: 1 }}>
+                <Typography variant="body1" sx={{ flex: 1 }}>
+                  Experience
+                </Typography>
+                <CheckCircleOutlineIcon />
+              </Box>
+              <Box sx={{ display: "flex", pt: 1 }}>
+                <Typography variant="body1" sx={{ flex: 1 }}>
+                  Project details
+                </Typography>
+                <CheckCircleOutlineIcon />
+              </Box>
+            </Box>
+          </Card>
         </Grid>
       </Grid>
     </Container>
