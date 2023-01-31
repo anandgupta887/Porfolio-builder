@@ -4,6 +4,8 @@ import Home from "./Component/Home/Home";
 import Login from "./Component/Login/Login";
 import ChooseTemplate from "./Component/ChooseTemplate/ChooseTemplate";
 import Register from "./Component/Register/Register";
+import PersonalDetails from "./Component/FillDetails/PersonalDetail";
+
 
 function App() {
   return (
@@ -20,7 +22,7 @@ function App() {
             <Register />
           </Route>
           <Route path="/personal-details">
-            <Register />
+            <PersonalDetails />
           </Route>
           <Route path="/">
             <Home />
