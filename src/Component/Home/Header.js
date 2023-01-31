@@ -12,8 +12,22 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import AdbIcon from "@mui/icons-material/Adb";
+import { Link } from "@mui/material";
 
-const pages = ["Samples", "Blog"];
+const pages = [
+  {
+    label: "Samples",
+    link: "sample",
+  },
+  {
+    label: "Blog",
+    link: "blog",
+  },
+  {
+    label: "profile",
+    link: "personal-details",
+  },
+];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Header = () => {
@@ -98,7 +112,7 @@ const Header = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
@@ -124,13 +138,17 @@ const Header = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "black", display: "block" }}
-              >
-                {page}
-              </Button>
+              <Link href={page.link}>
+                <Button
+                  key={page}
+                  onClick={() => {
+                    handleCloseNavMenu();
+                  }}
+                  sx={{ my: 2, color: "black", display: "block" }}
+                >
+                  {page.label}
+                </Button>
+              </Link>
             ))}
           </Box>
 
@@ -139,13 +157,6 @@ const Header = () => {
               variant="contained"
               sx={{
                 mr: { xs: 0, md: 2 },
-                background: "transparent",
-                backgroundColor: "##9e9e9e",
-                color: "black",
-                "&:hover": {
-                  backgroundColor: "#B57EDC",
-                  color: "white",
-                },
               }}
               href="/login"
             >
@@ -154,12 +165,6 @@ const Header = () => {
             <Button
               variant="contained"
               sx={{
-                background: "transparent",
-                color: "black",
-                "&:hover": {
-                  backgroundColor: "#B57EDC",
-                  color: "white",
-                },
                 display: { xs: "none", md: "block" },
               }}
               href="/register"

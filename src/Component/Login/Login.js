@@ -63,13 +63,6 @@ function Login() {
               sx={{
                 mt: 1,
                 mb: 1,
-                background: "transparent",
-                backgroundColor: "##9e9e9e",
-                color: "black",
-                "&:hover": {
-                  backgroundColor: "#B57EDC",
-                  color: "white",
-                },
               }}
             >
               Login
