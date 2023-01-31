@@ -138,7 +138,7 @@ const Header = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Link href={page.link}>
+              <Link href={page.link} sx={{textDecoration:'none'}}>
                 <Button
                   key={page}
                   onClick={() => {
