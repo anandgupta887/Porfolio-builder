@@ -51,7 +51,7 @@ function CircularProgressWithLabel(props) {
 }
 
 function PersonalDetails() {
-  const [profileData, setProfileData] = useState({ gender: "Male" });
+  const [profileData, setProfileData] = useState({  });
   const handleInput = (e) => {
     console.log(profileData);
     setProfileData({
@@ -73,7 +73,45 @@ function PersonalDetails() {
                 <Typography variant="body2">Section 1</Typography>
               </Divider>
             </Grid>
-            <Grid item xs={12} sx={{ display: "flex" }}>
+            <Grid item xs={6} >
+              <Button
+                name="gender"
+                startIcon={<MaleIcon />}
+                variant="contained"
+                sx={{
+                  mr: 2,
+                  backgroundColor: `${
+                    profileData.gender === "Male" ? "#E9D8FF" : "#F6EFFF"
+                  }`,
+                  borderRadius: "15px",
+                  fontSize: "24px",
+                  textTransform: "none",
+                }}
+                fullWidth
+                onClick={handleInput}
+              >
+                Male
+              </Button></Grid>
+              <Grid item xs={6}>
+              <Button
+                name="gender"
+                startIcon={<FemaleIcon />}
+                variant="contained"
+                sx={{
+                  backgroundColor: `${
+                    profileData.gender === "Female" ? "#E9D8FF" : "#F6EFFF"
+                  }`,
+                  borderRadius: "15px",
+                  fontSize: "24px",
+                  textTransform: "none",
+                }}
+                fullWidth
+                onClick={handleInput}
+              >
+                Female
+              </Button>
+            </Grid>
+            {/* <Grid item xs={12} sx={{ display: "flex" }}>
               <Button
                 name="gender"
                 startIcon={<MaleIcon />}
@@ -107,7 +145,7 @@ function PersonalDetails() {
               >
                 Female
               </Button>
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <Typography variant="body2" sx={{ mb: 1 }}>
                 Upload Profile Pic
@@ -164,6 +202,7 @@ function PersonalDetails() {
                   color: "white",
                 }}
                 endIcon={<EastOutlinedIcon />}
+                href="/skills"
               >
                 Next
               </Button>
@@ -183,7 +222,7 @@ function PersonalDetails() {
             }}
           >
             <Box sx={{ textAlign: "center" }}>
-              <CircularProgressWithLabel value={"50"} />
+              <CircularProgressWithLabel value={"25"} />
             </Box>
             <Box sx={{ width: "70%", m: "auto", mt: 2 }}>
               <Box sx={{ display: "flex", pt: 1 }}>

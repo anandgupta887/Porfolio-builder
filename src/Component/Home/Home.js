@@ -15,8 +15,9 @@ function Home() {
           </Typography>
           <Button
             variant="contained"
-            sx={{ width: "30%", fontSize: "1.5rem" }}
+            sx={{ width: "30%", fontSize: "1.5rem",backgroundColor:'#B57EDC !important' }}
             href="/choose-template"
+            
           >
             Create Now
           </Button>
