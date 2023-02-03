@@ -5,6 +5,9 @@ import Login from "./Component/Login/Login";
 import ChooseTemplate from "./Component/ChooseTemplate/ChooseTemplate";
 import Register from "./Component/Register/Register";
 import PersonalDetails from "./Component/FillDetails/PersonalDetail";
+import Skills from "./Component/FillDetails/Skills";
+import Experience from "./Component/FillDetails/Experience";
+import ProjectDetails from "./Component/FillDetails/ProjectDetails";
 
 
 function App() {
@@ -23,6 +26,15 @@ function App() {
           </Route>
           <Route path="/personal-details">
             <PersonalDetails />
+          </Route>
+          <Route path="/skills">
+            <Skills />
+          </Route>
+          <Route path="/experience">
+            <Experience />
+          </Route>
+          <Route path="/project-details">
+            <ProjectDetails />
           </Route>
           <Route path="/">
             <Home />
