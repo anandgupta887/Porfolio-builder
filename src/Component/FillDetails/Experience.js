@@ -52,13 +52,37 @@ function CircularProgressWithLabel(props) {
 }
 
 function Experience() {
-  const [profileData, setProfileData] = useState({});
-  const handleInput = (e) => {
-    console.log(profileData);
-    setProfileData({
-      ...profileData,
-      [e.target.name]: e.target.textContent,
-    });
+  const [values, setValues] = useState([{}]);
+  const [inputCount, setInputCount] = useState(1);
+
+  //handles adding new input section
+  const handleAddNewInput = (e) => {
+    e.preventDefault();
+    let count = inputCount + 1;
+    setValues([
+      ...values,
+      {
+        id: `${count}`,
+        type: "",
+        name: "",
+      },
+    ]);
+    setInputCount(inputCount + 1);
+  };
+
+  //handles input for the input field
+  const handleInput = (e, data, index) => {
+    let arr = values;
+    arr[index][e.target.name] = e.target.value;
+    setValues(arr);
+  };
+
+  //delete input field
+  const handleDeleteInput = (index) => {
+    if (values.length > 1) {
+      let arr = values;
+      setValues(arr.filter((idx) => idx.id != index));
+    }
   };
 
   return (
@@ -75,53 +99,60 @@ function Experience() {
               </Divider>
             </Grid>
             <Grid item xs={12} sx={{ textAlign: "end" }}>
-              <Button variant="contained" startIcon={<AddIcon />}>
+              <Button
+                onClick={handleAddNewInput}
+                variant="contained"
+                startIcon={<AddIcon />}
+              >
                 Add
               </Button>
             </Grid>
-            <Grid item xs={12}>
-              <Card sx={{ p: 2 }}>
-                <Grid container spacing={2}>
-                  <Grid item xs={12}>
-                    <TextField
-                      label="Company / Employer"
-                      size="small"
-                      fullWidth
-                    />
+            {values.map((data,idx) => (
+              <Grid item xs={12}>
+                <Card sx={{ p: 2 }}>
+                  <Grid container spacing={2}>
+                    <Grid item xs={12}>
+                      <TextField
+                        label="Company / Employer"
+                        size="small"
+                        fullWidth
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField label="Position" size="small" fullWidth />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        label="From"
+                        size="small"
+                        type="date"
+                        fullWidth
+                        InputLabelProps={{ shrink: true }}
+                      />
+                    </Grid>
+                    <Grid item xs={6}>
+                      <TextField
+                        label="To"
+                        size="small"
+                        type="date"
+                        fullWidth
+                        InputLabelProps={{ shrink: true }}
+                      />
+                    </Grid>
+                    <Grid item xs={12}>
+                      <TextField
+                        label="Description"
+                        size="small"
+                        fullWidth
+                        multiLine
+                        rows={4}
+                      />
+                    </Grid>
                   </Grid>
-                  <Grid item xs={12}>
-                    <TextField label="Position" size="small" fullWidth />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      label="From"
-                      size="small"
-                      type="date"
-                      fullWidth
-                      InputLabelProps={{ shrink: true }}
-                    />
-                  </Grid>
-                  <Grid item xs={6}>
-                    <TextField
-                      label="To"
-                      size="small"
-                      type="date"
-                      fullWidth
-                      InputLabelProps={{ shrink: true }}
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      label="Description"
-                      size="small"
-                      fullWidth
-                      multiLine
-                      rows={4}
-                    />
-                  </Grid>
-                </Grid>
-              </Card>
-            </Grid>
+                </Card>
+              </Grid>
+            ))}
+
             <Grid item xs={12}>
               <Button
                 variant="contained"
@@ -150,7 +181,7 @@ function Experience() {
             }}
           >
             <Box sx={{ textAlign: "center" }}>
-              <CircularProgressWithLabel value={"75"} />
+              <CircularProgressWithLabel value={"50"} />
             </Box>
             <Box sx={{ width: "70%", m: "auto", mt: 2 }}>
               <Box sx={{ display: "flex", pt: 1 }}>

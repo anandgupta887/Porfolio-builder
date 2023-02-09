@@ -7,22 +7,12 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import LaptopIcon from "@mui/icons-material/Laptop";
 import { Link } from "@mui/material";
 
 const pages = [
-  {
-    label: "Samples",
-    link: "sample",
-  },
-  {
-    label: "Blog",
-    link: "blog",
-  },
   {
     label: "profile",
     link: "personal-details",
@@ -62,7 +52,7 @@ const Header = () => {
     >
       <Container maxWidth="xl" sx={{ p: "0 !important" }}>
         <Toolbar disableGutters sx={{ maxHeight: { xs: "56px", md: "64px" } }}>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+          <LaptopIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -78,7 +68,7 @@ const Header = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            PORT4LEO
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -117,7 +107,7 @@ const Header = () => {
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <LaptopIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -134,11 +124,11 @@ const Header = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            PORT4LEO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Link href={page.link} sx={{textDecoration:'none'}}>
+              <Link href={page.link} sx={{ textDecoration: "none" }}>
                 <Button
                   key={page}
                   onClick={() => {
