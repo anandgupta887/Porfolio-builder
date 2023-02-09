@@ -150,7 +150,7 @@ function Skills() {
             }}
           >
             <Box sx={{ textAlign: "center" }}>
-              <CircularProgressWithLabel value={"50"} />
+              <CircularProgressWithLabel value={"25"} />
             </Box>
             <Box sx={{ width: "70%", m: "auto", mt: 2 }}>
               <Box sx={{ display: "flex", pt: 1 }}>

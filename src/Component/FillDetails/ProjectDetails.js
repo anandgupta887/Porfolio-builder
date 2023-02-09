@@ -52,14 +52,39 @@ import {
   }
   
   function ProjectDetails() {
-    const [profileData, setProfileData] = useState({});
-    const handleInput = (e) => {
-      console.log(profileData);
-      setProfileData({
-        ...profileData,
-        [e.target.name]: e.target.textContent,
-      });
-    };
+    const [values, setValues] = useState([{}]);
+  const [inputCount, setInputCount] = useState(1);
+
+  //handles adding new input section
+  const handleAddNewInput = (e) => {
+    e.preventDefault();
+    console.log(inputCount)
+    let count = inputCount + 1;
+    setValues([
+      ...values,
+      {
+        id: `${count}`,
+        type: "",
+        name: "",
+      },
+    ]);
+    setInputCount(inputCount + 1);
+  };
+
+  //handles input for the input field
+  const handleInput = (e, data, index) => {
+    let arr = values;
+    arr[index][e.target.name] = e.target.value;
+    setValues(arr);
+  };
+
+  //delete input field
+  const handleDeleteInput = (index) => {
+    if (values.length > 1) {
+      let arr = values;
+      setValues(arr.filter((idx) => idx.id != index));
+    }
+  };
   
     return (
       <Container maxWidth="lg">
@@ -75,11 +100,11 @@ import {
                 </Divider>
               </Grid>
               <Grid item xs={12} sx={{ textAlign: "end" }}>
-                <Button variant="contained" startIcon={<AddIcon />}>
+                <Button onClick={handleAddNewInput} variant="contained" startIcon={<AddIcon />}>
                   Add
                 </Button>
               </Grid>
-              <Grid item xs={12}>
+              {values.map(()=>(<Grid item xs={12}>
                 <Card sx={{ p: 2 }}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
@@ -118,7 +143,8 @@ import {
                     </Grid>
                   </Grid>
                 </Card>
-              </Grid>
+              </Grid>))}
+              
               <Grid item xs={12}>
                 <Button
                   variant="contained"
@@ -146,7 +172,7 @@ import {
               }}
             >
               <Box sx={{ textAlign: "center" }}>
-                <CircularProgressWithLabel value={"100"} />
+                <CircularProgressWithLabel value={"75"} />
               </Box>
               <Box sx={{ width: "70%", m: "auto", mt: 2 }}>
                 <Box sx={{ display: "flex", pt: 1 }}>
