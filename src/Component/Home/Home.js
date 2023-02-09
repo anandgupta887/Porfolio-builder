@@ -37,7 +37,7 @@ function Home() {
           </Button>
         </Box>
       </Box>
-      <Box sx={{ flex: 1, border: "1px solid red" }}>hello</Box>
+      {/* <Box sx={{ flex: 1, border: "1px solid red" }}>hello</Box> */}
     </>
   );
 }
