@@ -15,6 +15,7 @@ import Chip from "@mui/material/Chip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
+import { skillsApiKey } from "../config/config";
 
 function CircularProgressWithLabel(props) {
   return (
@@ -51,13 +52,22 @@ function CircularProgressWithLabel(props) {
 }
 
 function Skills() {
-  const [profileData, setProfileData] = useState({});
+  const [values, setValues] = useState(["Html", "CSS", "JS"]);
+  const [options, setOptions] = useState([]);
   const handleInput = (e) => {
-    console.log(profileData);
-    setProfileData({
-      ...profileData,
-      [e.target.name]: e.target.textContent,
-    });
+    if (e.target.value === "") {
+      return;
+    }
+    const url = `https://api.promptapi.com/skills?q=${e.target.value}`;
+    fetch(url, {
+      method: "GET",
+      headers: {
+        apikey: skillsApiKey,
+        Accept: "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => setOptions(data));
   };
 
   return (
@@ -79,9 +89,18 @@ function Skills() {
                 id="combo-box-demo"
                 size="small"
                 fullWidth
-                options={[]}
+                options={options}
+                onChange={(e) => {
+                  if(e.target.textContent === '') return
+                  setValues([...values,e.target.textContent]);
+                }}
                 renderInput={(params) => (
-                  <TextField {...params} label="Skills" placeholder="Type your skills"/>
+                  <TextField
+                    {...params}
+                    label="Skills"
+                    placeholder="Type your skills"
+                    onChange={handleInput}
+                  />
                 )}
               />
             </Grid>
@@ -91,34 +110,15 @@ function Skills() {
                   Your skills
                 </Typography>
                 <Box>
-                  <Chip
-                    label="Javascript"
-                    sx={{ ml: 1, mt: 1 }}
-                    onClick={() => {}}
-                    onDelete={() => {}}
-                    deleteIcon={<DeleteIcon />}
-                  />
-                  <Chip
-                    label="HTML"
-                    sx={{ ml: 1, mt: 1 }}
-                    onClick={() => {}}
-                    onDelete={() => {}}
-                    deleteIcon={<DeleteIcon />}
-                  />
-                  <Chip
-                    label="CSS"
-                    sx={{ ml: 1, mt: 1 }}
-                    onClick={() => {}}
-                    onDelete={() => {}}
-                    deleteIcon={<DeleteIcon />}
-                  />
-                  <Chip
-                    label="Mongo db"
-                    sx={{ ml: 1, mt: 1 }}
-                    onClick={() => {}}
-                    onDelete={() => {}}
-                    deleteIcon={<DeleteIcon />}
-                  />
+                  {values.map((data) => (
+                    <Chip
+                      label={data}
+                      sx={{ ml: 1, mt: 1 }}
+                      onClick={() => {}}
+                      onDelete={() => {}}
+                      deleteIcon={<DeleteIcon />}
+                    />
+                  ))}
                 </Box>
               </Card>
             </Grid>

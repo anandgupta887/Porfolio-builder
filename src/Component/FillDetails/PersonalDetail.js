@@ -187,7 +187,7 @@ function PersonalDetails() {
                 >
                   <Avatar
                     src={profileData.profile}
-                    sx={{ width: 56, height: 56 }}
+                    sx={{ width: 80, height: 80 }}
                   />
                   <div>
                     <Button
