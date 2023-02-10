@@ -7,10 +7,8 @@ import {
   Link,
   Typography,
 } from "@mui/material";
-import React from "react";
-import "../../styles/Login.css";
 
-function Login() {
+function Register() {
   return (
     <Box
       sx={{
@@ -27,6 +25,7 @@ function Login() {
         sx={{
           p: "0 !important",
           display: "flex",
+          flexDirection: "row-reverse",
           m: "auto",
           height: { xs: "auto", md: "80vh" },
           boxShadow: {
@@ -43,13 +42,23 @@ function Login() {
             p: { xs: 0, md: 2 },
           }}
         >
-          <Box sx={{ maxWidth: { xs: "400px" }, m: "auto" }}>
+          <Box sx={{ maxWidth: { xs: "400px" }, margin: "auto" }}>
             <Typography variant="h6" sx={{ mb: 1 }}>
-              Welcome back
+              Welcome!
             </Typography>
             <Typography variant="body2" sx={{ mb: 2 }}>
-              Please enter your details
+              Please enter your details to Register
             </Typography>
+            <Input
+              sx={{ p: 1, pb: 0, mb: 1 }}
+              placeholder="Full name"
+              fullWidth
+            />
+            <Input
+              sx={{ p: 1, pb: 0, mb: 1 }}
+              placeholder="Username"
+              fullWidth
+            />
             <Input sx={{ p: 1, pb: 0, mb: 1 }} placeholder="Email" fullWidth />
             <Input
               type="password"
@@ -63,21 +72,28 @@ function Login() {
               sx={{
                 mt: 1,
                 mb: 1,
+                background: "transparent",
+                backgroundColor: "##9e9e9e",
+                color: "black",
+                "&:hover": {
+                  backgroundColor: "#B57EDC",
+                  color: "white",
+                },
               }}
             >
-              Login
+              Register
             </Button>
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Link href="/forgot-password">Forgot password</Link>
-              <Link href="/register">New user?</Link>
-            </Box>
+            <Box sx={{ textAlign: "center" }}>
+              Already registered? &nbsp;
+              <Link href="/login">Login</Link>
+            </Box>{" "}
           </Box>
         </Box>
-        <Box sx={{ flex: 1, display: { xs: "none", md: "flex" } }}>
+        <Box sx={{ flex: 1, display: { md: "flex", xs: "none" } }}>
           <img
             width="100%"
             style={{ height: "-webkit-fill-available" }}
-            src="https://images.unsplash.com/photo-1567168539593-59673ababaae?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
+            src="https://images.unsplash.com/photo-1596003906949-67221c37965c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80"
           />
         </Box>
       </Container>
@@ -85,4 +101,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Register;
