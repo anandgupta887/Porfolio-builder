@@ -7,13 +7,17 @@ import Typography from "@mui/material/Typography";
 import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
-import Avatar from "@mui/material/Avatar";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
-import AdbIcon from "@mui/icons-material/Adb";
+import LaptopIcon from "@mui/icons-material/Laptop";
+import { Link } from "@mui/material";
 
-const pages = ["Samples", "Blog"];
+const pages = [
+  {
+    label: "profile",
+    link: "personal-details",
+  },
+];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Header = () => {
@@ -37,12 +41,18 @@ const Header = () => {
 
   return (
     <AppBar
-      position="static"
-      sx={{ backgroundColor: "white", color: "black", boxShadow: "none" }}
+      position="sticky"
+      sx={{
+        backgroundColor: "white",
+        color: "black",
+        boxShadow: "none",
+        borderBottom: "1px solid gainsboro",
+        px: 2,
+      }}
     >
-      <Container maxWidth="xl" sx={{p:'0 !important'}}>
-        <Toolbar disableGutters>
-          <AdbIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
+      <Container maxWidth="xl" sx={{ p: "0 !important" }}>
+        <Toolbar disableGutters sx={{ maxHeight: { xs: "56px", md: "64px" } }}>
+          <LaptopIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
           <Typography
             variant="h6"
             noWrap
@@ -58,7 +68,7 @@ const Header = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            PORT4LEO
           </Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
@@ -92,12 +102,12 @@ const Header = () => {
             >
               {pages.map((page) => (
                 <MenuItem key={page} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page}</Typography>
+                  <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
             </Menu>
           </Box>
-          <AdbIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <LaptopIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
           <Typography
             variant="h5"
             noWrap
@@ -114,46 +124,40 @@ const Header = () => {
               textDecoration: "none",
             }}
           >
-            LOGO
+            PORT4LEO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Button
-                key={page}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "black", display: "block" }}
-              >
-                {page}
-              </Button>
+              <Link href={page.link} sx={{ textDecoration: "none" }}>
+                <Button
+                  key={page}
+                  onClick={() => {
+                    handleCloseNavMenu();
+                  }}
+                  sx={{ my: 2, color: "black", display: "block" }}
+                >
+                  {page.label}
+                </Button>
+              </Link>
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0 }}>
+          <Box sx={{ flexGrow: 0, display: "flex" }}>
             <Button
               variant="contained"
               sx={{
-                mr: 2,
-                background: "transparent",
-                backgroundColor: "##9e9e9e",
-                color: "black",
-                "&:hover": {
-                  backgroundColor: "#B57EDC",
-                  color: "white",
-                },
+                mr: { xs: 0, md: 2 },
               }}
+              href="/login"
             >
               Login
             </Button>
             <Button
               variant="contained"
               sx={{
-                background: "transparent",
-                color: "black",
-                "&:hover": {
-                  backgroundColor: "#B57EDC",
-                  color: "white",
-                },
+                display: { xs: "none", md: "block" },
               }}
+              href="/register"
             >
               Sign up
             </Button>

@@ -1,46 +1,47 @@
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import Home from "./Component/Home/Home";
-import profile from "./image/images.png";
-import email from "./image/image2.png";
-import pass from "./image/password.png";
+import Login from "./Component/Login/Login";
+import ChooseTemplate from "./Component/ChooseTemplate/ChooseTemplate";
+import Register from "./Component/Register/Register";
+import PersonalDetails from "./Component/FillDetails/PersonalDetail";
+import Skills from "./Component/FillDetails/Skills";
+import Experience from "./Component/FillDetails/Experience";
+import ProjectDetails from "./Component/FillDetails/ProjectDetails";
+
 
 function App() {
   return (
-    <div className="main">
-      <div className="sub-main">
-        <div>
-          <div className="img">
-            <div className="container-image">
-              <img src={profile} alt="profile" />
-
-            </div>
-            </div>
-
-           <div>
-              <h1>Login Page</h1>
-            <div>
-              <img src={email} alt="email" className="email"/> 
-              <input type="text" placeholder="user name" className="name"/>
-             </div>
-             <div className="second-input">
-             <img src={pass} alt="pass" className="email"/>
-            <input type="text" placeholder="user name" className="name"/>
-            </div>
-            <div className="login-buttom">
-            <button>Login</button>
-            </div>
-
-  </div>
-        </div>
-      </div>
-    </div>
-    /*<Router>
+    <div style={{ margin: "1rem" }}>
+      <Router>
         <Switch>
-          <Route path="/"><Home /></Route>
+          <Route path="/choose-template">
+            <ChooseTemplate />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/personal-details">
+            <PersonalDetails />
+          </Route>
+          <Route path="/skills">
+            <Skills />
+          </Route>
+          <Route path="/experience">
+            <Experience />
+          </Route>
+          <Route path="/project-details">
+            <ProjectDetails />
+          </Route>
+          <Route path="/">
+            <Home />
+          </Route>
         </Switch>
-  </Router></>*/
-
+      </Router>
+    </div>
   );
 }
 
