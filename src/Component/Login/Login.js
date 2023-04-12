@@ -11,15 +11,25 @@ import React from "react";
 import "../../styles/Login.css";
 import { useState } from "react";
 import axios from "axios";
+import { validateEmail } from "../constant/commonFunction";
 
 function Login() {
   const [values, setValues] = useState({});
+  const [error, setError] = useState(false);
 
   const handleOnInputChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
   const handleOnSubmit = async () => {
+    if(!validateEmail(values.email)){
+      return;
+    }
+    if (!(values.email && values.password)) {
+      validateEmail(values.email)
+      setError(true);
+      return;
+    }
     try {
       const response = await axios.post("http://localhost:4000/auth/login", {
         email: values.email,
@@ -77,6 +87,7 @@ function Login() {
               placeholder="Email"
               fullWidth
               onChange={handleOnInputChange}
+              error={error && !values.email || !validateEmail(values.email)}
             />
             <Input
               name="password"
@@ -85,6 +96,7 @@ function Login() {
               placeholder="Password"
               fullWidth
               onChange={handleOnInputChange}
+              error={error && !values.password}
             />
             <Button
               variant="contained"
