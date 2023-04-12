@@ -7,8 +7,33 @@ import {
   Link,
   Typography,
 } from "@mui/material";
+import { useState } from "react";
+import axios from "axios";
 
 function Register() {
+  const [values, setValues] = useState({});
+
+  const handleOnInputChange = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+  };
+
+  const handleOnSubmit = async () => {
+    try {
+      const response = await axios.post("http://localhost:4000/auth/signup", {
+        name: values.name,
+        email: values.email,
+        password: values.password,
+        username: values.username,
+      });
+      alert(response.data.message);
+      // localStorage.setItem("token", response.data.token);
+      // Redirect to dashboard page
+      // window.location.href = "/dashboard";
+    } catch (err) {
+      alert(err.response.data.error);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -50,21 +75,33 @@ function Register() {
               Please enter your details to Register
             </Typography>
             <Input
+              name="name"
               sx={{ p: 1, pb: 0, mb: 1 }}
               placeholder="Full name"
               fullWidth
+              onChange={handleOnInputChange}
             />
             <Input
+              name="username"
               sx={{ p: 1, pb: 0, mb: 1 }}
               placeholder="Username"
               fullWidth
+              onChange={handleOnInputChange}
             />
-            <Input sx={{ p: 1, pb: 0, mb: 1 }} placeholder="Email" fullWidth />
             <Input
+              name="email"
+              sx={{ p: 1, pb: 0, mb: 1 }}
+              placeholder="Email"
+              fullWidth
+              onChange={handleOnInputChange}
+            />
+            <Input
+              name="password"
               type="password"
               sx={{ p: 1, pb: 0, mb: 2 }}
               placeholder="Password"
               fullWidth
+              onChange={handleOnInputChange}
             />
             <Button
               variant="contained"
@@ -80,6 +117,7 @@ function Register() {
                   color: "white",
                 },
               }}
+              onClick={handleOnSubmit}
             >
               Register
             </Button>
