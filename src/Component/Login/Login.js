@@ -9,8 +9,29 @@ import {
 } from "@mui/material";
 import React from "react";
 import "../../styles/Login.css";
+import { useState } from "react";
+import axios from "axios";
 
 function Login() {
+  const [values, setValues] = useState({});
+
+  const handleOnInputChange = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+  };
+
+  const handleOnSubmit = async () => {
+    try {
+      const response = await axios.post("http://localhost:4000/auth/login", {
+        email: values.email,
+        password: values.password,
+      });
+      // alert(response.data.message);
+      alert(`Welcome back, ${response.data.name}`);
+    } catch (err) {
+      alert(err.response.data.error);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -50,16 +71,25 @@ function Login() {
             <Typography variant="body2" sx={{ mb: 2 }}>
               Please enter your details
             </Typography>
-            <Input sx={{ p: 1, pb: 0, mb: 1 }} placeholder="Email" fullWidth />
             <Input
+              name="email"
+              sx={{ p: 1, pb: 0, mb: 1 }}
+              placeholder="Email"
+              fullWidth
+              onChange={handleOnInputChange}
+            />
+            <Input
+              name="password"
               type="password"
               sx={{ p: 1, pb: 0, mb: 2 }}
               placeholder="Password"
               fullWidth
+              onChange={handleOnInputChange}
             />
             <Button
               variant="contained"
               fullWidth
+              onClick={handleOnSubmit}
               sx={{
                 mt: 1,
                 mb: 1,

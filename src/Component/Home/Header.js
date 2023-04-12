@@ -11,6 +11,8 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import LaptopIcon from "@mui/icons-material/Laptop";
 import { Link } from "@mui/material";
+import { useEffect } from "react";
+import { useState } from "react";
 
 const pages = [
   {
@@ -38,6 +40,12 @@ const Header = () => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const [path, setPath] = useState("");
+
+  useEffect(() => {
+    setPath(window.location.pathname);
+  }, []);
 
   return (
     <AppBar
@@ -143,24 +151,17 @@ const Header = () => {
           </Box>
 
           <Box sx={{ flexGrow: 0, display: "flex" }}>
-            <Button
-              variant="contained"
-              sx={{
-                mr: { xs: 0, md: 2 },
-              }}
-              href="/login"
-            >
-              Login
-            </Button>
-            <Button
-              variant="contained"
-              sx={{
-                display: { xs: "none", md: "block" },
-              }}
-              href="/register"
-            >
-              Sign up
-            </Button>
+            {path != "/login" && (
+              <Button variant="contained" href="/login">
+                Login
+              </Button>
+            )}
+
+            {path != "/register" && (
+              <Button variant="contained" sx={{ ml: 2 }} href="/register">
+                Sign up
+              </Button>
+            )}
             {/* <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
