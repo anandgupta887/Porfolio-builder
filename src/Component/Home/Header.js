@@ -10,7 +10,7 @@ import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import LaptopIcon from "@mui/icons-material/Laptop";
-import { Link } from "@mui/material";
+import { Link, Tooltip } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
 
@@ -19,6 +19,8 @@ const pages = [
     label: "profile",
     link: "personal-details",
   },
+  { label: "resume", link: "resume" },
+  { label: "Premium" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
@@ -136,17 +138,33 @@ const Header = () => {
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
-              <Link href={page.link} sx={{ textDecoration: "none" }}>
-                <Button
-                  key={page}
-                  onClick={() => {
-                    handleCloseNavMenu();
-                  }}
-                  sx={{ my: 2, color: "black", display: "block" }}
-                >
-                  {page.label}
-                </Button>
-              </Link>
+              <>
+                {page.link ? (
+                  <Link href={page.link} sx={{ textDecoration: "none" }}>
+                    <Button
+                      key={page}
+                      onClick={() => {
+                        handleCloseNavMenu();
+                      }}
+                      sx={{ my: 2, color: "black", display: "block" }}
+                    >
+                      {page.label}
+                    </Button>
+                  </Link>
+                ) : (
+                  <Tooltip title="Coming Soon...!">
+                    <Button
+                      key={page}
+                      onClick={() => {
+                        handleCloseNavMenu();
+                      }}
+                      sx={{ my: 2, color: "black", display: "block" }}
+                    >
+                      {page.label}
+                    </Button>
+                  </Tooltip>
+                )}
+              </>
             ))}
           </Box>
 
