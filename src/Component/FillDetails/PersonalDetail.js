@@ -147,7 +147,7 @@ function PersonalDetails() {
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body2" sx={{ mb: 1 }}>
-                Enter Linkedin url
+                Enter Linkedin URL
               </Typography>
               <TextField
                 size="small"
@@ -159,7 +159,7 @@ function PersonalDetails() {
             </Grid>
             <Grid item xs={6}>
               <Typography variant="body2" sx={{ mb: 1 }}>
-                Enter Github url
+                Enter Github URL
               </Typography>
               <TextField
                 size="small"
