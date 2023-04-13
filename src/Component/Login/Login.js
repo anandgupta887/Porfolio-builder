@@ -87,7 +87,10 @@ function Login() {
               placeholder="Email"
               fullWidth
               onChange={handleOnInputChange}
-              error={(error && !values?.email) || !validateEmail(values?.email)}
+              error={
+                (error && !values?.email) ||
+                (values?.email && !validateEmail(values?.email))
+              }
             />
             <Input
               name="password"

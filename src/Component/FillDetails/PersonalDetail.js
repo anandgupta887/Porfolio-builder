@@ -15,52 +15,19 @@ import MaleIcon from "@mui/icons-material/Male";
 import FemaleIcon from "@mui/icons-material/Female";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import DeleteIcon from '@mui/icons-material/Delete';
-
-function CircularProgressWithLabel(props) {
-  return (
-    <Box sx={{ position: "relative", display: "inline-flex" }}>
-      <CircularProgress
-        variant="determinate"
-        size={120}
-        thickness={6}
-        {...props}
-      />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: "absolute",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Typography
-          variant="body1"
-          component="div"
-          color="text.secondary"
-          sx={{ fontSize: "24px" }}
-        >
-          {`${Math.round(props.value)}%`}
-        </Typography>
-      </Box>
-    </Box>
-  );
-}
+import DeleteIcon from "@mui/icons-material/Delete";
+import Stats from "./Stats";
+import BottomButton from "./BottomButton";
 
 function PersonalDetails() {
   const [profileData, setProfileData] = useState({});
-  const handleButton = (e) => {
-    console.log(profileData);
-    setProfileData({
-      ...profileData,
-      [e.target.name]: e.target.textContent,
-    });
-  };
+  // const handleButton = (e) => {
+  //   console.log(profileData);
+  //   setProfileData({
+  //     ...profileData,
+  //     [e.target.name]: e.target.textContent,
+  //   });
+  // };
 
   const handleInput = (e) => {
     console.log(profileData);
@@ -97,85 +64,12 @@ function PersonalDetails() {
         </Grid>
         <Grid item xs={6} sx={{ display: "flex" }}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sx={{ mb: 2 }}>
+            <Grid item xs={12}>
               <Divider>
                 <Typography variant="body2">Section 1</Typography>
               </Divider>
             </Grid>
-            <Grid item xs={6}>
-              <Button
-                name="gender"
-                startIcon={<MaleIcon />}
-                variant="contained"
-                sx={{
-                  mr: 2,
-                  backgroundColor: `${
-                    profileData.gender === "Male" ? "#E9D8FF" : "#F6EFFF"
-                  }`,
-                  borderRadius: "15px",
-                  fontSize: "24px",
-                  textTransform: "none",
-                }}
-                fullWidth
-                onClick={handleButton}
-              >
-                Male
-              </Button>
-            </Grid>
-            <Grid item xs={6}>
-              <Button
-                name="gender"
-                startIcon={<FemaleIcon />}
-                variant="contained"
-                sx={{
-                  backgroundColor: `${
-                    profileData.gender === "Female" ? "#E9D8FF" : "#F6EFFF"
-                  }`,
-                  borderRadius: "15px",
-                  fontSize: "24px",
-                  textTransform: "none",
-                }}
-                fullWidth
-                onClick={handleButton}
-              >
-                Female
-              </Button>
-            </Grid>
-            {/* <Grid item xs={12} sx={{ display: "flex" }}>
-              <Button
-                name="gender"
-                startIcon={<MaleIcon />}
-                variant="contained"
-                sx={{
-                  mr: 2,
-                  backgroundColor: `${
-                    profileData.gender === "Male" ? "#E9D8FF" : "#F6EFFF"
-                  }`,
-                  borderRadius: "15px",
-                  fontSize: "24px",
-                  textTransform: "none",
-                }}
-                onClick={handleInput}
-              >
-                Male
-              </Button>
-              <Button
-                name="gender"
-                startIcon={<FemaleIcon />}
-                variant="contained"
-                sx={{
-                  backgroundColor: `${
-                    profileData.gender === "Female" ? "#E9D8FF" : "#F6EFFF"
-                  }`,
-                  borderRadius: "15px",
-                  fontSize: "24px",
-                  textTransform: "none",
-                }}
-                onClick={handleInput}
-              >
-                Female
-              </Button>
-            </Grid> */}
+
             <Grid item xs={12}>
               <Typography variant="body2" sx={{ mb: 1 }}>
                 Upload Profile Pic
@@ -191,8 +85,8 @@ function PersonalDetails() {
                   />
                   <div>
                     <Button
-                    variant="contained"
-                    startIcon={<DeleteIcon />}
+                      variant="contained"
+                      startIcon={<DeleteIcon />}
                       onClick={() => {
                         setProfileData({
                           ...profileData,
@@ -227,19 +121,55 @@ function PersonalDetails() {
                 </>
               )}
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <Typography variant="body2" sx={{ mb: 1 }}>
                 Enter Full name
               </Typography>
               <TextField
-                name="fullName"
+                name="name"
                 size="small"
                 fullWidth
                 placeholder="Eg. John Doe"
                 onChange={handleInput}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
+              <Typography variant="body2" sx={{ mb: 1 }}>
+                Profile title
+              </Typography>
+              <TextField
+                name="title"
+                size="small"
+                fullWidth
+                placeholder="Eg. React JS developer"
+                onChange={handleInput}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="body2" sx={{ mb: 1 }}>
+                Enter Linkedin URL
+              </Typography>
+              <TextField
+                size="small"
+                name="linkedIn"
+                onChange={handleInput}
+                fullWidth
+                placeholder="Eg. https://linkedin.com/Port4leo"
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <Typography variant="body2" sx={{ mb: 1 }}>
+                Enter Github URL
+              </Typography>
+              <TextField
+                size="small"
+                name="github"
+                onChange={handleInput}
+                fullWidth
+                placeholder="Eg. https://github.com/Port4leo"
+              />
+            </Grid>
+            <Grid item xs={6}>
               <Typography variant="body2" sx={{ mb: 1 }}>
                 Enter Email address
               </Typography>
@@ -251,76 +181,25 @@ function PersonalDetails() {
                 placeholder="Eg. contact@port4leo.com"
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6}>
               <Typography variant="body2" sx={{ mb: 1 }}>
-                Enter Linkedin url
+                Enter Phone number
               </Typography>
               <TextField
                 size="small"
-                name="linkedInUrl"
+                name="phone"
                 onChange={handleInput}
                 fullWidth
-                placeholder="Eg. https://www.linkedin.com/Port4leo"
+                placeholder="Eg. 987645912"
               />
             </Grid>
             <Grid item xs={12}>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "rgba(81, 13, 225, 0.64)",
-                  color: "white",
-                }}
-                endIcon={<EastOutlinedIcon />}
-                href="/skills"
-              >
-                Next
-              </Button>
+              <BottomButton nextLink="/skills"/>
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={1}></Grid>
-        <Grid item xs={5}>
-          <Card
-            sx={{
-              p: 2,
-              py: 5,
-              backgroundColor: "#E9D8FF",
-              borderRadius: "30px",
-              maxWidth: "350px",
-              ml: "auto",
-            }}
-          >
-            <Box sx={{ textAlign: "center" }}>
-              <CircularProgressWithLabel value={"0"} />
-            </Box>
-            <Box sx={{ width: "70%", m: "auto", mt: 2 }}>
-              <Box sx={{ display: "flex", pt: 1 }}>
-                <Typography variant="body1" sx={{ flex: 1 }}>
-                  Personal details
-                </Typography>
-                <CheckCircleOutlineIcon />
-              </Box>
-              <Box sx={{ display: "flex", pt: 1 }}>
-                <Typography variant="body1" sx={{ flex: 1 }}>
-                  Skills
-                </Typography>
-                <CheckCircleOutlineIcon />
-              </Box>
-              <Box sx={{ display: "flex", pt: 1 }}>
-                <Typography variant="body1" sx={{ flex: 1 }}>
-                  Experience
-                </Typography>
-                <CheckCircleOutlineIcon />
-              </Box>
-              <Box sx={{ display: "flex", pt: 1 }}>
-                <Typography variant="body1" sx={{ flex: 1 }}>
-                  Project details
-                </Typography>
-                <CheckCircleOutlineIcon />
-              </Box>
-            </Box>
-          </Card>
-        </Grid>
+        <Stats value={0} />
       </Grid>
     </Container>
   );
