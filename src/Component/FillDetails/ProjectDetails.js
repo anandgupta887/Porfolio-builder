@@ -11,7 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import Chip from "@mui/material/Chip";
+
 import DeleteIcon from "@mui/icons-material/Delete";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
@@ -21,37 +21,22 @@ import BottomButton from "./BottomButton";
 
 function ProjectDetails() {
   const [values, setValues] = useState([{}]);
-  const [inputCount, setInputCount] = useState(1);
 
-  //handles adding new input section
-  const handleAddNewInput = (e) => {
-    e.preventDefault();
-    console.log(inputCount);
-    let count = inputCount + 1;
-    setValues([
-      ...values,
-      {
-        id: `${count}`,
-        type: "",
-        name: "",
-      },
-    ]);
-    setInputCount(inputCount + 1);
+  const handleAddNewInput = () => {
+    setValues([...values, {}]);
   };
 
-  //handles input for the input field
-  const handleInput = (e, data, index) => {
-    let arr = values;
-    arr[index][e.target.name] = e.target.value;
-    setValues(arr);
-  };
-
-  //delete input field
   const handleDeleteInput = (index) => {
-    if (values.length > 1) {
-      let arr = values;
-      setValues(arr.filter((idx) => idx.id != index));
-    }
+    const updatedValues = [...values];
+    updatedValues.splice(index, 1);
+    setValues(updatedValues);
+  };
+
+  const handleInputChange = (index, event) => {
+    const { name, value } = event.target;
+    const updatedValues = [...values];
+    updatedValues[index][name] = value;
+    setValues(updatedValues);
   };
 
   return (
@@ -68,47 +53,73 @@ function ProjectDetails() {
               </Divider>
             </Grid>
             <Grid item xs={12} sx={{ textAlign: "end" }}>
-              <Button
-                onClick={handleAddNewInput}
-                variant="contained"
-                startIcon={<AddIcon />}
-              >
-                Add
-              </Button>
+              {values.length < 5 && (
+                <Button
+                  onClick={handleAddNewInput}
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                >
+                  Add
+                </Button>
+              )}
             </Grid>
-            {values.map(() => (
-              <Grid item xs={12}>
+            {values.map((value, index) => (
+              <Grid item xs={12} key={index}>
                 <Card sx={{ p: 2 }}>
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
-                      <TextField label="Title" size="small" fullWidth />
+                      <TextField
+                        name="title"
+                        label="Title"
+                        size="small"
+                        fullWidth
+                        value={value.title || ""}
+                        onChange={(e) => handleInputChange(index, e)}
+                      />
                     </Grid>
                     <Grid item xs={6}>
                       <TextField
+                        name="from"
                         label="From"
                         size="small"
                         type="date"
                         fullWidth
                         InputLabelProps={{ shrink: true }}
+                        value={value.from || ""}
+                        onChange={(e) => handleInputChange(index, e)}
                       />
                     </Grid>
                     <Grid item xs={6}>
                       <TextField
+                        name="to"
                         label="To"
                         size="small"
                         type="date"
                         fullWidth
                         InputLabelProps={{ shrink: true }}
+                        value={value.to || ""}
+                        onChange={(e) => handleInputChange(index, e)}
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
+                        name="description"
                         label="Description"
                         size="small"
                         fullWidth
                         multiLine
                         rows={4}
+                        value={value.description || ""}
+                        onChange={(e) => handleInputChange(index, e)}
                       />
+                    </Grid>
+                    <Grid item xs={12} sx={{ textAlign: "end" }}>
+                      <Button
+                        startIcon={<DeleteIcon />}
+                        onClick={() => handleDeleteInput(index)}
+                      >
+                        Delete
+                      </Button>
                     </Grid>
                   </Grid>
                 </Card>

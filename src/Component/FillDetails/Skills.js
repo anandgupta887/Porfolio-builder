@@ -19,8 +19,14 @@ import Stats from "./Stats";
 import BottomButton from "./BottomButton";
 
 function Skills() {
-  const [values, setValues] = useState(["Html", "CSS", "JS"]);
+  const [values, setValues] = useState([]);
   const [options, setOptions] = useState([]);
+  const [defaultOptions, setDefaultOptions] = useState([
+    "Java",
+    "C++",
+    "C",
+    "python",
+  ]);
   const handleInput = (e) => {
     if (e.target.value === "") {
       return;
@@ -37,6 +43,12 @@ function Skills() {
       .then((data) => setOptions(data));
   };
 
+  const handleDelete = (idx) => {
+    let arr = values;
+    arr.splice(idx, 1);
+    setValues([...arr]);
+  };
+
   return (
     <Container maxWidth="lg">
       <Grid container spacing={2}>
@@ -45,7 +57,7 @@ function Skills() {
         </Grid>
         <Grid item xs={6}>
           <Grid container spacing={2}>
-            <Grid item xs={12} >
+            <Grid item xs={12}>
               <Divider>
                 <Typography variant="body2">Section 2</Typography>
               </Divider>
@@ -56,7 +68,7 @@ function Skills() {
                 id="combo-box-demo"
                 size="small"
                 fullWidth
-                options={options}
+                options={options.length > 0 ? options : defaultOptions}
                 onChange={(e) => {
                   if (e.target.textContent === "") return;
                   setValues([...values, e.target.textContent]);
@@ -71,24 +83,29 @@ function Skills() {
                 )}
               />
             </Grid>
-            <Grid item xs={12}>
-              <Card sx={{ p: 2 }}>
-                <Typography variant="h6" sx={{ mb: 1 }}>
-                  Your skills
-                </Typography>
-                <Box>
-                  {values.map((data) => (
-                    <Chip
-                      label={data}
-                      sx={{ ml: 1, mt: 1 }}
-                      onClick={() => {}}
-                      onDelete={() => {}}
-                      deleteIcon={<DeleteIcon />}
-                    />
-                  ))}
-                </Box>
-              </Card>
-            </Grid>
+            {values.length > 0 && (
+              <Grid item xs={12}>
+                <Card sx={{ p: 2 }}>
+                  <Typography variant="h6" sx={{ mb: 1 }}>
+                    Your skills
+                  </Typography>
+                  <Box sx={{ mt: -1, ml: -1 }}>
+                    {values.map((data, idx) => (
+                      <Chip
+                        label={data}
+                        sx={{ ml: 1, mt: 1 }}
+                        onClick={() => {}}
+                        onDelete={() => {
+                          handleDelete(idx);
+                        }}
+                        deleteIcon={<DeleteIcon />}
+                      />
+                    ))}
+                  </Box>
+                </Card>
+              </Grid>
+            )}
+
             <Grid item xs={12}>
               <BottomButton
                 nextLink="/experience"

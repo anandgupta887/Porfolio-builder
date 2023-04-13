@@ -11,43 +11,34 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import Stats from "./Stats";
 import BottomButton from "./BottomButton";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function Experience() {
-  const [values, setValues] = useState([{}]);
-  const [inputCount, setInputCount] = useState(1);
+  const [values, setValues] = useState([
+    { company: "", position: "", from: "", to: "", description: "" },
+  ]);
 
-  //handles adding new input section
-  const handleAddNewInput = (e) => {
-    e.preventDefault();
-    let count = inputCount + 1;
+  const handleAddNewInput = () => {
     setValues([
       ...values,
-      {
-        id: `${count}`,
-        type: "",
-        name: "",
-      },
+      { company: "", position: "", from: "", to: "", description: "" },
     ]);
-    setInputCount(inputCount + 1);
   };
 
-  //handles input for the input field
-  const handleInput = (e, data, index) => {
-    let arr = values;
-    arr[index][e.target.name] = e.target.value;
-    setValues(arr);
+  const handleInputChange = (e, idx) => {
+    const { name, value } = e.target;
+    const updatedValues = [...values];
+    updatedValues[idx][name] = value;
+    setValues(updatedValues);
   };
 
-  //delete input field
-  const handleDeleteInput = (index) => {
-    if (values.length > 1) {
-      let arr = values;
-      setValues(arr.filter((idx) => idx.id != index));
-    }
+  const handleDeleteInput = (idx) => {
+    const updatedValues = [...values];
+    updatedValues.splice(idx, 1);
+    setValues(updatedValues);
   };
 
   return (
@@ -78,46 +69,73 @@ function Experience() {
                   <Grid container spacing={2}>
                     <Grid item xs={12}>
                       <TextField
+                        name="company"
                         label="Company / Employer"
                         size="small"
                         fullWidth
+                        value={data.company}
+                        onChange={(e) => handleInputChange(e, idx)}
                       />
                     </Grid>
                     <Grid item xs={12}>
-                      <TextField label="Position" size="small" fullWidth />
+                      <TextField
+                        name="position"
+                        label="Position"
+                        size="small"
+                        fullWidth
+                        value={data.position}
+                        onChange={(e) => handleInputChange(e, idx)}
+                      />
                     </Grid>
                     <Grid item xs={6}>
                       <TextField
+                        name="from"
                         label="From"
                         size="small"
                         type="date"
                         fullWidth
                         InputLabelProps={{ shrink: true }}
+                        value={data.from}
+                        onChange={(e) => handleInputChange(e, idx)}
                       />
                     </Grid>
                     <Grid item xs={6}>
                       <TextField
+                        name="to"
                         label="To"
                         size="small"
                         type="date"
                         fullWidth
                         InputLabelProps={{ shrink: true }}
+                        value={data.to}
+                        onChange={(e) => handleInputChange(e, idx)}
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
+                        name="description"
                         label="Description"
                         size="small"
                         fullWidth
-                        multiLine
-                        rows={4}
+                        multiline
+                        rows={3}
+                        value={data.description}
+                        onChange={(e) => handleInputChange(e, idx)}
                       />
+                    </Grid>
+                    <Grid item xs={12} sx={{ textAlign: "end" }}>
+                      <Button
+                        onClick={() => handleDeleteInput(idx)}
+                        variant="contained"
+                        startIcon={<DeleteIcon />}
+                      >
+                        Delete
+                      </Button>
                     </Grid>
                   </Grid>
                 </Card>
               </Grid>
             ))}
-
             <Grid item xs={12}>
               <BottomButton nextLink="/project-details" prevLink="/skills" />
             </Grid>
