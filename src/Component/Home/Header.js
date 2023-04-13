@@ -158,7 +158,7 @@ const Header = () => {
                       onClick={() => {
                         handleCloseNavMenu();
                       }}
-                      sx={{ my: 2, color: "black", display: "block" }}
+                      sx={{ my: 2, color: "#ed5656", display: "block" }}
                     >
                       {page.label}
                     </Button>
