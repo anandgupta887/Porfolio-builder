@@ -11,45 +11,10 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import Chip from "@mui/material/Chip";
-import DeleteIcon from "@mui/icons-material/Delete";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import AddIcon from "@mui/icons-material/Add";
-
-function CircularProgressWithLabel(props) {
-  return (
-    <Box sx={{ position: "relative", display: "inline-flex" }}>
-      <CircularProgress
-        variant="determinate"
-        size={120}
-        thickness={6}
-        {...props}
-      />
-      <Box
-        sx={{
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          position: "absolute",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <Typography
-          variant="body1"
-          component="div"
-          color="text.secondary"
-          sx={{ fontSize: "24px" }}
-        >
-          {`${Math.round(props.value)}%`}
-        </Typography>
-      </Box>
-    </Box>
-  );
-}
+import Stats from "./Stats";
+import BottomButton from "./BottomButton";
 
 function Experience() {
   const [values, setValues] = useState([{}]);
@@ -93,7 +58,7 @@ function Experience() {
         </Grid>
         <Grid item xs={6}>
           <Grid container spacing={2}>
-            <Grid item xs={12} sx={{ mb: 2 }}>
+            <Grid item xs={12}>
               <Divider>
                 <Typography variant="body2">Section 3</Typography>
               </Divider>
@@ -107,7 +72,7 @@ function Experience() {
                 Add
               </Button>
             </Grid>
-            {values.map((data,idx) => (
+            {values.map((data, idx) => (
               <Grid item xs={12}>
                 <Card sx={{ p: 2 }}>
                   <Grid container spacing={2}>
@@ -154,63 +119,12 @@ function Experience() {
             ))}
 
             <Grid item xs={12}>
-              <Button
-                variant="contained"
-                sx={{
-                  backgroundColor: "rgba(81, 13, 225, 0.64)",
-                  color: "white",
-                }}
-                endIcon={<EastOutlinedIcon />}
-                href="/project-details"
-              >
-                Next
-              </Button>
+              <BottomButton nextLink="/project-details" prevLink="/skills" />
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={1}></Grid>
-        <Grid item xs={5}>
-          <Card
-            sx={{
-              p: 2,
-              py: 5,
-              backgroundColor: "#E9D8FF",
-              borderRadius: "30px",
-              maxWidth: "350px",
-              ml: "auto",
-            }}
-          >
-            <Box sx={{ textAlign: "center" }}>
-              <CircularProgressWithLabel value={"50"} />
-            </Box>
-            <Box sx={{ width: "70%", m: "auto", mt: 2 }}>
-              <Box sx={{ display: "flex", pt: 1 }}>
-                <Typography variant="body1" sx={{ flex: 1 }}>
-                  Personal details
-                </Typography>
-                <CheckCircleOutlineIcon />
-              </Box>
-              <Box sx={{ display: "flex", pt: 1 }}>
-                <Typography variant="body1" sx={{ flex: 1 }}>
-                  Skills
-                </Typography>
-                <CheckCircleOutlineIcon />
-              </Box>
-              <Box sx={{ display: "flex", pt: 1 }}>
-                <Typography variant="body1" sx={{ flex: 1 }}>
-                  Experience
-                </Typography>
-                <CheckCircleOutlineIcon />
-              </Box>
-              <Box sx={{ display: "flex", pt: 1 }}>
-                <Typography variant="body1" sx={{ flex: 1 }}>
-                  Project details
-                </Typography>
-                <CheckCircleOutlineIcon />
-              </Box>
-            </Box>
-          </Card>
-        </Grid>
+        <Stats value={25} />
       </Grid>
     </Container>
   );
