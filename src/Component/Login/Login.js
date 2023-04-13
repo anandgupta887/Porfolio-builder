@@ -22,18 +22,18 @@ function Login() {
   };
 
   const handleOnSubmit = async () => {
-    if(!validateEmail(values.email)){
+    if (!validateEmail(values?.email)) {
       return;
     }
-    if (!(values.email && values.password)) {
-      validateEmail(values.email)
+    if (!(values?.email && values?.password)) {
+      validateEmail(values?.email);
       setError(true);
       return;
     }
     try {
       const response = await axios.post("http://localhost:4000/auth/login", {
-        email: values.email,
-        password: values.password,
+        email: values?.email,
+        password: values?.password,
       });
       // alert(response.data.message);
       alert(`Welcome back, ${response.data.name}`);
@@ -87,7 +87,7 @@ function Login() {
               placeholder="Email"
               fullWidth
               onChange={handleOnInputChange}
-              error={error && !values.email || !validateEmail(values.email)}
+              error={(error && !values?.email) || !validateEmail(values?.email)}
             />
             <Input
               name="password"
@@ -96,7 +96,7 @@ function Login() {
               placeholder="Password"
               fullWidth
               onChange={handleOnInputChange}
-              error={error && !values.password}
+              error={error && !values?.password}
             />
             <Button
               variant="contained"
