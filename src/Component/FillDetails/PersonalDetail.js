@@ -126,7 +126,7 @@ function PersonalDetails() {
                 Enter Full name
               </Typography>
               <TextField
-                name="fullName"
+                name="name"
                 size="small"
                 fullWidth
                 placeholder="Eg. John Doe"
@@ -138,7 +138,7 @@ function PersonalDetails() {
                 Profile title
               </Typography>
               <TextField
-                name="fullName"
+                name="title"
                 size="small"
                 fullWidth
                 placeholder="Eg. React JS developer"
@@ -151,7 +151,7 @@ function PersonalDetails() {
               </Typography>
               <TextField
                 size="small"
-                name="linkedInUrl"
+                name="linkedIn"
                 onChange={handleInput}
                 fullWidth
                 placeholder="Eg. https://linkedin.com/Port4leo"
@@ -163,7 +163,7 @@ function PersonalDetails() {
               </Typography>
               <TextField
                 size="small"
-                name="linkedInUrl"
+                name="github"
                 onChange={handleInput}
                 fullWidth
                 placeholder="Eg. https://github.com/Port4leo"
@@ -187,7 +187,7 @@ function PersonalDetails() {
               </Typography>
               <TextField
                 size="small"
-                name="email"
+                name="phone"
                 onChange={handleInput}
                 fullWidth
                 placeholder="Eg. 987645912"

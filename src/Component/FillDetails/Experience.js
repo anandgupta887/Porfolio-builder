@@ -124,7 +124,7 @@ function Experience() {
           </Grid>
         </Grid>
         <Grid item xs={1}></Grid>
-        <Stats value={25} />
+        <Stats value={50} />
       </Grid>
     </Container>
   );
