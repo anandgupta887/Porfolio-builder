@@ -7,47 +7,86 @@ import {
   Container,
   Divider,
   Grid,
+  IconButton,
   TextField,
   Typography,
 } from "@mui/material";
+import { styled } from "@mui/material/styles";
 import React, { useState } from "react";
-import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import AddIcon from "@mui/icons-material/Add";
 import Stats from "./Stats";
 import BottomButton from "./BottomButton";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import MuiAccordion from "@mui/material/Accordion";
+import MuiAccordionSummary from "@mui/material/AccordionSummary";
+import MuiAccordionDetails from "@mui/material/AccordionDetails";
+
+const Accordion = styled((props) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  border: `1px solid ${theme.palette.divider}`,
+  "&:not(:last-child)": {
+    borderBottom: 0,
+  },
+  "&:before": {
+    display: "none",
+  },
+}));
+
+const AccordionSummary = styled((props) => (
+  <MuiAccordionSummary
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
+    {...props}
+  />
+))(({ theme }) => ({
+  backgroundColor:
+    theme.palette.mode === "dark"
+      ? "rgba(255, 255, 255, .05)"
+      : "rgba(0, 0, 0, .03)",
+  flexDirection: "row-reverse",
+  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+    transform: "rotate(90deg)",
+  },
+  "& .MuiAccordionSummary-content": {
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderTop: "1px solid rgba(0, 0, 0, .125)",
+}));
 
 function Experience() {
-  const [values, setValues] = useState([{}]);
-  const [inputCount, setInputCount] = useState(1);
+  const [expanded, setExpanded] = React.useState("panel1");
 
-  //handles adding new input section
-  const handleAddNewInput = (e) => {
-    e.preventDefault();
-    let count = inputCount + 1;
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+
+  const [values, setValues] = useState([
+    { company: "", position: "", from: "", to: "", description: "" },
+  ]);
+
+  const handleAddNewInput = () => {
     setValues([
       ...values,
-      {
-        id: `${count}`,
-        type: "",
-        name: "",
-      },
+      { company: "", position: "", from: "", to: "", description: "" },
     ]);
-    setInputCount(inputCount + 1);
   };
 
-  //handles input for the input field
-  const handleInput = (e, data, index) => {
-    let arr = values;
-    arr[index][e.target.name] = e.target.value;
-    setValues(arr);
+  const handleInputChange = (e, idx) => {
+    const { name, value } = e.target;
+    const updatedValues = [...values];
+    updatedValues[idx][name] = value;
+    setValues(updatedValues);
   };
 
-  //delete input field
-  const handleDeleteInput = (index) => {
-    if (values.length > 1) {
-      let arr = values;
-      setValues(arr.filter((idx) => idx.id != index));
-    }
+  const handleDeleteInput = (idx) => {
+    const updatedValues = [...values];
+    updatedValues.splice(idx, 1);
+    setValues(updatedValues);
   };
 
   return (
@@ -64,60 +103,101 @@ function Experience() {
               </Divider>
             </Grid>
             <Grid item xs={12} sx={{ textAlign: "end" }}>
-              <Button
-                onClick={handleAddNewInput}
-                variant="contained"
-                startIcon={<AddIcon />}
-              >
-                Add
-              </Button>
+              {values.length < 5 && (
+                <Button
+                  onClick={handleAddNewInput}
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                >
+                  Add
+                </Button>
+              )}
             </Grid>
+
             {values.map((data, idx) => (
-              <Grid item xs={12}>
-                <Card sx={{ p: 2 }}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <TextField
-                        label="Company / Employer"
-                        size="small"
-                        fullWidth
-                      />
+              <Grid item xs={12} key={idx}>
+                <Accordion
+                  expanded={expanded === `panel${idx + 1}`}
+                  onChange={handleChange(`panel${idx + 1}`)}
+                >
+                  <AccordionSummary
+                    aria-controls="panel1d-content"
+                    id="panel1d-header"
+                  >
+                    <Box sx={{ display: "flex", width: "100%" }}>
+                      <Typography sx={{ flex: 1, alignSelf: "center" }}>
+                        {`Experience ${idx + 1}`}
+                      </Typography>
+                      {values.length > 1 && (
+                        <IconButton onClick={() => handleDeleteInput(idx)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      )}
+                    </Box>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <TextField
+                          name="company"
+                          label="Company / Employer"
+                          size="small"
+                          fullWidth
+                          value={data.company}
+                          onChange={(e) => handleInputChange(e, idx)}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          name="position"
+                          label="Position"
+                          size="small"
+                          fullWidth
+                          value={data.position}
+                          onChange={(e) => handleInputChange(e, idx)}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          name="from"
+                          label="From"
+                          size="small"
+                          type="date"
+                          fullWidth
+                          InputLabelProps={{ shrink: true }}
+                          value={data.from}
+                          onChange={(e) => handleInputChange(e, idx)}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          name="to"
+                          label="To"
+                          size="small"
+                          type="date"
+                          fullWidth
+                          InputLabelProps={{ shrink: true }}
+                          value={data.to}
+                          onChange={(e) => handleInputChange(e, idx)}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          name="description"
+                          label="Description"
+                          size="small"
+                          fullWidth
+                          multiline
+                          rows={3}
+                          value={data.description}
+                          onChange={(e) => handleInputChange(e, idx)}
+                        />
+                      </Grid>
                     </Grid>
-                    <Grid item xs={12}>
-                      <TextField label="Position" size="small" fullWidth />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField
-                        label="From"
-                        size="small"
-                        type="date"
-                        fullWidth
-                        InputLabelProps={{ shrink: true }}
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField
-                        label="To"
-                        size="small"
-                        type="date"
-                        fullWidth
-                        InputLabelProps={{ shrink: true }}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        label="Description"
-                        size="small"
-                        fullWidth
-                        multiLine
-                        rows={4}
-                      />
-                    </Grid>
-                  </Grid>
-                </Card>
+                  </AccordionDetails>
+                </Accordion>
               </Grid>
             ))}
-
             <Grid item xs={12}>
               <BottomButton nextLink="/project-details" prevLink="/skills" />
             </Grid>

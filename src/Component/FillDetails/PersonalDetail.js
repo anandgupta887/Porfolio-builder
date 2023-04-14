@@ -11,10 +11,7 @@ import {
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-import MaleIcon from "@mui/icons-material/Male";
-import FemaleIcon from "@mui/icons-material/Female";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
-import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Stats from "./Stats";
 import BottomButton from "./BottomButton";
