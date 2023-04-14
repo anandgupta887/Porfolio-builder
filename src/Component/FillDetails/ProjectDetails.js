@@ -7,19 +7,64 @@ import {
   Container,
   Divider,
   Grid,
+  IconButton,
   TextField,
   Typography,
 } from "@mui/material";
 import React, { useState } from "react";
-
+import { styled } from "@mui/material/styles";
 import DeleteIcon from "@mui/icons-material/Delete";
-import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import AddIcon from "@mui/icons-material/Add";
 import Stats from "./Stats";
 import BottomButton from "./BottomButton";
+import MuiAccordion from "@mui/material/Accordion";
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import MuiAccordionSummary from "@mui/material/AccordionSummary";
+import MuiAccordionDetails from "@mui/material/AccordionDetails";
+
+const Accordion = styled((props) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  border: `1px solid ${theme.palette.divider}`,
+  "&:not(:last-child)": {
+    borderBottom: 0,
+  },
+  "&:before": {
+    display: "none",
+  },
+}));
+
+const AccordionSummary = styled((props) => (
+  <MuiAccordionSummary
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
+    {...props}
+  />
+))(({ theme }) => ({
+  backgroundColor:
+    theme.palette.mode === "dark"
+      ? "rgba(255, 255, 255, .05)"
+      : "rgba(0, 0, 0, .03)",
+  flexDirection: "row-reverse",
+  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+    transform: "rotate(90deg)",
+  },
+  "& .MuiAccordionSummary-content": {
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderTop: "1px solid rgba(0, 0, 0, .125)",
+}));
 
 function ProjectDetails() {
+  const [expanded, setExpanded] = React.useState("panel1");
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+
   const [values, setValues] = useState([{}]);
 
   const handleAddNewInput = () => {
@@ -64,71 +109,83 @@ function ProjectDetails() {
                 </Button>
               )}
             </Grid>
-            {values.map((value, index) => (
-              <Grid item xs={12} key={index}>
-                <Card sx={{ p: 2 }}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <TextField
-                        name="title"
-                        label="Title"
-                        size="small"
-                        fullWidth
-                        value={value.title || ""}
-                        onChange={(e) => handleInputChange(index, e)}
-                      />
+            {values.map((data, idx) => (
+              <Grid item xs={12} key={idx}>
+                <Accordion
+                  expanded={expanded === `panel${idx + 1}`}
+                  onChange={handleChange(`panel${idx + 1}`)}
+                >
+                  <AccordionSummary
+                    aria-controls={`panel${idx + 1}d-content`}
+                    id={`panel${idx + 1}d-header`}
+                  >
+                    <Box sx={{ display: "flex", width: "100%" }}>
+                      <Typography sx={{ flex: 1, alignSelf: "center" }}>
+                        {`Project ${idx + 1}`}
+                      </Typography>
+                      {values.length > 1 && (
+                        <IconButton onClick={() => handleDeleteInput(idx)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      )}
+                    </Box>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <TextField
+                          name="title"
+                          label="Title"
+                          size="small"
+                          fullWidth
+                          value={data.title || ""}
+                          onChange={(e) => handleInputChange(idx, e)}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          name="from"
+                          label="From"
+                          size="small"
+                          type="date"
+                          fullWidth
+                          InputLabelProps={{ shrink: true }}
+                          value={data.from || ""}
+                          onChange={(e) => handleInputChange(idx, e)}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          name="to"
+                          label="To"
+                          size="small"
+                          type="date"
+                          fullWidth
+                          InputLabelProps={{ shrink: true }}
+                          value={data.to || ""}
+                          onChange={(e) => handleInputChange(idx, e)}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          name="description"
+                          label="Description"
+                          size="small"
+                          fullWidth
+                          multiline
+                          rows={3}
+                          value={data.description || ""}
+                          onChange={(e) => handleInputChange(idx, e)}
+                        />
+                      </Grid>
                     </Grid>
-                    <Grid item xs={6}>
-                      <TextField
-                        name="from"
-                        label="From"
-                        size="small"
-                        type="date"
-                        fullWidth
-                        InputLabelProps={{ shrink: true }}
-                        value={value.from || ""}
-                        onChange={(e) => handleInputChange(index, e)}
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField
-                        name="to"
-                        label="To"
-                        size="small"
-                        type="date"
-                        fullWidth
-                        InputLabelProps={{ shrink: true }}
-                        value={value.to || ""}
-                        onChange={(e) => handleInputChange(index, e)}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        name="description"
-                        label="Description"
-                        size="small"
-                        fullWidth
-                        multiline
-                        rows={4}
-                        value={value.description || ""}
-                        onChange={(e) => handleInputChange(index, e)}
-                      />
-                    </Grid>
-                    <Grid item xs={12} sx={{ textAlign: "end" }}>
-                      <Button
-                        startIcon={<DeleteIcon />}
-                        onClick={() => handleDeleteInput(index)}
-                      >
-                        Delete
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </Card>
+                  </AccordionDetails>
+                </Accordion>
               </Grid>
             ))}
 
             <Grid item xs={12}>
-              <BottomButton prevLink="/experience" />
+              <BottomButton prevLink="/experience" nextText="Preview" />
             </Grid>
           </Grid>
         </Grid>

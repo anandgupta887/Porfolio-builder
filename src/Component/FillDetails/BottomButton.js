@@ -1,8 +1,8 @@
-import WestIcon from '@mui/icons-material/West';
+import WestIcon from "@mui/icons-material/West";
 import { Box, Button } from "@mui/material";
-import EastIcon from '@mui/icons-material/East';
+import EastIcon from "@mui/icons-material/East";
 
-function BottomButton({ prevLink, nextLink }) {
+function BottomButton({ prevLink, nextLink, nextText }) {
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <Box>
@@ -30,7 +30,7 @@ function BottomButton({ prevLink, nextLink }) {
           endIcon={<EastIcon />}
           href={nextLink}
         >
-          Next
+          {nextText ? nextText : "Next"}
         </Button>
       </Box>
     </div>

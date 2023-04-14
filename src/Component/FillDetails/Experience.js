@@ -7,6 +7,7 @@ import {
   Container,
   Divider,
   Grid,
+  IconButton,
   TextField,
   Typography,
 } from "@mui/material";
@@ -102,17 +103,19 @@ function Experience() {
               </Divider>
             </Grid>
             <Grid item xs={12} sx={{ textAlign: "end" }}>
-              <Button
-                onClick={handleAddNewInput}
-                variant="contained"
-                startIcon={<AddIcon />}
-              >
-                Add
-              </Button>
+              {values.length < 5 && (
+                <Button
+                  onClick={handleAddNewInput}
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                >
+                  Add
+                </Button>
+              )}
             </Grid>
 
             {values.map((data, idx) => (
-              <Grid item xs={12}>
+              <Grid item xs={12} key={idx}>
                 <Accordion
                   expanded={expanded === `panel${idx + 1}`}
                   onChange={handleChange(`panel${idx + 1}`)}
@@ -121,7 +124,16 @@ function Experience() {
                     aria-controls="panel1d-content"
                     id="panel1d-header"
                   >
-                    <Typography>Experience</Typography>
+                    <Box sx={{ display: "flex", width: "100%" }}>
+                      <Typography sx={{ flex: 1, alignSelf: "center" }}>
+                        {`Experience ${idx + 1}`}
+                      </Typography>
+                      {values.length > 1 && (
+                        <IconButton onClick={() => handleDeleteInput(idx)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      )}
+                    </Box>
                   </AccordionSummary>
                   <AccordionDetails>
                     <Grid container spacing={2}>
@@ -181,17 +193,6 @@ function Experience() {
                           onChange={(e) => handleInputChange(e, idx)}
                         />
                       </Grid>
-                      {values.length > 1 && (
-                        <Grid item xs={12} sx={{ textAlign: "end" }}>
-                          <Button
-                            onClick={() => handleDeleteInput(idx)}
-                            variant="contained"
-                            startIcon={<DeleteIcon />}
-                          >
-                            Delete
-                          </Button>
-                        </Grid>
-                      )}
                     </Grid>
                   </AccordionDetails>
                 </Accordion>
