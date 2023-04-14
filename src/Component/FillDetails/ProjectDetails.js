@@ -33,6 +33,7 @@ function ProjectDetails() {
   };
 
   const handleInputChange = (index, event) => {
+    console.log(values);
     const { name, value } = event.target;
     const updatedValues = [...values];
     updatedValues[index][name] = value;
@@ -107,7 +108,7 @@ function ProjectDetails() {
                         label="Description"
                         size="small"
                         fullWidth
-                        multiLine
+                        multiline
                         rows={4}
                         value={value.description || ""}
                         onChange={(e) => handleInputChange(index, e)}
