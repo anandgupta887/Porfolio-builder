@@ -1,211 +1,199 @@
 import {
-    Autocomplete,
-    Box,
-    Button,
-    Card,
-    CircularProgress,
-    Container,
-    Divider,
-    Grid,
-    TextField,
-    Typography,
-  } from "@mui/material";
-  import React, { useState } from "react";
-  import Chip from "@mui/material/Chip";
-  import DeleteIcon from "@mui/icons-material/Delete";
-  import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
-  import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-  import AddIcon from "@mui/icons-material/Add";
-  
-  function CircularProgressWithLabel(props) {
-    return (
-      <Box sx={{ position: "relative", display: "inline-flex" }}>
-        <CircularProgress
-          variant="determinate"
-          size={120}
-          thickness={6}
-          {...props}
-        />
-        <Box
-          sx={{
-            top: 0,
-            left: 0,
-            bottom: 0,
-            right: 0,
-            position: "absolute",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          <Typography
-            variant="body1"
-            component="div"
-            color="text.secondary"
-            sx={{ fontSize: "24px" }}
-          >
-            {`${Math.round(props.value)}%`}
-          </Typography>
-        </Box>
-      </Box>
-    );
-  }
-  
-  function ProjectDetails() {
-    const [values, setValues] = useState([{}]);
-  const [inputCount, setInputCount] = useState(1);
+  Autocomplete,
+  Box,
+  Button,
+  Card,
+  CircularProgress,
+  Container,
+  Divider,
+  Grid,
+  IconButton,
+  TextField,
+  Typography,
+} from "@mui/material";
+import React, { useState } from "react";
+import { styled } from "@mui/material/styles";
+import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
+import Stats from "./Stats";
+import BottomButton from "./BottomButton";
+import MuiAccordion from "@mui/material/Accordion";
+import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import MuiAccordionSummary from "@mui/material/AccordionSummary";
+import MuiAccordionDetails from "@mui/material/AccordionDetails";
 
-  //handles adding new input section
-  const handleAddNewInput = (e) => {
-    e.preventDefault();
-    console.log(inputCount)
-    let count = inputCount + 1;
-    setValues([
-      ...values,
-      {
-        id: `${count}`,
-        type: "",
-        name: "",
-      },
-    ]);
-    setInputCount(inputCount + 1);
+const Accordion = styled((props) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  border: `1px solid ${theme.palette.divider}`,
+  "&:not(:last-child)": {
+    borderBottom: 0,
+  },
+  "&:before": {
+    display: "none",
+  },
+}));
+
+const AccordionSummary = styled((props) => (
+  <MuiAccordionSummary
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: "0.9rem" }} />}
+    {...props}
+  />
+))(({ theme }) => ({
+  backgroundColor:
+    theme.palette.mode === "dark"
+      ? "rgba(255, 255, 255, .05)"
+      : "rgba(0, 0, 0, .03)",
+  flexDirection: "row-reverse",
+  "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded": {
+    transform: "rotate(90deg)",
+  },
+  "& .MuiAccordionSummary-content": {
+    marginLeft: theme.spacing(1),
+  },
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderTop: "1px solid rgba(0, 0, 0, .125)",
+}));
+
+function ProjectDetails() {
+  const [expanded, setExpanded] = React.useState("panel1");
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
   };
 
-  //handles input for the input field
-  const handleInput = (e, data, index) => {
-    let arr = values;
-    arr[index][e.target.name] = e.target.value;
-    setValues(arr);
+  const [values, setValues] = useState([{}]);
+
+  const handleAddNewInput = () => {
+    setValues([...values, {}]);
   };
 
-  //delete input field
   const handleDeleteInput = (index) => {
-    if (values.length > 1) {
-      let arr = values;
-      setValues(arr.filter((idx) => idx.id != index));
-    }
+    const updatedValues = [...values];
+    updatedValues.splice(index, 1);
+    setValues(updatedValues);
   };
-  
-    return (
-      <Container maxWidth="lg">
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <Typography variant="h4">Project details</Typography>
-          </Grid>
-          <Grid item xs={6}>
-            <Grid container spacing={2}>
-              <Grid item xs={12} sx={{ mb: 2 }}>
-                <Divider>
-                  <Typography variant="body2">Section 4</Typography>
-                </Divider>
-              </Grid>
-              <Grid item xs={12} sx={{ textAlign: "end" }}>
-                <Button onClick={handleAddNewInput} variant="contained" startIcon={<AddIcon />}>
+
+  const handleInputChange = (index, event) => {
+    console.log(values);
+    const { name, value } = event.target;
+    const updatedValues = [...values];
+    updatedValues[index][name] = value;
+    setValues(updatedValues);
+  };
+
+  return (
+    <Container maxWidth="lg">
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <Typography variant="h4">Project details</Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Divider>
+                <Typography variant="body2">Section 4</Typography>
+              </Divider>
+            </Grid>
+            <Grid item xs={12} sx={{ textAlign: "end" }}>
+              {values.length < 5 && (
+                <Button
+                  onClick={handleAddNewInput}
+                  variant="contained"
+                  startIcon={<AddIcon />}
+                >
                   Add
                 </Button>
-              </Grid>
-              {values.map(()=>(<Grid item xs={12}>
-                <Card sx={{ p: 2 }}>
-                  <Grid container spacing={2}>
-                    <Grid item xs={12}>
-                      <TextField
-                        label="Title"
-                        size="small"
-                        fullWidth
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField
-                        label="From"
-                        size="small"
-                        type="date"
-                        fullWidth
-                        InputLabelProps={{ shrink: true }}
-                      />
-                    </Grid>
-                    <Grid item xs={6}>
-                      <TextField
-                        label="To"
-                        size="small"
-                        type="date"
-                        fullWidth
-                        InputLabelProps={{ shrink: true }}
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        label="Description"
-                        size="small"
-                        fullWidth
-                        multiLine
-                        rows={4}
-                      />
-                    </Grid>
-                  </Grid>
-                </Card>
-              </Grid>))}
-              
-              <Grid item xs={12}>
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "rgba(81, 13, 225, 0.64)",
-                    color: "white",
-                  }}
-                  endIcon={<EastOutlinedIcon />}
+              )}
+            </Grid>
+            {values.map((data, idx) => (
+              <Grid item xs={12} key={idx}>
+                <Accordion
+                  expanded={expanded === `panel${idx + 1}`}
+                  onChange={handleChange(`panel${idx + 1}`)}
                 >
-                  Next
-                </Button>
+                  <AccordionSummary
+                    aria-controls={`panel${idx + 1}d-content`}
+                    id={`panel${idx + 1}d-header`}
+                  >
+                    <Box sx={{ display: "flex", width: "100%" }}>
+                      <Typography sx={{ flex: 1, alignSelf: "center" }}>
+                        {`Project ${idx + 1}`}
+                      </Typography>
+                      {values.length > 1 && (
+                        <IconButton onClick={() => handleDeleteInput(idx)}>
+                          <DeleteIcon />
+                        </IconButton>
+                      )}
+                    </Box>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        <TextField
+                          name="title"
+                          label="Title"
+                          size="small"
+                          fullWidth
+                          value={data.title || ""}
+                          onChange={(e) => handleInputChange(idx, e)}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          name="from"
+                          label="From"
+                          size="small"
+                          type="date"
+                          fullWidth
+                          InputLabelProps={{ shrink: true }}
+                          value={data.from || ""}
+                          onChange={(e) => handleInputChange(idx, e)}
+                        />
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField
+                          name="to"
+                          label="To"
+                          size="small"
+                          type="date"
+                          fullWidth
+                          InputLabelProps={{ shrink: true }}
+                          value={data.to || ""}
+                          onChange={(e) => handleInputChange(idx, e)}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          name="description"
+                          label="Description"
+                          size="small"
+                          fullWidth
+                          multiline
+                          rows={3}
+                          value={data.description || ""}
+                          onChange={(e) => handleInputChange(idx, e)}
+                        />
+                      </Grid>
+                    </Grid>
+                  </AccordionDetails>
+                </Accordion>
               </Grid>
+            ))}
+
+            <Grid item xs={12}>
+              <BottomButton prevLink="/experience" nextText="Preview" />
             </Grid>
           </Grid>
-          <Grid item xs={1}></Grid>
-          <Grid item xs={5}>
-            <Card
-              sx={{
-                p: 2,
-                py: 5,
-                backgroundColor: "#E9D8FF",
-                borderRadius: "30px",
-                maxWidth: "350px",
-                ml: "auto",
-              }}
-            >
-              <Box sx={{ textAlign: "center" }}>
-                <CircularProgressWithLabel value={"75"} />
-              </Box>
-              <Box sx={{ width: "70%", m: "auto", mt: 2 }}>
-                <Box sx={{ display: "flex", pt: 1 }}>
-                  <Typography variant="body1" sx={{ flex: 1 }}>
-                    Personal details
-                  </Typography>
-                  <CheckCircleOutlineIcon />
-                </Box>
-                <Box sx={{ display: "flex", pt: 1 }}>
-                  <Typography variant="body1" sx={{ flex: 1 }}>
-                    Skills
-                  </Typography>
-                  <CheckCircleOutlineIcon />
-                </Box>
-                <Box sx={{ display: "flex", pt: 1 }}>
-                  <Typography variant="body1" sx={{ flex: 1 }}>
-                    Experience
-                  </Typography>
-                  <CheckCircleOutlineIcon />
-                </Box>
-                <Box sx={{ display: "flex", pt: 1 }}>
-                  <Typography variant="body1" sx={{ flex: 1 }}>
-                    Project details
-                  </Typography>
-                  <CheckCircleOutlineIcon />
-                </Box>
-              </Box>
-            </Card>
-          </Grid>
         </Grid>
-      </Container>
-    );
-  }
-  
-  export default ProjectDetails;
-  
+        <Grid item xs={1}></Grid>
+        <Stats value={75} />
+      </Grid>
+    </Container>
+  );
+}
+
+export default ProjectDetails;

@@ -9,8 +9,39 @@ import {
 } from "@mui/material";
 import React from "react";
 import "../../styles/Login.css";
+import { useState } from "react";
+import axios from "axios";
+import { validateEmail } from "../constant/commonFunction";
 
 function Login() {
+  const [values, setValues] = useState({});
+  const [error, setError] = useState(false);
+
+  const handleOnInputChange = (event) => {
+    setValues({ ...values, [event.target.name]: event.target.value });
+  };
+
+  const handleOnSubmit = async () => {
+    if (!validateEmail(values?.email)) {
+      return;
+    }
+    if (!(values?.email && values?.password)) {
+      validateEmail(values?.email);
+      setError(true);
+      return;
+    }
+    try {
+      const response = await axios.post("http://localhost:4000/auth/login", {
+        email: values?.email,
+        password: values?.password,
+      });
+      // alert(response.data.message);
+      alert(`Welcome back, ${response.data.name}`);
+    } catch (err) {
+      alert(err.response.data.error);
+    }
+  };
+
   return (
     <Box
       sx={{
@@ -50,16 +81,30 @@ function Login() {
             <Typography variant="body2" sx={{ mb: 2 }}>
               Please enter your details
             </Typography>
-            <Input sx={{ p: 1, pb: 0, mb: 1 }} placeholder="Email" fullWidth />
             <Input
+              name="email"
+              sx={{ p: 1, pb: 0, mb: 1 }}
+              placeholder="Email"
+              fullWidth
+              onChange={handleOnInputChange}
+              error={
+                (error && !values?.email) ||
+                (values?.email && !validateEmail(values?.email))
+              }
+            />
+            <Input
+              name="password"
               type="password"
               sx={{ p: 1, pb: 0, mb: 2 }}
               placeholder="Password"
               fullWidth
+              onChange={handleOnInputChange}
+              error={error && !values?.password}
             />
             <Button
               variant="contained"
               fullWidth
+              onClick={handleOnSubmit}
               sx={{
                 mt: 1,
                 mb: 1,

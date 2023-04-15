@@ -1,3 +1,5 @@
 const skillsApiKey = 'RgK5cYcyEaisDFE9qLqtgoezyMT9yvkV'
 
+const backendUrl = 'http://localhost:4000'
+
 export {skillsApiKey}

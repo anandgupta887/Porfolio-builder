@@ -8,7 +8,7 @@ import PersonalDetails from "./Component/FillDetails/PersonalDetail";
 import Skills from "./Component/FillDetails/Skills";
 import Experience from "./Component/FillDetails/Experience";
 import ProjectDetails from "./Component/FillDetails/ProjectDetails";
-
+import ResumeBody from "./Component/Resume/Body";
 
 function App() {
   return (
@@ -35,6 +35,9 @@ function App() {
           </Route>
           <Route path="/project-details">
             <ProjectDetails />
+          </Route>
+          <Route path="/resume">
+            <ResumeBody />
           </Route>
           <Route path="/">
             <Home />
