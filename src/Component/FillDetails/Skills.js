@@ -17,6 +17,7 @@ import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
 import { skillsApiKey } from "../config/config";
 import Stats from "./Stats";
 import BottomButton from "./BottomButton";
+import axios from "axios";
 
 function Skills() {
   const [values, setValues] = useState([]);
@@ -49,6 +50,29 @@ function Skills() {
     setValues([...arr]);
   };
 
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios
+        .post(
+          "http://localhost:4000/skills",
+          { skills: values },
+          {
+            headers: {
+              authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAMTIzLmNvbSIsImlhdCI6MTY4MTU3NDQwMX0.lRN2u05joZT8ZKi6CYqvafxytZli-HdnVlvM_K0VGMU",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(`Welcome back, ${response}`);
+          window.location.pathname = "/experience";
+        });
+    } catch (err) {
+      alert(err.response.data.error);
+    }
+  };
+
   return (
     <Container maxWidth="lg">
       <Grid container spacing={2}>
@@ -71,7 +95,7 @@ function Skills() {
                 options={options.length > 0 ? options : defaultOptions}
                 onChange={(e) => {
                   if (e.target.textContent === "") return;
-                  setValues([...values, e.target.textContent]);
+                  setValues([...values, { name: e.target.textContent }]);
                 }}
                 renderInput={(params) => (
                   <TextField
@@ -92,7 +116,8 @@ function Skills() {
                   <Box sx={{ mt: -1, ml: -1 }}>
                     {values.map((data, idx) => (
                       <Chip
-                        label={data}
+                        label={data.name}
+                        key={idx}
                         sx={{ ml: 1, mt: 1 }}
                         onClick={() => {}}
                         onDelete={() => {
@@ -108,6 +133,7 @@ function Skills() {
 
             <Grid item xs={12}>
               <BottomButton
+                nextSubmit={handleOnSubmit}
                 nextLink="/experience"
                 prevLink="/personal-details"
               />

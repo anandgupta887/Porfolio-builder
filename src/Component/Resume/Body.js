@@ -70,9 +70,9 @@ function Body() {
       {/* <p className={styles.heading}>Resume Builder</p> */}
       <div className={styles.toolbar}>
         <div className={styles.colors}>
-          {colors.map((item) => (
+          {colors.map((item,idx) => (
             <span
-              key={item}
+              key={idx}
               style={{ backgroundColor: item }}
               className={`${styles.color} ${
                 activeColor === item ? styles.active : ""
