@@ -21,6 +21,7 @@ import MuiAccordion from "@mui/material/Accordion";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import axios from "axios";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -85,6 +86,30 @@ function ProjectDetails() {
     setValues(updatedValues);
   };
 
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await axios
+        .post(
+          "http://localhost:4000/projects",
+          { projects: values },
+          {
+            headers: {
+              authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAMTIzLmNvbSIsImlhdCI6MTY4MTU3NDQwMX0.lRN2u05joZT8ZKi6CYqvafxytZli-HdnVlvM_K0VGMU",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(`Welcome back, ${response}`);
+          // window.location.pathname = "/project-details";
+        });
+    } catch (err) {
+      alert(err.response.data.error);
+    }
+  };
+
   return (
     <Container maxWidth="lg">
       <Grid container spacing={2}>
@@ -134,11 +159,11 @@ function ProjectDetails() {
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <TextField
-                          name="title"
+                          name="name"
                           label="Title"
                           size="small"
                           fullWidth
-                          value={data.title || ""}
+                          value={data.name || ""}
                           onChange={(e) => handleInputChange(idx, e)}
                         />
                       </Grid>
@@ -185,7 +210,11 @@ function ProjectDetails() {
             ))}
 
             <Grid item xs={12}>
-              <BottomButton prevLink="/experience" nextText="Preview" />
+              <BottomButton
+                nextSubmit={handleOnSubmit}
+                prevLink="/experience"
+                nextText="Preview"
+              />
             </Grid>
           </Grid>
         </Grid>
