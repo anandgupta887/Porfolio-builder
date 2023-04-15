@@ -1,5 +1,6 @@
 import { Box, Typography, Container } from "@mui/material";
 import TemplateCard from "./TemplateCard";
+import { Link } from "react-router-dom";
 
 function ChooseTemplate() {
   return (
@@ -17,7 +18,9 @@ function ChooseTemplate() {
         }}
       >
         {[1, 2, 3, 4].map((i) => (
-          <TemplateCard />
+          <Link to="/template">
+            <TemplateCard key={i} />
+          </Link>
         ))}
       </Box>
     </Container>

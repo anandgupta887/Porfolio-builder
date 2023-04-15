@@ -9,6 +9,7 @@ import Skills from "./Component/FillDetails/Skills";
 import Experience from "./Component/FillDetails/Experience";
 import ProjectDetails from "./Component/FillDetails/ProjectDetails";
 import ResumeBody from "./Component/Resume/Body";
+import Template from "./Component/Template/Template";
 
 function App() {
   return (
@@ -17,6 +18,9 @@ function App() {
         <Switch>
           <Route path="/choose-template">
             <ChooseTemplate />
+          </Route>
+          <Route path="/template">
+            <Template />
           </Route>
           <Route path="/login">
             <Login />
