@@ -37,6 +37,7 @@ function Login() {
       });
       // alert(response.data.message);
       alert(`Welcome back, ${response.data.name}`);
+      window.path("/profile-details")
     } catch (err) {
       alert(err.response.data.error);
     }
