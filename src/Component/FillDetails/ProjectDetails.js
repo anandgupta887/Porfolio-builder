@@ -22,6 +22,8 @@ import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import axios from "axios";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -68,6 +70,14 @@ function ProjectDetails() {
 
   const [values, setValues] = useState([{}]);
 
+  const userData = useSelector((state) => state.user.resume.projects);
+
+  console.log(userData, values);
+
+  useEffect(() => {
+    setValues(userData);
+  }, [userData]);
+
   const handleAddNewInput = () => {
     setValues([...values, {}]);
   };
@@ -103,7 +113,7 @@ function ProjectDetails() {
         )
         .then((response) => {
           console.log(`Welcome back, ${response}`);
-          // window.location.pathname = "/project-details";
+          window.location.pathname = "/education";
         });
     } catch (err) {
       alert(err.response.data.error);
@@ -213,8 +223,7 @@ function ProjectDetails() {
               <BottomButton
                 nextSubmit={handleOnSubmit}
                 prevLink="/experience"
-                nextText="Preview"
-                nextLink='/education'
+                nextLink="/education"
               />
             </Grid>
           </Grid>
