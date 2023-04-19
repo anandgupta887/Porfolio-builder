@@ -47,12 +47,25 @@ function PersonalDetails() {
     reader.readAsDataURL(files[0]);
   };
 
+  const handleUploadImage = async () => {
+    const image = profileData.profile;
+    try {
+      const response = await axios
+        .post("http://localhost:4000/upload", { image })
+        .then((res) => {
+          console.log("uploaded");
+        });
+    } catch (err) {
+      alert(err.response.data.error);
+    }
+  };
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     try {
       const { name, title, linkedIn, github, email, phone, profile } =
         profileData;
-
+      // handleUploadImage();
       const response = await axios
         .post(
           "http://localhost:4000/profiles",
