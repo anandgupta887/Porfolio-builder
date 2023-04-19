@@ -18,9 +18,20 @@ import { skillsApiKey } from "../config/config";
 import Stats from "./Stats";
 import BottomButton from "./BottomButton";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function Skills() {
   const [values, setValues] = useState([]);
+
+  const userData = useSelector((state) => state.user.resume.skills);
+
+  console.log(userData, values);
+
+  useEffect(() => {
+    setValues(userData);
+  }, [userData]);
+
   const [options, setOptions] = useState([]);
   const [defaultOptions, setDefaultOptions] = useState([
     "Java",

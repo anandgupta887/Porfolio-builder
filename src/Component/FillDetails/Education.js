@@ -22,6 +22,8 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -70,6 +72,14 @@ function Education() {
     { degree: "", institution: "", field: "", from: "", to: "" },
   ]);
 
+  const userData = useSelector((state) => state.user.resume.education);
+
+  console.log(userData, values);
+
+  useEffect(() => {
+    setValues(userData);
+  }, [userData]);
+
   const handleAddNewInput = () => {
     setValues([
       ...values,
@@ -105,7 +115,6 @@ function Education() {
           }
         )
         .then((response) => {
-          console.log(`Welcome back, ${response}`);
           window.location.pathname = "/";
         });
     } catch (err) {
@@ -167,7 +176,7 @@ function Education() {
                           label="Degree"
                           size="small"
                           fullWidth
-                          value={data.company}
+                          value={data.degree}
                           onChange={(e) => handleInputChange(e, idx)}
                         />
                       </Grid>
@@ -177,7 +186,7 @@ function Education() {
                           label="Specialized in"
                           size="small"
                           fullWidth
-                          value={data.position}
+                          value={data.field}
                           onChange={(e) => handleInputChange(e, idx)}
                         />
                       </Grid>
@@ -187,7 +196,7 @@ function Education() {
                           label="University / College name"
                           size="small"
                           fullWidth
-                          value={data.position}
+                          value={data.institution}
                           onChange={(e) => handleInputChange(e, idx)}
                         />
                       </Grid>
@@ -224,6 +233,7 @@ function Education() {
               <BottomButton
                 nextSubmit={handleOnSubmit}
                 nextLink="/project-details"
+                nextText="Preview"
                 prevLink="/skills"
               />
             </Grid>
