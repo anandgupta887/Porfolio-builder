@@ -220,7 +220,7 @@ function ProjectDetails() {
           </Grid>
         </Grid>
         <Grid item xs={1}></Grid>
-        <Stats value={75} />
+        <Stats value={60} />
       </Grid>
     </Container>
   );

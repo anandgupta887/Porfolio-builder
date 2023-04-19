@@ -230,7 +230,7 @@ function Education() {
           </Grid>
         </Grid>
         <Grid item xs={1}></Grid>
-        <Stats value={50} />
+        <Stats value={80} />
       </Grid>
     </Container>
   );
