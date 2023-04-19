@@ -12,10 +12,14 @@ import "../../styles/Login.css";
 import { useState } from "react";
 import axios from "axios";
 import { validateEmail } from "../constant/commonFunction";
+import { useDispatch } from "react-redux";
+import { actionCreators } from "../../state/index";
 
 function Login() {
   const [values, setValues] = useState({});
   const [error, setError] = useState(false);
+
+  const dispatch = useDispatch();
 
   const handleOnInputChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -31,13 +35,17 @@ function Login() {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:4000/auth/login", {
-        email: values?.email,
-        password: values?.password,
-      });
-      // alert(response.data.message);
-      alert(`Welcome back, ${response.data.name}`);
-      window.location.pathname = "/profile-details";
+      const response = await axios
+        .post("http://localhost:4000/auth/login", {
+          email: values?.email,
+          password: values?.password,
+        })
+        .then((res) => {
+          alert(`Welcome back, ${res.data.name}`);
+          // window.location.pathname = "/profile-details";
+          dispatch(actionCreators.updateUserProfile(res.data));
+          console.log(res.data);
+        });
     } catch (err) {
       alert(err.response.data.error);
     }

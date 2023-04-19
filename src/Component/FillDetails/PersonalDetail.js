@@ -16,6 +16,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Stats from "./Stats";
 import BottomButton from "./BottomButton";
 import axios from "axios";
+import { useSelector } from "react-redux";
 
 function PersonalDetails() {
   const [profileData, setProfileData] = useState({});
