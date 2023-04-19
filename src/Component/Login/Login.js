@@ -12,8 +12,9 @@ import "../../styles/Login.css";
 import { useState } from "react";
 import axios from "axios";
 import { validateEmail } from "../constant/commonFunction";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateUserDetails } from "../../state/actions/userAction";
+import { useEffect } from "react";
 
 function Login() {
   const [values, setValues] = useState({});
@@ -21,9 +22,17 @@ function Login() {
 
   const dispatch = useDispatch();
 
+  const userAuth = useSelector((state) => state.token);
+
   const handleOnInputChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
+
+  useEffect(() => {
+    if (userAuth) {
+      window.location.pathname = "/personal-details";
+    }
+  }, []);
 
   const handleOnSubmit = async () => {
     if (!validateEmail(values?.email)) {
@@ -42,9 +51,9 @@ function Login() {
         })
         .then((res) => {
           console.log(res.data);
-          // dispatch(updateUserDetails())
+          dispatch(updateUserDetails(res.data));
           //   alert(`Welcome back, ${response.data.name}`);
-          // window.location.pathname = "/profile-details";
+          // window.location.pathname = "/personal-details";
         });
       // alert(response.data.message);
     } catch (err) {
