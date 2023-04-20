@@ -7,6 +7,7 @@ import templateList from "./TemplateList";
 // console.log(details);
 
 function ChooseTemplate() {
+  console.log("bduidggsdgudysgfdusygdsuyd", templateList);
   return (
     <Container>
       <Typography variant="h3" align="center" sx={{ margin: "2rem 0 3rem" }}>
@@ -21,11 +22,11 @@ function ChooseTemplate() {
           paddingTop: "16px",
         }}
       >
-        {/* {[1, 2, 3, 4].map((i) => (
+        {templateList?.map((data, i) => (
           <Link to="/template">
-            <TemplateCard key={i} />
+            <TemplateCard key={i} data={data} />
           </Link>
-        ))} */}
+        ))}
         {console.log(details)}
         {/* {details?.map((data, i) => {
           {
@@ -35,9 +36,13 @@ function ChooseTemplate() {
           }
         })} */}
 
-        {templateList?.map((data, idx) => {
-          <TemplateCard key={idx} data={data} />;
-        })}
+        {/* {templateList?.map((data, idx) => {
+          <>
+            {console.log("datatat", data)}
+            <h1>Hello</h1>
+            <TemplateCard data={data} />;
+          </>;
+        })} */}
       </Box>
     </Container>
   );

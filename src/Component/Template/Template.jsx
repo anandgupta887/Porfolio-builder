@@ -4,7 +4,7 @@ import details from "../../details";
 
 // console.log(details);
 
-function Template1() {
+function Template() {
   return (
     <>
       {/* <!--==================== HEADER ====================--> */}
@@ -143,9 +143,10 @@ function Template1() {
                 <h3 className="home__info-title">CONTACT</h3>
 
                 <p className="home__info-description">
-                  Lima, Perú <br />
-                  chrismayer@email.com <br />
-                  +51 9876543210 <br />
+                  {details?.resume?.profile?.name} <br />
+                  {details?.resume?.profile?.email}
+                  <br />
+                  {details?.resume?.profile?.phone} <br />
                 </p>
               </div>
 
@@ -762,4 +763,4 @@ function Template1() {
   );
 }
 
-export default Template1;
+export default Template;

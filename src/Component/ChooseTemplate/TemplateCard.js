@@ -9,7 +9,7 @@ import {
 function TemplateCard({ data }) {
   console.log("datafdfdfc");
   return (
-    <Card sx={{ borderRadius: "30px" }}>
+    <Card key={data?.id} sx={{ borderRadius: "30px" }}>
       <CardActionArea
         sx={{
           minHeight: 350,
@@ -28,7 +28,7 @@ function TemplateCard({ data }) {
               ? data?.image
               : "https://cdn.dribbble.com/userupload/2795421/file/original-da3b77c9c5eec77d571a48a273cbba1a.jpg?compress=1&resize=1200x900"
           }
-          alt={data.id}
+          alt={data?.id}
         />
         <CardContent sx={{}}>
           <Typography variant="h6" sx={{ fontWeight: 600 }}>

@@ -10,8 +10,6 @@ const templateList = [
   {
     id: 2,
     name: <Template1 />,
-    image:
-      "https://mir-s3-cdn-cf.behance.net/projects/max_808_webp/dca2cd130903547.Y3JvcCwxNDAwLDEwOTUsMCw2.png",
   },
 ];
 
