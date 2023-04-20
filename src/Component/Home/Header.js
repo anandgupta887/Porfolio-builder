@@ -13,6 +13,8 @@ import LaptopIcon from "@mui/icons-material/Laptop";
 import { Link, Tooltip } from "@mui/material";
 import { useEffect } from "react";
 import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { logoutUser } from "../../state/actions/userAction";
 
 const pages = [
   {
@@ -27,6 +29,15 @@ const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+
+  const userAuth = useSelector((state) => state.token);
+
+  const dispatch = useDispatch();
+
+  const handleLogout = (e) => {
+    e.preventDefault();
+    dispatch(logoutUser());
+  };
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -110,7 +121,7 @@ const Header = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page,idx) => (
+              {pages.map((page, idx) => (
                 <MenuItem key={idx} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
@@ -168,19 +179,26 @@ const Header = () => {
             ))}
           </Box>
 
-          <Box sx={{ flexGrow: 0, display: "flex" }}>
-            {path != "/login" && (
-              <Button variant="contained" href="/login">
-                Login
+          {userAuth ? (
+            <Box sx={{ flexGrow: 0, display: "flex" }}>
+              <Button variant="contained" onClick={handleLogout}>
+                Logout
               </Button>
-            )}
+            </Box>
+          ) : (
+            <Box sx={{ flexGrow: 0, display: "flex" }}>
+              {path != "/login" && (
+                <Button variant="contained" href="/login">
+                  Login
+                </Button>
+              )}
 
-            {path != "/register" && (
-              <Button variant="contained" sx={{ ml: 2 }} href="/register">
-                Sign up
-              </Button>
-            )}
-            {/* <Tooltip title="Open settings">
+              {path != "/register" && (
+                <Button variant="contained" sx={{ ml: 2 }} href="/register">
+                  Sign up
+                </Button>
+              )}
+              {/* <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
               </IconButton>
@@ -207,7 +225,8 @@ const Header = () => {
                 </MenuItem>
               ))}
             </Menu> */}
-          </Box>
+            </Box>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

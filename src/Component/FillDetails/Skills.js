@@ -18,19 +18,23 @@ import { skillsApiKey } from "../config/config";
 import Stats from "./Stats";
 import BottomButton from "./BottomButton";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { updateSkills } from "../../state/actions/userAction";
 
 function Skills() {
   const [values, setValues] = useState([]);
 
-  const userData = useSelector((state) => state.user.resume.skills);
+  const userData = useSelector((state) => state?.user?.skills);
+  const userAuth = useSelector((state) => state?.token);
 
   console.log(userData, values);
 
   useEffect(() => {
     setValues(userData);
   }, [userData]);
+
+  const dispatch = useDispatch();
 
   const [options, setOptions] = useState([]);
   const [defaultOptions, setDefaultOptions] = useState([
@@ -70,13 +74,12 @@ function Skills() {
           { skills: values },
           {
             headers: {
-              authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAMTIzLmNvbSIsImlhdCI6MTY4MTU3NDQwMX0.lRN2u05joZT8ZKi6CYqvafxytZli-HdnVlvM_K0VGMU",
+              authorization: `Bearer ${userAuth}`,
             },
           }
         )
-        .then((response) => {
-          console.log(`Welcome back, ${response}`);
+        .then((res) => {
+          dispatch(updateSkills(res?.data?.skills));
           window.location.pathname = "/experience";
         });
     } catch (err) {
