@@ -1,7 +1,10 @@
 import React from "react";
 import "./template.css";
+import details from "../../details";
 
-function Template() {
+// console.log(details);
+
+function Template1() {
   return (
     <>
       {/* <!--==================== HEADER ====================--> */}
@@ -67,7 +70,6 @@ function Template() {
           </div>
         </nav>
       </header>
-
       {/* <!--==================== MAIN ====================--> */}
       <main className="main">
         {/* <!--==================== HOME ====================--> */}
@@ -699,7 +701,6 @@ function Template() {
           </div>
         </section>
       </main>
-
       {/* <!--==================== FOOTER ====================--> */}
       <footer className="footer">
         <div className="footer__container container">
@@ -761,4 +762,4 @@ function Template() {
   );
 }
 
-export default Template;
+export default Template1;
