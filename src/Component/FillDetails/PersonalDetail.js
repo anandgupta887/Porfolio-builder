@@ -15,16 +15,10 @@ import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 import DeleteIcon from "@mui/icons-material/Delete";
 import Stats from "./Stats";
 import BottomButton from "./BottomButton";
+import axios from "axios";
 
 function PersonalDetails() {
   const [profileData, setProfileData] = useState({});
-  // const handleButton = (e) => {
-  //   console.log(profileData);
-  //   setProfileData({
-  //     ...profileData,
-  //     [e.target.name]: e.target.textContent,
-  //   });
-  // };
 
   const handleInput = (e) => {
     console.log(profileData);
@@ -51,6 +45,45 @@ function PersonalDetails() {
     };
 
     reader.readAsDataURL(files[0]);
+  };
+
+  const handleUploadImage = async () => {
+    const image = profileData.profile;
+    try {
+      const response = await axios
+        .post("http://localhost:4000/upload", { image })
+        .then((res) => {
+          console.log("uploaded");
+        });
+    } catch (err) {
+      alert(err.response.data.error);
+    }
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const { name, title, linkedIn, github, email, phone, profile } =
+        profileData;
+      // handleUploadImage();
+      const response = await axios
+        .post(
+          "http://localhost:4000/profiles",
+          { name, title, linkedIn, github, email, phone, image: "profile" },
+          {
+            headers: {
+              authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAMTIzLmNvbSIsImlhdCI6MTY4MTU3NDQwMX0.lRN2u05joZT8ZKi6CYqvafxytZli-HdnVlvM_K0VGMU",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(`Welcome back, ${response}`);
+          window.location.pathname = "/skills";
+        });
+    } catch (err) {
+      alert(err.response.data.error);
+    }
   };
 
   return (
@@ -191,7 +224,7 @@ function PersonalDetails() {
               />
             </Grid>
             <Grid item xs={12}>
-              <BottomButton nextLink="/skills"/>
+              <BottomButton nextLink="/skills" nextSubmit={handleOnSubmit} />
             </Grid>
           </Grid>
         </Grid>

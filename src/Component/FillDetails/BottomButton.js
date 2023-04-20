@@ -2,7 +2,7 @@ import WestIcon from "@mui/icons-material/West";
 import { Box, Button } from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
 
-function BottomButton({ prevLink, nextLink, nextText }) {
+function BottomButton({ prevLink, nextLink, nextText, nextSubmit }) {
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <Box>
@@ -12,6 +12,7 @@ function BottomButton({ prevLink, nextLink, nextText }) {
             sx={{
               backgroundColor: "rgba(81, 13, 225, 0.64)",
               color: "white",
+              mr: 2,
             }}
             startIcon={<WestIcon />}
             href={prevLink}
@@ -29,6 +30,7 @@ function BottomButton({ prevLink, nextLink, nextText }) {
           }}
           endIcon={<EastIcon />}
           href={nextLink}
+          onClick={nextSubmit}
         >
           {nextText ? nextText : "Next"}
         </Button>

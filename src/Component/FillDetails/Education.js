@@ -11,14 +11,14 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
 import { styled } from "@mui/material/styles";
-import DeleteIcon from "@mui/icons-material/Delete";
+import React, { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import Stats from "./Stats";
 import BottomButton from "./BottomButton";
-import MuiAccordion from "@mui/material/Accordion";
+import DeleteIcon from "@mui/icons-material/Delete";
 import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
+import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import axios from "axios";
@@ -59,41 +59,44 @@ const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
   borderTop: "1px solid rgba(0, 0, 0, .125)",
 }));
 
-function ProjectDetails() {
+function Education() {
   const [expanded, setExpanded] = React.useState("panel1");
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  const [values, setValues] = useState([{}]);
+  const [values, setValues] = useState([
+    { degree: "", institution: "", field: "", from: "", to: "" },
+  ]);
 
   const handleAddNewInput = () => {
-    setValues([...values, {}]);
+    setValues([
+      ...values,
+      { degree: "", institution: "", field: "", from: "", to: "" },
+    ]);
   };
 
-  const handleDeleteInput = (index) => {
+  const handleInputChange = (e, idx) => {
+    const { name, value } = e.target;
     const updatedValues = [...values];
-    updatedValues.splice(index, 1);
+    updatedValues[idx][name] = value;
     setValues(updatedValues);
   };
 
-  const handleInputChange = (index, event) => {
-    console.log(values);
-    const { name, value } = event.target;
+  const handleDeleteInput = (idx) => {
     const updatedValues = [...values];
-    updatedValues[index][name] = value;
+    updatedValues.splice(idx, 1);
     setValues(updatedValues);
   };
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios
         .post(
-          "http://localhost:4000/projects",
-          { projects: values },
+          "http://localhost:4000/education",
+          { education: values },
           {
             headers: {
               authorization:
@@ -103,7 +106,7 @@ function ProjectDetails() {
         )
         .then((response) => {
           console.log(`Welcome back, ${response}`);
-          // window.location.pathname = "/project-details";
+          window.location.pathname = "/";
         });
     } catch (err) {
       alert(err.response.data.error);
@@ -114,13 +117,13 @@ function ProjectDetails() {
     <Container maxWidth="lg">
       <Grid container spacing={2}>
         <Grid item xs={12}>
-          <Typography variant="h4">Project details</Typography>
+          <Typography variant="h4">Education</Typography>
         </Grid>
         <Grid item xs={6}>
           <Grid container spacing={2}>
             <Grid item xs={12}>
               <Divider>
-                <Typography variant="body2">Section 4</Typography>
+                <Typography variant="body2">Section 5</Typography>
               </Divider>
             </Grid>
             <Grid item xs={12} sx={{ textAlign: "end" }}>
@@ -134,6 +137,7 @@ function ProjectDetails() {
                 </Button>
               )}
             </Grid>
+
             {values.map((data, idx) => (
               <Grid item xs={12} key={idx}>
                 <Accordion
@@ -141,12 +145,12 @@ function ProjectDetails() {
                   onChange={handleChange(`panel${idx + 1}`)}
                 >
                   <AccordionSummary
-                    aria-controls={`panel${idx + 1}d-content`}
-                    id={`panel${idx + 1}d-header`}
+                    aria-controls="panel1d-content"
+                    id="panel1d-header"
                   >
                     <Box sx={{ display: "flex", width: "100%" }}>
                       <Typography sx={{ flex: 1, alignSelf: "center" }}>
-                        {`Project ${idx + 1}`}
+                        {`Education ${idx + 1}`}
                       </Typography>
                       {values.length > 1 && (
                         <IconButton onClick={() => handleDeleteInput(idx)}>
@@ -159,12 +163,32 @@ function ProjectDetails() {
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <TextField
-                          name="name"
-                          label="Title"
+                          name="degree"
+                          label="Degree"
                           size="small"
                           fullWidth
-                          value={data.name || ""}
-                          onChange={(e) => handleInputChange(idx, e)}
+                          value={data.company}
+                          onChange={(e) => handleInputChange(e, idx)}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          name="field"
+                          label="Specialized in"
+                          size="small"
+                          fullWidth
+                          value={data.position}
+                          onChange={(e) => handleInputChange(e, idx)}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          name="institution"
+                          label="University / College name"
+                          size="small"
+                          fullWidth
+                          value={data.position}
+                          onChange={(e) => handleInputChange(e, idx)}
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -175,8 +199,8 @@ function ProjectDetails() {
                           type="date"
                           fullWidth
                           InputLabelProps={{ shrink: true }}
-                          value={data.from || ""}
-                          onChange={(e) => handleInputChange(idx, e)}
+                          value={data.from}
+                          onChange={(e) => handleInputChange(e, idx)}
                         />
                       </Grid>
                       <Grid item xs={6}>
@@ -187,20 +211,8 @@ function ProjectDetails() {
                           type="date"
                           fullWidth
                           InputLabelProps={{ shrink: true }}
-                          value={data.to || ""}
-                          onChange={(e) => handleInputChange(idx, e)}
-                        />
-                      </Grid>
-                      <Grid item xs={12}>
-                        <TextField
-                          name="description"
-                          label="Description"
-                          size="small"
-                          fullWidth
-                          multiline
-                          rows={3}
-                          value={data.description || ""}
-                          onChange={(e) => handleInputChange(idx, e)}
+                          value={data.to}
+                          onChange={(e) => handleInputChange(e, idx)}
                         />
                       </Grid>
                     </Grid>
@@ -208,22 +220,20 @@ function ProjectDetails() {
                 </Accordion>
               </Grid>
             ))}
-
             <Grid item xs={12}>
               <BottomButton
                 nextSubmit={handleOnSubmit}
-                prevLink="/experience"
-                nextText="Preview"
-                nextLink='/education'
+                nextLink="/project-details"
+                prevLink="/skills"
               />
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={1}></Grid>
-        <Stats value={60} />
+        <Stats value={80} />
       </Grid>
     </Container>
   );
 }
 
-export default ProjectDetails;
+export default Education;

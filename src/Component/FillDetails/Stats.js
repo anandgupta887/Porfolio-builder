@@ -77,6 +77,12 @@ function Stats({ value }) {
             </Typography>
             <CheckCircleOutlineIcon />
           </Box>
+          <Box sx={{ display: "flex", pt: 1 }}>
+            <Typography variant="body1" sx={{ flex: 1 }}>
+              Education
+            </Typography>
+            <CheckCircleOutlineIcon />
+          </Box>
         </Box>
       </Card>
     </Grid>

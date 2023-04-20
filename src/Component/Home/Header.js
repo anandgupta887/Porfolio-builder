@@ -110,8 +110,8 @@ const Header = () => {
                 display: { xs: "block", md: "none" },
               }}
             >
-              {pages.map((page) => (
-                <MenuItem key={page} onClick={handleCloseNavMenu}>
+              {pages.map((page,idx) => (
+                <MenuItem key={idx} onClick={handleCloseNavMenu}>
                   <Typography textAlign="center">{page.label}</Typography>
                 </MenuItem>
               ))}
@@ -137,12 +137,12 @@ const Header = () => {
             PORT4LEO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
+            {pages.map((page, idx) => (
               <>
                 {page.link ? (
                   <Link href={page.link} sx={{ textDecoration: "none" }}>
                     <Button
-                      key={page}
+                      key={idx}
                       onClick={() => {
                         handleCloseNavMenu();
                       }}
@@ -154,7 +154,7 @@ const Header = () => {
                 ) : (
                   <Tooltip title="Coming Soon...!">
                     <Button
-                      key={page}
+                      key={idx}
                       onClick={() => {
                         handleCloseNavMenu();
                       }}

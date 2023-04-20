@@ -28,7 +28,7 @@ function Register() {
       alert(response.data.message);
       // localStorage.setItem("token", response.data.token);
       // Redirect to dashboard page
-      // window.location.href = "/dashboard";
+      window.location.pathname = "/personal-details";
     } catch (err) {
       alert(err.response.data.error);
     }

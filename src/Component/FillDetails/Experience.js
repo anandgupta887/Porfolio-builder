@@ -21,6 +21,7 @@ import ArrowForwardIosSharpIcon from "@mui/icons-material/ArrowForwardIosSharp";
 import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
+import axios from "axios";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -87,6 +88,29 @@ function Experience() {
     const updatedValues = [...values];
     updatedValues.splice(idx, 1);
     setValues(updatedValues);
+  };
+
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      const response = await axios
+        .post(
+          "http://localhost:4000/experience",
+          { experience: values },
+          {
+            headers: {
+              authorization:
+                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAMTIzLmNvbSIsImlhdCI6MTY4MTU3NDQwMX0.lRN2u05joZT8ZKi6CYqvafxytZli-HdnVlvM_K0VGMU",
+            },
+          }
+        )
+        .then((response) => {
+          console.log(`Welcome back, ${response}`);
+          window.location.pathname = "/project-details";
+        });
+    } catch (err) {
+      alert(err.response.data.error);
+    }
   };
 
   return (
@@ -199,12 +223,12 @@ function Experience() {
               </Grid>
             ))}
             <Grid item xs={12}>
-              <BottomButton nextLink="/project-details" prevLink="/skills" />
+              <BottomButton nextSubmit={handleOnSubmit} nextLink="/project-details" prevLink="/skills" />
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={1}></Grid>
-        <Stats value={50} />
+        <Stats value={40} />
       </Grid>
     </Container>
   );
