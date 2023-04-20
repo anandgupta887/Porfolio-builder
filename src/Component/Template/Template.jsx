@@ -20,6 +20,7 @@ import shapeCircle from "../Template/assets/img/shape-circle.svg";
 import shapeWaves from "../Template/assets/img/shape-waves.svg";
 import sketch2 from "../Template/assets/img/sketch-2.svg";
 import { useState } from "react";
+import axios from "axios";
 
 // console.log(details);
 
@@ -439,7 +440,7 @@ function Template() {
               <p className="services__description">
                 {/* Service that provides the best quality and at the request of the
                 client, with professional work and customer support. */}
-                {details.resume.projects.description}
+                {details?.resume?.projects?.description}
               </p>
 
               <div className="services__border"></div>
