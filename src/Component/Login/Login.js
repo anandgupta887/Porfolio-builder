@@ -12,14 +12,27 @@ import "../../styles/Login.css";
 import { useState } from "react";
 import axios from "axios";
 import { validateEmail } from "../constant/commonFunction";
+import { useDispatch, useSelector } from "react-redux";
+import { updateUserDetails } from "../../state/actions/userAction";
+import { useEffect } from "react";
 
 function Login() {
   const [values, setValues] = useState({});
   const [error, setError] = useState(false);
 
+  const dispatch = useDispatch();
+
+  const userAuth = useSelector((state) => state.token);
+
   const handleOnInputChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
+
+  useEffect(() => {
+    if (userAuth) {
+      window.location.pathname = "/personal-details";
+    }
+  }, []);
 
   const handleOnSubmit = async () => {
     if (!validateEmail(values?.email)) {
@@ -31,13 +44,18 @@ function Login() {
       return;
     }
     try {
-      const response = await axios.post("http://localhost:4000/auth/login", {
-        email: values?.email,
-        password: values?.password,
-      });
+      const response = await axios
+        .post("http://localhost:4000/auth/login", {
+          email: values?.email,
+          password: values?.password,
+        })
+        .then((res) => {
+          console.log(res.data);
+          dispatch(updateUserDetails(res.data));
+          //   alert(`Welcome back, ${response.data.name}`);
+          // window.location.pathname = "/personal-details";
+        });
       // alert(response.data.message);
-      alert(`Welcome back, ${response.data.name}`);
-      window.location.pathname = "/profile-details";
     } catch (err) {
       alert(err.response.data.error);
     }

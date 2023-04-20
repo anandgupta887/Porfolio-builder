@@ -22,6 +22,8 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -69,6 +71,14 @@ function Experience() {
   const [values, setValues] = useState([
     { company: "", position: "", from: "", to: "", description: "" },
   ]);
+
+  const userData = useSelector((state) => state.user.resume.experience);
+
+  console.log(userData, values);
+
+  useEffect(() => {
+    setValues(userData);
+  }, [userData]);
 
   const handleAddNewInput = () => {
     setValues([
@@ -223,7 +233,11 @@ function Experience() {
               </Grid>
             ))}
             <Grid item xs={12}>
-              <BottomButton nextSubmit={handleOnSubmit} nextLink="/project-details" prevLink="/skills" />
+              <BottomButton
+                nextSubmit={handleOnSubmit}
+                nextLink="/project-details"
+                prevLink="/skills"
+              />
             </Grid>
           </Grid>
         </Grid>

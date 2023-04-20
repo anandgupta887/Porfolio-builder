@@ -16,9 +16,18 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Stats from "./Stats";
 import BottomButton from "./BottomButton";
 import axios from "axios";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function PersonalDetails() {
   const [profileData, setProfileData] = useState({});
+  const userData = useSelector((state) => state.user.resume.profile);
+
+  console.log(userData, profileData);
+
+  useEffect(() => {
+    setProfileData(userData);
+  }, [userData]);
 
   const handleInput = (e) => {
     console.log(profileData);
@@ -156,6 +165,7 @@ function PersonalDetails() {
                 Enter Full name
               </Typography>
               <TextField
+                value={profileData.name}
                 name="name"
                 size="small"
                 fullWidth
@@ -168,6 +178,7 @@ function PersonalDetails() {
                 Profile title
               </Typography>
               <TextField
+                value={profileData.title}
                 name="title"
                 size="small"
                 fullWidth
@@ -180,6 +191,7 @@ function PersonalDetails() {
                 Enter Linkedin URL
               </Typography>
               <TextField
+                value={profileData.linkedIn}
                 size="small"
                 name="linkedIn"
                 onChange={handleInput}
@@ -192,6 +204,7 @@ function PersonalDetails() {
                 Enter Github URL
               </Typography>
               <TextField
+                value={profileData.github}
                 size="small"
                 name="github"
                 onChange={handleInput}
@@ -204,6 +217,7 @@ function PersonalDetails() {
                 Enter Email address
               </Typography>
               <TextField
+                value={profileData.email}
                 size="small"
                 name="email"
                 onChange={handleInput}
@@ -216,6 +230,7 @@ function PersonalDetails() {
                 Enter Phone number
               </Typography>
               <TextField
+                value={profileData.phone}
                 size="small"
                 name="phone"
                 onChange={handleInput}

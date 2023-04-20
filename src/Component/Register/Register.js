@@ -9,9 +9,19 @@ import {
 } from "@mui/material";
 import { useState } from "react";
 import axios from "axios";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 function Register() {
   const [values, setValues] = useState({});
+
+  const userAuth = useSelector((state) => state.token);
+
+  useEffect(() => {
+    if (userAuth) {
+      window.location.pathname = "/personal-details";
+    }
+  }, []);
 
   const handleOnInputChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });

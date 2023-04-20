@@ -11,8 +11,12 @@ import ProjectDetails from "./Component/FillDetails/ProjectDetails";
 import ResumeBody from "./Component/Resume/Body";
 import Education from "./Component/FillDetails/Education";
 import Template from "./Component/Template/Template";
+import { useSelector } from "react-redux";
 
 function App() {
+  const userDetails = useSelector((state) => state);
+  console.log(userDetails);
+
   return (
     <div style={{ margin: "1rem" }}>
       <Router>
