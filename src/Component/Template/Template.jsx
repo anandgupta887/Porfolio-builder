@@ -1,10 +1,51 @@
 import React from "react";
 import "./template.css";
 import details from "../../details";
+import adobePhotoshop2 from "../Template/assets/img/adobe-photoshop-2.svg";
+import adobeXD1 from "../Template/assets/img/adobe-xd-1.svg";
+import css3 from "../Template/assets/img/css-3.svg";
+import favicon from "../Template/assets/img/favicon.png";
+import figma1 from "../Template/assets/img/figma-1.svg";
+import gitIcon from "../Template/assets/img/git-icon.svg";
+import html1 from "../Template/assets/img/html-1.svg";
+import invision from "../Template/assets/img/invision.svg";
+import logoJavaScript from "../Template/assets/img/logo-javascript.svg";
+import profile from "../Template/assets/img/profile.png";
+import project1 from "../Template/assets/img/project1.jpg";
+import project2 from "../Template/assets/img/project2.jpg";
+import project3 from "../Template/assets/img/project3.jpg";
+import project4 from "../Template/assets/img/project4.jpg";
+import react2 from "../Template/assets/img/react-2.svg";
+import shapeCircle from "../Template/assets/img/shape-circle.svg";
+import shapeWaves from "../Template/assets/img/shape-waves.svg";
+import sketch2 from "../Template/assets/img/sketch-2.svg";
+import { useState } from "react";
 
 // console.log(details);
 
 function Template() {
+  const [details, setDetails] = useState();
+
+  const loadDetails = async () => {
+    try {
+      const response = await axios
+        .get("http://localhost:4000/get-profile", {
+          header: {
+            authorization: "Bearer adhh",
+          },
+        })
+        .then((res) => {
+          setDetails(res);
+        });
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  useEffect(() => {
+    loadDetails();
+  }, []);
+
   return (
     <>
       {/* <!--==================== HEADER ====================--> */}
@@ -79,26 +120,18 @@ function Template() {
             {/* <!-- The following 'div' is the centre div which is for home : title, profile pic and social media part clubbed together in a div. --> */}
             <div className="home__data grid">
               <h1 className="home__title">
-                Hi, I’m Chris <br />
-                Frontend Developer <br />
-                Based In Perú <br />
+                Hi, I'm {details?.resume?.profile?.name} <br />
+                {details?.resume?.profile?.title} <br />
+                Based In {details?.resume?.profile?.city} <br />
               </h1>
               {/* <img src="./profile.png" /> */}
               <div className="home__blob grid">
                 <div className="home__profile">
-                  <img src="./assets/img/profile.png" alt="profile-pic" />
+                  <img src={profile} alt="profile-pic" />
                 </div>
 
-                <img
-                  src="./assets/img/shape-waves.svg"
-                  alt=""
-                  className="home__shape-waves"
-                />
-                <img
-                  src="./assets/img/shape-circle.svg"
-                  alt=""
-                  className="home__shape-waves"
-                />
+                <img src={shapeWaves} alt="" className="home__shape-waves" />
+                <img src={shapeCircle} alt="" className="home__shape-waves" />
               </div>
 
               <ul className="home__social">
@@ -134,8 +167,10 @@ function Template() {
                 <h3 className="home__info-title">BIOGRAPHY</h3>
 
                 <p className="home__info-description">
-                  Hi, I'm Chris, Frontend Developer. Passionate about designing
-                  beautiful web interfaces. Based in Perú.
+                  Hi, I'm {details?.resume?.profile?.name},{" "}
+                  {details?.resume?.profile?.title}. Passionate about designing
+                  beautiful web interfaces. Based in{" "}
+                  {details?.resume?.profile?.city}.
                 </p>
               </div>
 
@@ -150,7 +185,7 @@ function Template() {
                 </p>
               </div>
 
-              <div>
+              {/* <div>
                 <h3 className="home__info-title">SERVICES</h3>
 
                 <p className="home__info-description">
@@ -158,22 +193,26 @@ function Template() {
                   UI/UX Design <br />
                   Animation <br />
                 </p>
-              </div>
+              </div> */}
             </div>
 
             {/* <!--==================== HOME INFO 2 ====================--> */}
             <div className="home__info">
-              <div>
+              {/* <div>
                 <h3 className="home__info-title">YEARS OF EXPERIENCE</h3>
 
                 <p className="home__info-number">08+</p>
-              </div>
+              </div> */}
 
               <div>
                 <h3 className="home__info-title">COMPLETED PROJECTS</h3>
 
-                <p className="home__info-number">24+</p>
+                <p className="home__info-number">
+                  24+
+                  {/* {details.resume.profile.projects?.length}+ */}
+                </p>
               </div>
+
               <div>
                 <h3 className="home__info-title">COMPANIES WORKED</h3>
 
@@ -198,7 +237,7 @@ function Template() {
               <div className="skills__info">
                 <div className="skills__data">
                   <div className="skills__blob">
-                    <img src="./assets/img/html-1.svg" alt="skills" />
+                    <img src={html1} alt="skills" />
                   </div>
 
                   <h3 className="skills__name">HTML</h3>
@@ -207,7 +246,7 @@ function Template() {
 
                 <div className="skills__data">
                   <div className="skills__blob">
-                    <img src="assets/img/css-3.svg" alt="skills" />
+                    <img src={css3} alt="skills" />
                   </div>
 
                   <h3 className="skills__name">CSS</h3>
@@ -216,10 +255,7 @@ function Template() {
 
                 <div className="skills__data">
                   <div className="skills__blob">
-                    <img
-                      src="assets/img/logo-javascript.svg"
-                      alt="skills-image"
-                    />
+                    <img src={logoJavaScript} alt="skills-image" />
                   </div>
 
                   <h3 className="skills__name">JavaScript</h3>
@@ -228,7 +264,7 @@ function Template() {
 
                 <div className="skills__data">
                   <div className="skills__blob">
-                    <img src="assets/img/react-2.svg" alt="skills-image" />
+                    <img src={react2} alt="skills-image" />
                   </div>
 
                   <h3 className="skills__name">React</h3>
@@ -237,7 +273,7 @@ function Template() {
 
                 <div className="skills__data">
                   <div className="skills__blob">
-                    <img src="assets/img/git-icon.svg" alt="skills-image" />
+                    <img src={gitIcon} alt="skills-image" />
                   </div>
 
                   <h3 className="skills__name">Git</h3>
@@ -255,7 +291,7 @@ function Template() {
               <div className="skills__info">
                 <div className="skills__data">
                   <div className="skills__blob">
-                    <img src="assets/img/figma-1.svg" alt="skills-image" />
+                    <img src={figma1} alt="skills-image" />
                   </div>
 
                   <h3 className="skills__name">Figma</h3>
@@ -264,7 +300,7 @@ function Template() {
 
                 <div className="skills__data">
                   <div className="skills__blob">
-                    <img src="assets/img/sketch-2.svg" alt="skills-image" />
+                    <img src={sketch2} alt="skills-image" />
                   </div>
 
                   <h3 className="skills__name">Sketch</h3>
@@ -273,7 +309,7 @@ function Template() {
 
                 <div className="skills__data">
                   <div className="skills__blob">
-                    <img src="assets/img/adobe-xd-1.svg" alt="skills-image" />
+                    <img src={adobeXD1} alt="skills-image" />
                   </div>
 
                   <h3 className="skills__name">Adobe XD</h3>
@@ -282,7 +318,7 @@ function Template() {
 
                 <div className="skills__data">
                   <div className="skills__blob">
-                    <img src="assets/img/invision.svg" alt="skills-image" />
+                    <img src={invision} alt="skills-image" />
                   </div>
 
                   <h3 className="skills__name">InvisionApp</h3>
@@ -291,10 +327,7 @@ function Template() {
 
                 <div className="skills__data">
                   <div className="skills__blob">
-                    <img
-                      src="assets/img/adobe-photoshop-2.svg"
-                      alt="skills-image"
-                    />
+                    <img src={adobePhotoshop2} alt="skills-image" />
                   </div>
 
                   <h3 className="skills__name">Photoshop</h3>
@@ -323,7 +356,7 @@ function Template() {
                     Master in Web Developer
                   </h3>
                   <span className="qualification__country">
-                    Peru - University
+                    {details.resume.profile.city} - University
                   </span>
                   <span className="qualification__year">2014 - 2019</span>
                 </div>
@@ -331,7 +364,7 @@ function Template() {
                 <div>
                   <h3 className="qualification__name">UI/UX Design</h3>
                   <span className="qualification__country">
-                    Institute - Spain
+                    Institute - {details.resume.profile.country}
                   </span>
                   <span className="qualification__year">2017 - 2019</span>
                 </div>
@@ -339,7 +372,7 @@ function Template() {
                 <div>
                   <h3 className="qualification__name">Computer Engineer</h3>
                   <span className="qualification__country">
-                    Institute - Peru
+                    Institute - {details.resume.profile.city}
                   </span>
                   <span className="qualification__year">2019 - 2022</span>
                 </div>
@@ -354,22 +387,28 @@ function Template() {
 
               <div className="qualification__info">
                 <div>
-                  <h3 className="qualification__name">Frontend Developer</h3>
-                  <span className="qualification__country">Adobe - Spain</span>
+                  <h3 className="qualification__name">
+                    {details.resume.profile.title}
+                  </h3>
+                  <span className="qualification__country">
+                    Adobe - {details.resume.profile.country}
+                  </span>
                   <span className="qualification__year">2014 - 2019</span>
                 </div>
 
                 <div>
                   <h3 className="qualification__name">Software Engineer</h3>
                   <span className="qualification__country">
-                    Microsoft - Peru
+                    Microsoft - {details.resume.profile.city}
                   </span>
                   <span className="qualification__year">2018 - 2020</span>
                 </div>
 
                 <div>
                   <h3 className="qualification__name">Graphic Designer</h3>
-                  <span className="qualification__country">Figma - Peru</span>
+                  <span className="qualification__country">
+                    Figma - {details.resume.profile.city}
+                  </span>
                   <span className="qualification__year">2020 - Present</span>
                 </div>
               </div>
@@ -398,8 +437,9 @@ function Template() {
               </h2>
 
               <p className="services__description">
-                Service that provides the best quality and at the request of the
-                client, with professional work and customer support.
+                {/* Service that provides the best quality and at the request of the
+                client, with professional work and customer support. */}
+                {details.resume.projects.description}
               </p>
 
               <div className="services__border"></div>
@@ -450,7 +490,7 @@ function Template() {
                 {/* <!--==================== PROJECT 1 ====================--> */}
                 <div className="projects__content swiper-slide">
                   <img
-                    src="assets/img/project1.jpg"
+                    src={project1}
                     alt="projects image"
                     className="projects__img"
                   />
@@ -468,7 +508,7 @@ function Template() {
                 {/* <!--==================== PROJECT 2 ====================--> */}
                 <div className="projects__content swiper-slide">
                   <img
-                    src="assets/img/project2.jpg"
+                    src={project2}
                     alt="projects image"
                     className="projects__img"
                   />
@@ -486,7 +526,7 @@ function Template() {
                 {/* <!--==================== PROJECT 3 ====================--> */}
                 <div className="projects__content swiper-slide">
                   <img
-                    src="assets/img/project3.jpg"
+                    src={project3}
                     alt="projects image"
                     className="projects__img"
                   />
@@ -504,7 +544,7 @@ function Template() {
                 {/* <!--==================== PROJECT 4 ====================--> */}
                 <div className="projects__content swiper-slide">
                   <img
-                    src="assets/img/project4.jpg"
+                    src={project4}
                     alt="projects image"
                     className="projects__img"
                   />
@@ -545,9 +585,10 @@ function Template() {
                 {/* <!--==================== TESTIMONIAL 1 ====================--> */}
                 <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
-                    “Working with Chris is to give a good impression, I carry
-                    out my project at a good cost, with excellent quality and
-                    attention. Great service and recommended.”
+                    “Working with {details.firstName} is to give a good
+                    impression, I carry out my project at a good cost, with
+                    excellent quality and attention. Great service and
+                    recommended.”
                   </p>
 
                   <div>
@@ -559,9 +600,10 @@ function Template() {
                 {/* <!--==================== TESTIMONIAL 2 ====================--> */}
                 <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
-                    “Working with Chris is to give a good impression, I carry
-                    out my project at a good cost, with excellent quality and
-                    attention. Great service and recommended.”
+                    “Working with {details.firstName} is to give a good
+                    impression, I carry out my project at a good cost, with
+                    excellent quality and attention. Great service and
+                    recommended.”
                   </p>
 
                   <div>
@@ -572,9 +614,10 @@ function Template() {
                 {/* <!--==================== TESTIMONIAL 3 ====================--> */}
                 <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
-                    “Working with Chris is to give a good impression, I carry
-                    out my project at a good cost, with excellent quality and
-                    attention. Great service and recommended.”
+                    “Working with {details.firstName} is to give a good
+                    impression, I carry out my project at a good cost, with
+                    excellent quality and attention. Great service and
+                    recommended.”
                   </p>
 
                   <div>
@@ -617,13 +660,16 @@ function Template() {
                 <div className="contact__data">
                   <span className="contact__data-title">Email</span>
                   <span className="contact__data-info">
-                    chrismayer@email.com
+                    {details.resume.profile.email}
                   </span>
                 </div>
 
                 <div className="contact__data">
                   <span className="contact__data-title">Whatsapp</span>
-                  <span className="contact__data-info">+51 9876543210</span>
+                  <span className="contact__data-info">
+                    {details.resume.profile.countryCode}{" "}
+                    {details.resume.profile.phone}
+                  </span>
 
                   {/* <!-- Insert a real number plus country code --> */}
                   <a
@@ -637,7 +683,7 @@ function Template() {
 
                 <div className="contact__data">
                   <span className="contact__data-title">Messenger</span>
-                  <span className="contact__data-info">@chris.fb123</span>
+                  <span className="contact__data-info">@alan.fb123</span>
 
                   {/* <!-- Insert your brand name or profile --> */}
                   <a
@@ -705,8 +751,8 @@ function Template() {
       {/* <!--==================== FOOTER ====================--> */}
       <footer className="footer">
         <div className="footer__container container">
-          <div className="footer__title">Chris</div>
-          <p>Frontend Developer</p>
+          <div className="footer__title">{details.name}</div>
+          <p>{details.resume.profile.title}</p>
 
           <ul className="footer__list">
             <li>

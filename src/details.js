@@ -1,9 +1,10 @@
 const details = {
   id: 1,
-  name: "John Doe",
-  email: "johndoe@example.com",
+  firstName: "Alan",
+  lastName: "Walker",
+  email: "alanwalker@example.com",
   password: "password123",
-  username: "johndoe",
+  username: "walkalanwalk",
   resume: {
     userId: "6095a5c5a5ae45f8c57d862a",
     education: [
@@ -41,11 +42,14 @@ const details = {
       },
     ],
     profile: {
-      name: "John Doe",
+      name: "Alan Walker",
       title: "Software Engineer",
+      country: "India",
+      city: "Mumbai",
       linkedIn: "https://www.linkedin.com/in/johndoe",
       github: "https://github.com/johndoe",
-      email: "johndoe@example.com",
+      email: "alanwalker@example.com",
+      countryCode: "+91",
       phone: "123-456-7890",
     },
   },
