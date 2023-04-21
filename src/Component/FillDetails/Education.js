@@ -136,7 +136,7 @@ function Education() {
               </Divider>
             </Grid>
             <Grid item xs={12} sx={{ textAlign: "end" }}>
-              {values.length < 5 && (
+              {values?.length < 5 && (
                 <Button
                   onClick={handleAddNewInput}
                   variant="contained"
@@ -161,7 +161,7 @@ function Education() {
                       <Typography sx={{ flex: 1, alignSelf: "center" }}>
                         {`Education ${idx + 1}`}
                       </Typography>
-                      {values.length > 1 && (
+                      {values?.length > 1 && (
                         <IconButton onClick={() => handleDeleteInput(idx)}>
                           <DeleteIcon />
                         </IconButton>

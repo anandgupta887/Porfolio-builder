@@ -16,7 +16,7 @@ function Body() {
     "#ed8936",
   ];
   const sections = {
-    basicInfo: "Basic Info",
+    basicInfo: "Personal details",
     workExp: "Work Experience",
     project: "Projects",
     education: "Education",
