@@ -20,31 +20,41 @@ import shapeCircle from "../Template/assets/img/shape-circle.svg";
 import shapeWaves from "../Template/assets/img/shape-waves.svg";
 import sketch2 from "../Template/assets/img/sketch-2.svg";
 import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
+import { useSelector } from "react-redux";
 
 // console.log(details);
 
 function Template() {
   const [details, setDetails] = useState();
 
-  const loadDetails = async () => {
-    try {
-      const response = await axios
-        .get("http://localhost:4000/get-profile", {
-          header: {
-            authorization: "Bearer adhh",
-          },
-        })
-        .then((res) => {
-          setDetails(res);
-        });
-    } catch (err) {
-      alert(err);
-    }
-  };
+  const userData = useSelector((state) => state?.user);
+
+  // setDetails(userData);
+
+  // console.log(userData);
+
+  // const loadDetails = async () => {
+  //   try {
+  //     const response = await axios
+  //       .get("http://localhost:4000/get-profile", {
+  //         header: {
+  //           authorization: "Bearer adhh",
+  //         },
+  //       })
+  //       .then((res) => {
+  //         setDetails(res);
+  //       });
+  //   } catch (err) {
+  //     alert(err);
+  //   }
+  // };
 
   useEffect(() => {
-    loadDetails();
-  }, []);
+    // loadDetails();
+    setDetails(userData);
+  }, [userData]);
 
   return (
     <>
@@ -120,11 +130,11 @@ function Template() {
             {/* <!-- The following 'div' is the centre div which is for home : title, profile pic and social media part clubbed together in a div. --> */}
             <div className="home__data grid">
               <h1 className="home__title">
-                Hi, I'm {details?.resume?.profile?.name} <br />
-                {details?.resume?.profile?.title} <br />
-                Based In {details?.resume?.profile?.city} <br />
+                Hi, I'm {details?.profile?.name} <br />
+                {details?.profile?.title} <br />
+                Based In {details?.profile?.city} <br />
               </h1>
-              {/* <img src="./profile.png" /> */}
+              {/* <img src="./profile?.png" /> */}
               <div className="home__blob grid">
                 <div className="home__profile">
                   <img src={profile} alt="profile-pic" />
@@ -167,10 +177,9 @@ function Template() {
                 <h3 className="home__info-title">BIOGRAPHY</h3>
 
                 <p className="home__info-description">
-                  Hi, I'm {details?.resume?.profile?.name},{" "}
-                  {details?.resume?.profile?.title}. Passionate about designing
-                  beautiful web interfaces. Based in{" "}
-                  {details?.resume?.profile?.city}.
+                  Hi, I'm {details?.profile?.name}, {details?.profile?.title}.
+                  Passionate about designing beautiful web interfaces. Based in{" "}
+                  {details?.profile?.city}.
                 </p>
               </div>
 
@@ -178,10 +187,10 @@ function Template() {
                 <h3 className="home__info-title">CONTACT</h3>
 
                 <p className="home__info-description">
-                  {details?.resume?.profile?.name} <br />
-                  {details?.resume?.profile?.email}
+                  {details?.profile?.name} <br />
+                  {details?.profile?.email}
                   <br />
-                  {details?.resume?.profile?.phone} <br />
+                  {details?.profile?.phone} <br />
                 </p>
               </div>
 
@@ -209,7 +218,7 @@ function Template() {
 
                 <p className="home__info-number">
                   24+
-                  {/* {details.resume.profile.projects?.length}+ */}
+                  {/* {details?.profile?.projects?.length}+ */}
                 </p>
               </div>
 
@@ -356,7 +365,7 @@ function Template() {
                     Master in Web Developer
                   </h3>
                   <span className="qualification__country">
-                    {details.resume.profile.city} - University
+                    {details?.profile?.city} - University
                   </span>
                   <span className="qualification__year">2014 - 2019</span>
                 </div>
@@ -364,7 +373,7 @@ function Template() {
                 <div>
                   <h3 className="qualification__name">UI/UX Design</h3>
                   <span className="qualification__country">
-                    Institute - {details.resume.profile.country}
+                    Institute - {details?.profile?.country}
                   </span>
                   <span className="qualification__year">2017 - 2019</span>
                 </div>
@@ -372,7 +381,7 @@ function Template() {
                 <div>
                   <h3 className="qualification__name">Computer Engineer</h3>
                   <span className="qualification__country">
-                    Institute - {details.resume.profile.city}
+                    Institute - {details?.profile?.city}
                   </span>
                   <span className="qualification__year">2019 - 2022</span>
                 </div>
@@ -388,10 +397,10 @@ function Template() {
               <div className="qualification__info">
                 <div>
                   <h3 className="qualification__name">
-                    {details.resume.profile.title}
+                    {details?.profile?.title}
                   </h3>
                   <span className="qualification__country">
-                    Adobe - {details.resume.profile.country}
+                    Adobe - {details?.profile?.country}
                   </span>
                   <span className="qualification__year">2014 - 2019</span>
                 </div>
@@ -399,7 +408,7 @@ function Template() {
                 <div>
                   <h3 className="qualification__name">Software Engineer</h3>
                   <span className="qualification__country">
-                    Microsoft - {details.resume.profile.city}
+                    Microsoft - {details?.profile?.city}
                   </span>
                   <span className="qualification__year">2018 - 2020</span>
                 </div>
@@ -407,7 +416,7 @@ function Template() {
                 <div>
                   <h3 className="qualification__name">Graphic Designer</h3>
                   <span className="qualification__country">
-                    Figma - {details.resume.profile.city}
+                    Figma - {details?.profile?.city}
                   </span>
                   <span className="qualification__year">2020 - Present</span>
                 </div>
@@ -439,7 +448,7 @@ function Template() {
               <p className="services__description">
                 {/* Service that provides the best quality and at the request of the
                 client, with professional work and customer support. */}
-                {details.resume.projects.description}
+                {details?.projects.description}
               </p>
 
               <div className="services__border"></div>
@@ -585,7 +594,7 @@ function Template() {
                 {/* <!--==================== TESTIMONIAL 1 ====================--> */}
                 <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
-                    “Working with {details.firstName} is to give a good
+                    “Working with {details?.profile?.name} is to give a good
                     impression, I carry out my project at a good cost, with
                     excellent quality and attention. Great service and
                     recommended.”
@@ -600,7 +609,7 @@ function Template() {
                 {/* <!--==================== TESTIMONIAL 2 ====================--> */}
                 <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
-                    “Working with {details.firstName} is to give a good
+                    “Working with {details?.profile?.name} is to give a good
                     impression, I carry out my project at a good cost, with
                     excellent quality and attention. Great service and
                     recommended.”
@@ -614,7 +623,7 @@ function Template() {
                 {/* <!--==================== TESTIMONIAL 3 ====================--> */}
                 <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
-                    “Working with {details.firstName} is to give a good
+                    “Working with {details?.profile?.name} is to give a good
                     impression, I carry out my project at a good cost, with
                     excellent quality and attention. Great service and
                     recommended.”
@@ -660,15 +669,14 @@ function Template() {
                 <div className="contact__data">
                   <span className="contact__data-title">Email</span>
                   <span className="contact__data-info">
-                    {details.resume.profile.email}
+                    {details?.profile?.email}
                   </span>
                 </div>
 
                 <div className="contact__data">
                   <span className="contact__data-title">Whatsapp</span>
                   <span className="contact__data-info">
-                    {details.resume.profile.countryCode}{" "}
-                    {details.resume.profile.phone}
+                    {details?.profile?.countryCode} {details?.profile?.phone}
                   </span>
 
                   {/* <!-- Insert a real number plus country code --> */}
@@ -751,8 +759,8 @@ function Template() {
       {/* <!--==================== FOOTER ====================--> */}
       <footer className="footer">
         <div className="footer__container container">
-          <div className="footer__title">{details.name}</div>
-          <p>{details.resume.profile.title}</p>
+          <div className="footer__title">{details?.profile?.name}</div>
+          <p>{details?.profile?.title}</p>
 
           <ul className="footer__list">
             <li>
