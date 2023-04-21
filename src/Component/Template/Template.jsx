@@ -21,6 +21,7 @@ import shapeWaves from "../Template/assets/img/shape-waves.svg";
 import sketch2 from "../Template/assets/img/sketch-2.svg";
 import { useState } from "react";
 import axios from "axios";
+import { useEffect } from "react";
 
 // console.log(details);
 
