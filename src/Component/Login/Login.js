@@ -53,7 +53,7 @@ function Login() {
           console.log(res.data);
           dispatch(updateUserDetails(res.data));
           //   alert(`Welcome back, ${response.data.name}`);
-          // window.location.pathname = "/personal-details";
+          window.location.pathname = "/personal-details";
         });
       // alert(response.data.message);
     } catch (err) {

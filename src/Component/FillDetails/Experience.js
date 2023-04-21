@@ -22,8 +22,9 @@ import MuiAccordion from "@mui/material/Accordion";
 import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { updateExperience } from "../../state/actions/userAction";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -68,11 +69,14 @@ function Experience() {
     setExpanded(newExpanded ? panel : false);
   };
 
+  const userData = useSelector((state) => state?.user?.experience);
+  const userAuth = useSelector((state) => state?.token);
+
+  const dispatch = useDispatch();
+
   const [values, setValues] = useState([
     { company: "", position: "", from: "", to: "", description: "" },
   ]);
-
-  const userData = useSelector((state) => state.user.resume.experience);
 
   console.log(userData, values);
 
@@ -114,9 +118,10 @@ function Experience() {
             },
           }
         )
-        .then((response) => {
+        .then((res) => {
+          dispatch(updateExperience(res?.data?.experience))
           console.log(`Welcome back, ${response}`);
-          window.location.pathname = "/project-details";
+          // window.location.pathname = "/project-details";
         });
     } catch (err) {
       alert(err.response.data.error);

@@ -16,18 +16,21 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import Stats from "./Stats";
 import BottomButton from "./BottomButton";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { updateProfile } from "../../state/actions/userAction";
 
 function PersonalDetails() {
   const [profileData, setProfileData] = useState({});
-  const userData = useSelector((state) => state.user.resume.profile);
+  const userData = useSelector((state) => state?.user?.profile);
+  const userAuth = useSelector(state => state?.token)
 
-  console.log(userData, profileData);
 
   useEffect(() => {
     setProfileData(userData);
   }, [userData]);
+
+  const dispatch = useDispatch();
 
   const handleInput = (e) => {
     console.log(profileData);
@@ -82,16 +85,17 @@ function PersonalDetails() {
           {
             headers: {
               authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAMTIzLmNvbSIsImlhdCI6MTY4MTU3NDQwMX0.lRN2u05joZT8ZKi6CYqvafxytZli-HdnVlvM_K0VGMU",
+                `Bearer ${userAuth}`,
             },
           }
         )
-        .then((response) => {
-          console.log(`Welcome back, ${response}`);
+        .then((res) => {
+          dispatch(updateProfile(res?.data.profile))
+          console.log(res?.data);
           window.location.pathname = "/skills";
         });
     } catch (err) {
-      alert(err.response.data.error);
+      alert(err);
     }
   };
 
@@ -114,12 +118,12 @@ function PersonalDetails() {
                 Upload Profile Pic
               </Typography>
 
-              {profileData.profile ? (
+              {profileData?.profile ? (
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <Avatar
-                    src={profileData.profile}
+                    src={profileData?.profile}
                     sx={{ width: 80, height: 80 }}
                   />
                   <div>
@@ -165,7 +169,7 @@ function PersonalDetails() {
                 Enter Full name
               </Typography>
               <TextField
-                value={profileData.name}
+                value={profileData?.name}
                 name="name"
                 size="small"
                 fullWidth
@@ -178,7 +182,7 @@ function PersonalDetails() {
                 Profile title
               </Typography>
               <TextField
-                value={profileData.title}
+                value={profileData?.title}
                 name="title"
                 size="small"
                 fullWidth
@@ -191,7 +195,7 @@ function PersonalDetails() {
                 Enter Linkedin URL
               </Typography>
               <TextField
-                value={profileData.linkedIn}
+                value={profileData?.linkedIn}
                 size="small"
                 name="linkedIn"
                 onChange={handleInput}
@@ -204,7 +208,7 @@ function PersonalDetails() {
                 Enter Github URL
               </Typography>
               <TextField
-                value={profileData.github}
+                value={profileData?.github}
                 size="small"
                 name="github"
                 onChange={handleInput}
@@ -217,7 +221,7 @@ function PersonalDetails() {
                 Enter Email address
               </Typography>
               <TextField
-                value={profileData.email}
+                value={profileData?.email}
                 size="small"
                 name="email"
                 onChange={handleInput}
@@ -230,7 +234,7 @@ function PersonalDetails() {
                 Enter Phone number
               </Typography>
               <TextField
-                value={profileData.phone}
+                value={profileData?.phone}
                 size="small"
                 name="phone"
                 onChange={handleInput}
