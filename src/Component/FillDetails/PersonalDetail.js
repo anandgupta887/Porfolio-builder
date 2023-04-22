@@ -23,8 +23,7 @@ import { updateProfile } from "../../state/actions/userAction";
 function PersonalDetails() {
   const [profileData, setProfileData] = useState({});
   const userData = useSelector((state) => state?.user?.profile);
-  const userAuth = useSelector(state => state?.token)
-
+  const userAuth = useSelector((state) => state?.token);
 
   useEffect(() => {
     setProfileData(userData);
@@ -84,13 +83,12 @@ function PersonalDetails() {
           { name, title, linkedIn, github, email, phone, image: "profile" },
           {
             headers: {
-              authorization:
-                `Bearer ${userAuth}`,
+              authorization: `Bearer ${userAuth}`,
             },
           }
         )
         .then((res) => {
-          dispatch(updateProfile(res?.data.profile))
+          dispatch(updateProfile(res?.data.profile));
           console.log(res?.data);
           window.location.pathname = "/skills";
         });
@@ -240,6 +238,21 @@ function PersonalDetails() {
                 onChange={handleInput}
                 fullWidth
                 placeholder="Eg. 987645912"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="body2" sx={{ mb: 1 }}>
+                About you
+              </Typography>
+              <TextField
+                name="description"
+                label="Description"
+                size="small"
+                fullWidth
+                multiline
+                rows={3}
+                value={profileData?.about}
+                onChange={handleInput}
               />
             </Grid>
             <Grid item xs={12}>

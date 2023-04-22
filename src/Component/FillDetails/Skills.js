@@ -106,7 +106,7 @@ function Skills() {
                 id="combo-box-demo"
                 size="small"
                 fullWidth
-                options={options.length > 0 ? options : defaultOptions}
+                options={options?.length > 0 ? options : defaultOptions}
                 onChange={(e) => {
                   if (e.target.textContent === "") return;
                   setValues([...values, { name: e.target.textContent }]);
@@ -121,7 +121,7 @@ function Skills() {
                 )}
               />
             </Grid>
-            {values.length > 0 && (
+            {values?.length > 0 && (
               <Grid item xs={12}>
                 <Card sx={{ p: 2 }}>
                   <Typography variant="h6" sx={{ mb: 1 }}>
