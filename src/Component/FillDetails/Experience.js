@@ -113,15 +113,14 @@ function Experience() {
           { experience: values },
           {
             headers: {
-              authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAMTIzLmNvbSIsImlhdCI6MTY4MTU3NDQwMX0.lRN2u05joZT8ZKi6CYqvafxytZli-HdnVlvM_K0VGMU",
+              authorization: `Bearer ${userAuth}`,
             },
           }
         )
         .then((res) => {
-          dispatch(updateExperience(res?.data?.experience))
-          console.log(`Welcome back, ${response}`);
-          // window.location.pathname = "/project-details";
+          dispatch(updateExperience(res?.data?.experience));
+          console.log(res);
+          window.location.pathname = "/project-details";
         });
     } catch (err) {
       alert(err.response.data.error);

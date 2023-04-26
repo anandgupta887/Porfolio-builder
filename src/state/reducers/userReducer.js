@@ -3,7 +3,9 @@ import {
   UPDATE_PROFILE,
   UPDATE_USER_DETAILS,
   UPDATE_SKILLS,
-  UPDATE_EXPERIENCE
+  UPDATE_EXPERIENCE,
+  UPDATE_PROJECT,
+  UPDATE_EDUCATION,
 } from "../actionTypes/actionTypes";
 
 const initialState = {};
@@ -38,6 +40,22 @@ const userReducer = (state = initialState, action) => {
         user: {
           ...state.user,
           experience: action.payload,
+        },
+      };
+    case UPDATE_PROJECT:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          project: action.payload,
+        },
+      };
+    case UPDATE_EDUCATION:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          education: action.payload,
         },
       };
     case LOGOUT_USER:
