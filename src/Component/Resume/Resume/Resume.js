@@ -57,8 +57,8 @@ const Resume = forwardRef((props, ref) => {
               ) : (
                 <span />
               )}
-              {item.companyName ? (
-                <p className={styles.subTitle}>{item.companyName}</p>
+              {item.company ? (
+                <p className={styles.subTitle}>{item.company}</p>
               ) : (
                 <span />
               )}
@@ -85,7 +85,8 @@ const Resume = forwardRef((props, ref) => {
               ) : (
                 <span />
               )}
-              {item.points?.length > 0 ? (
+              {item.description ? <p>{item?.description}</p> : <></>}
+              {/* {item.points?.length > 0 ? (
                 <ul className={styles.points}>
                   {item.points?.map((elem, index) => (
                     <li className={styles.point} key={elem + index}>
@@ -95,7 +96,7 @@ const Resume = forwardRef((props, ref) => {
                 </ul>
               ) : (
                 <span />
-              )}
+              )} */}
             </div>
           ))}
         </div>
@@ -141,7 +142,12 @@ const Resume = forwardRef((props, ref) => {
               ) : (
                 <span />
               )}
-              {item.points?.length > 0 ? (
+              {item.projectDescription ? (
+                <p>{item.projectDescription} </p>
+              ) : (
+                <></>
+              )}
+              {/* {item.points?.length > 0 ? (
                 <ul className={styles.points}>
                   {item.points?.map((elem, index) => (
                     <li className={styles.point} key={elem + index}>
@@ -151,7 +157,7 @@ const Resume = forwardRef((props, ref) => {
                 </ul>
               ) : (
                 <span />
-              )}
+              )} */}
             </div>
           ))}
         </div>
@@ -179,7 +185,7 @@ const Resume = forwardRef((props, ref) => {
                 <span />
               )}
               {item.college ? (
-                <p className={styles.subTitle}>Some college name</p>
+                <p className={styles.subTitle}>{item.college}</p>
               ) : (
                 <span />
               )}
@@ -303,6 +309,8 @@ const Resume = forwardRef((props, ref) => {
     container.style.setProperty("--color", props.activeColor);
   }, [props.activeColor]);
 
+  console.log(info);
+
   return (
     <div ref={ref}>
       <div ref={containerRef} className={styles.container}>
@@ -340,6 +348,7 @@ const Resume = forwardRef((props, ref) => {
               <span />
             )}
           </div>
+          <p className={styles.about}>{info.basicInfo?.detail?.about}</p>
         </div>
 
         <div className={styles.main}>

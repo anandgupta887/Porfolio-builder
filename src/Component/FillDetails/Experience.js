@@ -75,19 +75,21 @@ function Experience() {
   const dispatch = useDispatch();
 
   const [values, setValues] = useState([
-    { company: "", position: "", from: "", to: "", description: "" },
+    { company: "", title: "", startDate: "", endDate: "", description: "" },
   ]);
 
   console.log(userData, values);
 
   useEffect(() => {
-    setValues(userData);
+    if (userData) {
+      setValues(userData);
+    }
   }, [userData]);
 
   const handleAddNewInput = () => {
     setValues([
       ...values,
-      { company: "", position: "", from: "", to: "", description: "" },
+      { company: "", title: "", startDate: "", endDate: "", description: "" },
     ]);
   };
 
@@ -187,35 +189,46 @@ function Experience() {
                       </Grid>
                       <Grid item xs={12}>
                         <TextField
-                          name="position"
+                          name="title"
                           label="Position"
                           size="small"
                           fullWidth
-                          value={data.position}
+                          value={data.title}
+                          onChange={(e) => handleInputChange(e, idx)}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          name="location"
+                          label="Location"
+                          placeholder='fdf'
+                          size="small"
+                          fullWidth
+                          value={data.location}
                           onChange={(e) => handleInputChange(e, idx)}
                         />
                       </Grid>
                       <Grid item xs={6}>
                         <TextField
-                          name="from"
+                          name="startDate"
                           label="From"
                           size="small"
                           type="date"
                           fullWidth
                           InputLabelProps={{ shrink: true }}
-                          value={data.from}
+                          value={data.startDate}
                           onChange={(e) => handleInputChange(e, idx)}
                         />
                       </Grid>
                       <Grid item xs={6}>
                         <TextField
-                          name="to"
+                          name="endDate"
                           label="To"
                           size="small"
                           type="date"
                           fullWidth
                           InputLabelProps={{ shrink: true }}
-                          value={data.to}
+                          value={data.endDate}
                           onChange={(e) => handleInputChange(e, idx)}
                         />
                       </Grid>

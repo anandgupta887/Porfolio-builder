@@ -5,6 +5,8 @@ import { ArrowDown } from "react-feather";
 import Editor from "./Editor/Editor";
 import Resume from "./Resume/Resume";
 import styles from "./Body.module.css";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function Body() {
   const colors = [
@@ -25,6 +27,8 @@ function Body() {
     other: "Other",
   };
   const resumeRef = useRef();
+
+  const userDetails = useSelector((state) => state.user);
 
   const [activeColor, setActiveColor] = useState(colors[0]);
   const [resumeInformation, setResumeInformation] = useState({
@@ -65,12 +69,41 @@ function Body() {
     },
   });
 
+  console.log("body info", resumeInformation);
+
+  const handleSetResumeInformation = () => {
+    setResumeInformation({
+      ...resumeInformation,
+      [sections.basicInfo]: {
+        id: sections.basicInfo,
+        sectionTitle: sections.basicInfo,
+        detail: {
+          ...userDetails?.profile,
+        },
+      },
+      [sections.workExp]: {
+        id: sections.workExp,
+        sectionTitle: sections.workExp,
+        details: userDetails?.experience,
+      },
+      [sections.project]: {
+        id: sections.project,
+        sectionTitle: sections.project,
+        details: userDetails?.projects,
+      },
+    });
+  };
+
+  useEffect(() => {
+    handleSetResumeInformation();
+  }, []);
+
   return (
     <div className={styles.container}>
       {/* <p className={styles.heading}>Resume Builder</p> */}
       <div className={styles.toolbar}>
         <div className={styles.colors}>
-          {colors.map((item,idx) => (
+          {colors.map((item, idx) => (
             <span
               key={idx}
               style={{ backgroundColor: item }}
@@ -94,7 +127,7 @@ function Body() {
       </div>
       <div className={styles.main}>
         <Editor
-        // activeColor={activeColor}
+          // activeColor={activeColor}
           sections={sections}
           information={resumeInformation}
           setInformation={setResumeInformation}

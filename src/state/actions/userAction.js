@@ -62,5 +62,6 @@ export {
   updateProfile,
   updateSkills,
   updateExperience,
-  updateProject,updateEducation
+  updateProject,
+  updateEducation,
 };

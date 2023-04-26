@@ -31,7 +31,9 @@ function Skills() {
   console.log(userData, values);
 
   useEffect(() => {
-    setValues(userData);
+    if (userData?.length > 0) {
+      setValues(userData);
+    }
   }, [userData]);
 
   const dispatch = useDispatch();
@@ -108,7 +110,7 @@ function Skills() {
                 fullWidth
                 options={options?.length > 0 ? options : defaultOptions}
                 onChange={(e) => {
-                  if (e.target.textContent === "") return;
+                  if (e.target.textContent == "") return;
                   setValues([...values, { name: e.target.textContent }]);
                 }}
                 renderInput={(params) => (

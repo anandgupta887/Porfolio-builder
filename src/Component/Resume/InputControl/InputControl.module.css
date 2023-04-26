@@ -24,3 +24,20 @@ label {
 .container > input:focus {
   border: 1px solid #239ce2;
 }
+
+.container > textarea {
+  border: 1px solid #cccccc;
+  outline: none;
+  padding: 10px 12px;
+  font-size: 1rem;
+  border-radius: 5px;
+  resize: none;
+}
+
+.container > textarea:hover {
+  border: 1px solid #adadad;
+}
+
+.container > textarea:focus {
+  border: 1px solid #239ce2;
+}
