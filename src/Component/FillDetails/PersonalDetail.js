@@ -76,8 +76,17 @@ function PersonalDetails() {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { name, title, linkedIn, github, email, phone, profile, about } =
-        profileData;
+      const {
+        name,
+        title,
+        linkedIn,
+        github,
+        email,
+        phone,
+        profile,
+        location,
+        about,
+      } = profileData;
       // handleUploadImage();
       const response = await axios
         .post(
@@ -90,6 +99,7 @@ function PersonalDetails() {
             email,
             phone,
             about,
+            location,
             image: "profile",
           },
           {
@@ -249,6 +259,19 @@ function PersonalDetails() {
                 onChange={handleInput}
                 fullWidth
                 placeholder="Eg. +91 987645912"
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant="body2" sx={{ mb: 1 }}>
+                Location
+              </Typography>
+              <TextField
+                value={profileData?.location}
+                size="small"
+                name="location"
+                onChange={handleInput}
+                fullWidth
+                placeholder="Mumbai"
               />
             </Grid>
             <Grid item xs={12}>

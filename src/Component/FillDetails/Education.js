@@ -24,7 +24,7 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { updateExperience } from "../../state/actions/userAction";
+import { updateEducation, updateExperience } from "../../state/actions/userAction";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -75,7 +75,7 @@ function Education() {
 
   const userData = useSelector((state) => state?.user?.education);
   const userAuth = useSelector((state) => state?.token);
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   console.log(userData, values);
 
@@ -119,7 +119,7 @@ function Education() {
           }
         )
         .then((res) => {
-          dispatch(updateExperience(res?.data?.experience));
+          dispatch(updateEducation(res?.data?.education));
           window.location.pathname = "/template";
         });
     } catch (err) {
@@ -237,9 +237,8 @@ function Education() {
             <Grid item xs={12}>
               <BottomButton
                 nextSubmit={handleOnSubmit}
-                nextLink="/project-details"
                 nextText="Preview"
-                prevLink="/skills"
+                prevLink="/project-details"
               />
             </Grid>
           </Grid>
