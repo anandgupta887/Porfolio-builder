@@ -26,7 +26,9 @@ function PersonalDetails() {
   const userAuth = useSelector((state) => state?.token);
 
   useEffect(() => {
-    setProfileData(userData);
+    if (userData) {
+      setProfileData(userData);
+    }
   }, [userData]);
 
   const dispatch = useDispatch();
@@ -74,13 +76,22 @@ function PersonalDetails() {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { name, title, linkedIn, github, email, phone, profile } =
+      const { name, title, linkedIn, github, email, phone, profile, about } =
         profileData;
       // handleUploadImage();
       const response = await axios
         .post(
           "http://localhost:4000/profiles",
-          { name, title, linkedIn, github, email, phone, image: "profile" },
+          {
+            name,
+            title,
+            linkedIn,
+            github,
+            email,
+            phone,
+            about,
+            image: "profile",
+          },
           {
             headers: {
               authorization: `Bearer ${userAuth}`,
@@ -237,7 +248,7 @@ function PersonalDetails() {
                 name="phone"
                 onChange={handleInput}
                 fullWidth
-                placeholder="Eg. 987645912"
+                placeholder="Eg. +91 987645912"
               />
             </Grid>
             <Grid item xs={12}>
@@ -245,12 +256,12 @@ function PersonalDetails() {
                 About you
               </Typography>
               <TextField
-                name="description"
-                label="Description"
+                name="about"
                 size="small"
+                placeholder="Describe your self"
                 fullWidth
                 multiline
-                rows={3}
+                rows={2}
                 value={profileData?.about}
                 onChange={handleInput}
               />

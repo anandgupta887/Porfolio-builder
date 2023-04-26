@@ -38,6 +38,13 @@
   row-gap: 10px;
 }
 
+.header .about {
+  color: var(--color);
+  font-weight: 500;
+  font-size: 1.1rem;
+  margin-top: 15px;
+}
+
 .header .link {
   font-size: 0.875rem;
   display: flex;
@@ -148,3 +155,5 @@
 .hidden {
   display: none;
 }
+
+

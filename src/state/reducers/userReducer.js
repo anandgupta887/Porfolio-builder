@@ -47,7 +47,7 @@ const userReducer = (state = initialState, action) => {
         ...state,
         user: {
           ...state.user,
-          project: action.payload,
+          projects: action.payload,
         },
       };
     case UPDATE_EDUCATION:

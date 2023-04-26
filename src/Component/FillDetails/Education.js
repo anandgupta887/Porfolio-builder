@@ -80,7 +80,9 @@ function Education() {
   console.log(userData, values);
 
   useEffect(() => {
-    setValues(userData);
+    if (userData) {
+      setValues(userData);
+    }
   }, [userData]);
 
   const handleAddNewInput = () => {

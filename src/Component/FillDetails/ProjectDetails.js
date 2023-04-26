@@ -76,7 +76,9 @@ function ProjectDetails() {
   const userAuth = useSelector((state) => state?.token);
 
   useEffect(() => {
-    setValues(userData);
+    if (userData) {
+      setValues(userData);
+    }
   }, [userData]);
 
   const handleAddNewInput = () => {
@@ -112,7 +114,7 @@ function ProjectDetails() {
           }
         )
         .then((res) => {
-          dispatch(updateProject(res?.data?.experience));
+          dispatch(updateProject(res?.data?.projects));
           console.log(`Welcome back, ${res}`);
           window.location.pathname = "/education";
         });
@@ -170,11 +172,21 @@ function ProjectDetails() {
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
                         <TextField
-                          name="name"
+                          name="title"
                           label="Title"
                           size="small"
                           fullWidth
-                          value={data.name || ""}
+                          value={data.title || ""}
+                          onChange={(e) => handleInputChange(idx, e)}
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          name="link"
+                          label="Link"
+                          size="small"
+                          fullWidth
+                          value={data.link || ""}
                           onChange={(e) => handleInputChange(idx, e)}
                         />
                       </Grid>
@@ -204,13 +216,13 @@ function ProjectDetails() {
                       </Grid>
                       <Grid item xs={12}>
                         <TextField
-                          name="description"
+                          name="projectDescription"
                           label="Description"
                           size="small"
                           fullWidth
                           multiline
                           rows={3}
-                          value={data.description || ""}
+                          value={data.projectDescription || ""}
                           onChange={(e) => handleInputChange(idx, e)}
                         />
                       </Grid>

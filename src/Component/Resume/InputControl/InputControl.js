@@ -2,12 +2,21 @@ import React from "react";
 
 import styles from "./InputControl.module.css";
 
-function InputControl({ label, ...props }) {
+function InputControl({ label, isMultiline, ...props }) {
   return (
-    <div className={styles.container}>
-      {label && <label>{label}</label>}
-      <input type="text" {...props} />
-    </div>
+    <>
+      {isMultiline ? (
+        <div className={styles.container}>
+          {label && <label>{label}</label>}
+          <textarea type="text" {...props} />
+        </div>
+      ) : (
+        <div className={styles.container}>
+          {label && <label>{label}</label>}
+          <input type="text" {...props} />
+        </div>
+      )}
+    </>
   );
 }
 

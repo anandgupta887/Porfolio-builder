@@ -15,6 +15,7 @@ function Editor(props) {
   const [activeInformation, setActiveInformation] = useState(
     information[sections[Object.keys(sections)[0]]]
   );
+
   const [activeDetailIndex, setActiveDetailIndex] = useState(0);
   const [sectionTitle, setSectionTitle] = useState(
     sections[Object.keys(sections)[0]]
@@ -22,16 +23,19 @@ function Editor(props) {
   const [values, setValues] = useState({
     name: activeInformation?.detail?.name || "",
     title: activeInformation?.detail?.title || "",
-    linkedin: activeInformation?.detail?.linkedin || "",
+    linkedIn: activeInformation?.detail?.linkedIn || "",
+    about: activeInformation?.detail?.about || "",
     github: activeInformation?.detail?.github || "",
     phone: activeInformation?.detail?.phone || "",
     email: activeInformation?.detail?.email || "",
   });
 
+  console.log(values);
+
   const handlePointUpdate = (value, index) => {
     const tempValues = { ...values };
     if (!Array.isArray(tempValues.points)) tempValues.points = [];
-    tempValues.points[index] = value;
+    tempValues.points = value;
     setValues(tempValues);
   };
 
@@ -40,7 +44,7 @@ function Editor(props) {
       <div className={styles.row}>
         <InputControl
           label="Title"
-          placeholder="Enter title eg. Frontend developer"
+          placeholder="Eg. Frontend developer"
           value={values.title}
           onChange={(event) =>
             setValues((prev) => ({ ...prev, title: event.target.value }))
@@ -48,10 +52,10 @@ function Editor(props) {
         />
         <InputControl
           label="Company Name"
-          placeholder="Enter company name eg. amazon"
-          value={values.companyName}
+          placeholder="Eg. amazon"
+          value={values.company}
           onChange={(event) =>
-            setValues((prev) => ({ ...prev, companyName: event.target.value }))
+            setValues((prev) => ({ ...prev, company: event.target.value }))
           }
         />
       </div>
@@ -98,21 +102,14 @@ function Editor(props) {
       </div>
 
       <div className={styles.column}>
-        <label>Enter work description</label>
+        <label>Description</label>
         <InputControl
-          placeholder="Line 1"
-          value={values.points ? values.points[0] : ""}
-          onChange={(event) => handlePointUpdate(event.target.value, 0)}
-        />
-        <InputControl
-          placeholder="Line 2"
-          value={values.points ? values.points[1] : ""}
-          onChange={(event) => handlePointUpdate(event.target.value, 1)}
-        />
-        <InputControl
-          placeholder="Line 3"
-          value={values.points ? values.points[2] : ""}
-          onChange={(event) => handlePointUpdate(event.target.value, 2)}
+          placeholder="Enter work description"
+          value={values.description}
+          onChange={(event) =>
+            setValues((prev) => ({ ...prev, description: event.target.value }))
+          }
+          isMultiline
         />
       </div>
     </div>
@@ -123,7 +120,7 @@ function Editor(props) {
         <InputControl
           label="Title"
           value={values.title}
-          placeholder="Enter title eg. Chat app"
+          placeholder="Eg. Chat app"
           onChange={(event) =>
             setValues((prev) => ({ ...prev, title: event.target.value }))
           }
@@ -159,23 +156,14 @@ function Editor(props) {
         <label>Enter project description</label>
         <InputControl
           placeholder="Line 1"
-          value={values.points ? values.points[0] : ""}
-          onChange={(event) => handlePointUpdate(event.target.value, 0)}
-        />
-        <InputControl
-          placeholder="Line 2"
-          value={values.points ? values.points[1] : ""}
-          onChange={(event) => handlePointUpdate(event.target.value, 1)}
-        />
-        <InputControl
-          placeholder="Line 3"
-          value={values.points ? values.points[2] : ""}
-          onChange={(event) => handlePointUpdate(event.target.value, 2)}
-        />
-        <InputControl
-          placeholder="Line 4"
-          value={values.points ? values.points[3] : ""}
-          onChange={(event) => handlePointUpdate(event.target.value, 3)}
+          value={values.projectDescription}
+          isMultiline
+          onChange={(event) =>
+            setValues((prev) => ({
+              ...prev,
+              projectDescription: event.target.value,
+            }))
+          }
         />
       </div>
     </div>
@@ -226,17 +214,17 @@ function Editor(props) {
     <div className={styles.detail}>
       <div className={styles.row}>
         <InputControl
-          label="Name"
-          placeholder="Enter your full name eg. Aashu"
+          label="Enter Full name"
+          placeholder="Eg. John Doe"
           value={values.name}
           onChange={(event) =>
             setValues((prev) => ({ ...prev, name: event.target.value }))
           }
         />
         <InputControl
-          label="Title"
-          value={values.title}
-          placeholder="Enter your title eg. Frontend developer"
+          label="Profile tile"
+          value={values?.title}
+          placeholder="Eg. React JS developer"
           onChange={(event) =>
             setValues((prev) => ({ ...prev, title: event.target.value }))
           }
@@ -244,17 +232,17 @@ function Editor(props) {
       </div>
       <div className={styles.row}>
         <InputControl
-          label="Linkedin Link"
-          value={values.linkedin}
-          placeholder="Enter your linkedin profile link"
+          label="Enter LinkedIn Link"
+          value={values.linkedIn}
+          placeholder="Eg. https://linkedin.com/Port4leo"
           onChange={(event) =>
-            setValues((prev) => ({ ...prev, linkedin: event.target.value }))
+            setValues((prev) => ({ ...prev, linkedIn: event.target.value }))
           }
         />
         <InputControl
           label="Github Link"
           value={values.github}
-          placeholder="Enter your github profile link"
+          placeholder="Eg. https://github.com/Port4leo"
           onChange={(event) =>
             setValues((prev) => ({ ...prev, github: event.target.value }))
           }
@@ -264,7 +252,7 @@ function Editor(props) {
         <InputControl
           label="Email"
           value={values.email}
-          placeholder="Enter your email"
+          placeholder="Eg. contact@port4leo.com"
           onChange={(event) =>
             setValues((prev) => ({ ...prev, email: event.target.value }))
           }
@@ -272,10 +260,22 @@ function Editor(props) {
         <InputControl
           label="Enter phone"
           value={values.phone}
-          placeholder="Enter your phone number"
+          placeholder="Eg. +91 987645912"
           onChange={(event) =>
             setValues((prev) => ({ ...prev, phone: event.target.value }))
           }
+        />
+      </div>
+      <div className={styles.row}>
+        <InputControl
+          label="About you"
+          value={values?.about}
+          placeholder="Description"
+          isMultiline
+          onChange={(event) => {
+            setValues((prev) => ({ ...prev, about: event.target.value }));
+            console.log(values);
+          }}
         />
       </div>
     </div>
@@ -359,10 +359,11 @@ function Editor(props) {
         const tempDetail = {
           name: values.name,
           title: values.title,
-          linkedin: values.linkedin,
+          linkedIn: values.linkedIn,
           github: values.github,
           email: values.email,
           phone: values.phone,
+          about: values.about,
         };
 
         props.setInformation((prev) => ({
@@ -381,9 +382,9 @@ function Editor(props) {
           title: values.title,
           startDate: values.startDate,
           endDate: values.endDate,
-          companyName: values.companyName,
+          company: values.company,
           location: values.location,
-          points: values.points,
+          description: values.description,
         };
         const tempDetails = [...information[sections.workExp]?.details];
         tempDetails[activeDetailIndex] = tempDetail;
@@ -404,7 +405,7 @@ function Editor(props) {
           title: values.title,
           overview: values.overview,
           github: values.github,
-          points: values.points,
+          projectDescription: values.projectDescription,
         };
         const tempDetails = [...information[sections.project]?.details];
         tempDetails[activeDetailIndex] = tempDetail;
@@ -529,9 +530,7 @@ function Editor(props) {
       certificationLink: activeInfo?.details
         ? activeInfo.details[0]?.certificationLink || ""
         : "",
-      companyName: activeInfo?.details
-        ? activeInfo.details[0]?.companyName || ""
-        : "",
+      company: activeInfo?.details ? activeInfo.details[0]?.company || "" : "",
       college: activeInfo?.details ? activeInfo.details[0]?.college || "" : "",
       location: activeInfo?.details
         ? activeInfo.details[0]?.location || ""
@@ -547,10 +546,14 @@ function Editor(props) {
         : activeInfo?.points
         ? [...activeInfo.points]
         : "",
+      projectDescription: activeInfo?.details
+        ? activeInfo.details[0]?.projectDescription || ""
+        : activeInfo?.detail?.projectDescription || "",
       title: activeInfo?.details
         ? activeInfo.details[0]?.title || ""
         : activeInfo?.detail?.title || "",
-      linkedin: activeInfo?.detail?.linkedin || "",
+      linkedIn: activeInfo?.detail?.linkedIn || "",
+      about: activeInfo?.detail?.about || "",
       github: activeInfo?.details
         ? activeInfo.details[0]?.github || ""
         : activeInfo?.detail?.github || "",
@@ -575,13 +578,17 @@ function Editor(props) {
       link: activeInfo.details[activeDetailIndex]?.link || "",
       certificationLink:
         activeInfo.details[activeDetailIndex]?.certificationLink || "",
-      companyName: activeInfo.details[activeDetailIndex]?.companyName || "",
+      company: activeInfo.details[activeDetailIndex]?.company || "",
       location: activeInfo.details[activeDetailIndex]?.location || "",
       startDate: activeInfo.details[activeDetailIndex]?.startDate || "",
       endDate: activeInfo.details[activeDetailIndex]?.endDate || "",
       points: activeInfo.details[activeDetailIndex]?.points || "",
+      description: activeInfo.details[activeDetailIndex]?.description || "",
+      projectDescription:
+        activeInfo.details[activeDetailIndex]?.projectDescription || "",
       title: activeInfo.details[activeDetailIndex]?.title || "",
-      linkedin: activeInfo.details[activeDetailIndex]?.linkedin || "",
+      linkedIn: activeInfo.details[activeDetailIndex]?.linkedIn || "",
+      about: activeInfo.details[activeDetailIndex]?.about || "",
       github: activeInfo.details[activeDetailIndex]?.github || "",
       college: activeInfo.details[activeDetailIndex]?.college || "",
     });
