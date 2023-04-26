@@ -4,6 +4,8 @@ import {
   UPDATE_PROFILE,
   UPDATE_SKILLS,
   UPDATE_EXPERIENCE,
+  UPDATE_PROJECT,
+  UPDATE_EDUCATION,
 } from "../actionTypes/actionTypes";
 
 const updateUserDetails = (payload) => {
@@ -34,6 +36,20 @@ const updateExperience = (payload) => {
   };
 };
 
+const updateProject = (payload) => {
+  return {
+    type: UPDATE_PROJECT,
+    payload: payload,
+  };
+};
+
+const updateEducation = (payload) => {
+  return {
+    type: UPDATE_EDUCATION,
+    payload: payload,
+  };
+};
+
 const logoutUser = (payload) => {
   return {
     type: LOGOUT_USER,
@@ -46,4 +62,5 @@ export {
   updateProfile,
   updateSkills,
   updateExperience,
+  updateProject,updateEducation
 };

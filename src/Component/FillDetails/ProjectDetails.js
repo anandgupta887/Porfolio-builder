@@ -23,7 +23,8 @@ import MuiAccordionSummary from "@mui/material/AccordionSummary";
 import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import axios from "axios";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { updateProject } from "../../state/actions/userAction";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -69,10 +70,10 @@ function ProjectDetails() {
   };
 
   const [values, setValues] = useState([{}]);
+  const dispatch = useDispatch();
 
-  const userData = useSelector((state) => state.user.resume.projects);
-
-  console.log(userData, values);
+  const userData = useSelector((state) => state?.user?.projects);
+  const userAuth = useSelector((state) => state?.token);
 
   useEffect(() => {
     setValues(userData);
@@ -106,13 +107,13 @@ function ProjectDetails() {
           { projects: values },
           {
             headers: {
-              authorization:
-                "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3RAMTIzLmNvbSIsImlhdCI6MTY4MTU3NDQwMX0.lRN2u05joZT8ZKi6CYqvafxytZli-HdnVlvM_K0VGMU",
+              authorization: `Bearer ${userAuth}`,
             },
           }
         )
-        .then((response) => {
-          console.log(`Welcome back, ${response}`);
+        .then((res) => {
+          dispatch(updateProject(res?.data?.experience));
+          console.log(`Welcome back, ${res}`);
           window.location.pathname = "/education";
         });
     } catch (err) {
