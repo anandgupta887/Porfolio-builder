@@ -23,7 +23,13 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 
-// console.log(details);
+// console.log(details?.resume?.profile?.name);
+// console.log(details?.id);
+// {
+//   {
+//     details?.resume?.profile?.name;
+//   }
+// }
 
 function Template() {
   const [details, setDetails] = useState();
@@ -57,6 +63,9 @@ function Template() {
 
   return (
     <>
+      {/* {console.log(details?.resume?.profile?.name)}
+      {console.log(details?.id)} */}
+      {/* {console.log({ details })} */}
       {/* <!--==================== HEADER ====================--> */}
       <header className="header" id="header">
         <nav className="nav container">
@@ -129,9 +138,10 @@ function Template() {
             {/* <!-- The following 'div' is the centre div which is for home : title, profile pic and social media part clubbed together in a div. --> */}
             <div className="home__data grid">
               <h1 className="home__title">
-                Hi, I'm {details?.profile?.name} <br />
-                {details?.profile?.title} <br />
-                Based In {details?.profile?.city} <br />
+                {/* <h1>{{ details }.id}</h1> */}
+                Hi, I'm {details?.resume?.profile?.name} <br />
+                {details?.resume?.profile?.title} <br />
+                Based In {details?.resume?.profile?.city} <br />
               </h1>
               {/* <img src="./profile?.png" /> */}
               <div className="home__blob grid">
@@ -176,9 +186,10 @@ function Template() {
                 <h3 className="home__info-title">BIOGRAPHY</h3>
 
                 <p className="home__info-description">
-                  Hi, I'm {details?.profile?.name}, {details?.profile?.title}.
-                  Passionate about designing beautiful web interfaces. Based in{" "}
-                  {details?.profile?.city}.
+                  Hi, I'm {details?.resume?.profile?.name},{" "}
+                  {details?.resume?.profile?.title}. Passionate about designing
+                  beautiful web interfaces. Based in{" "}
+                  {details?.resume?.profile?.city}.
                 </p>
               </div>
 
@@ -186,10 +197,10 @@ function Template() {
                 <h3 className="home__info-title">CONTACT</h3>
 
                 <p className="home__info-description">
-                  {details?.profile?.name} <br />
-                  {details?.profile?.email}
+                  {details?.resume?.profile?.name} <br />
+                  {details?.resume?.profile?.email}
                   <br />
-                  {details?.profile?.phone} <br />
+                  {details?.resume?.profile?.phone} <br />
                 </p>
               </div>
 
@@ -217,7 +228,7 @@ function Template() {
 
                 <p className="home__info-number">
                   24+
-                  {/* {details?.profile?.projects?.length}+ */}
+                  {/* {details?.resume?.profile?.projects?.length}+ */}
                 </p>
               </div>
 
@@ -364,7 +375,7 @@ function Template() {
                     Master in Web Developer
                   </h3>
                   <span className="qualification__country">
-                    {details?.profile?.city} - University
+                    {details?.resume?.profile?.city} - University
                   </span>
                   <span className="qualification__year">2014 - 2019</span>
                 </div>
@@ -372,7 +383,7 @@ function Template() {
                 <div>
                   <h3 className="qualification__name">UI/UX Design</h3>
                   <span className="qualification__country">
-                    Institute - {details?.profile?.country}
+                    Institute - {details?.resume?.profile?.country}
                   </span>
                   <span className="qualification__year">2017 - 2019</span>
                 </div>
@@ -380,7 +391,7 @@ function Template() {
                 <div>
                   <h3 className="qualification__name">Computer Engineer</h3>
                   <span className="qualification__country">
-                    Institute - {details?.profile?.city}
+                    Institute - {details?.resume?.profile?.city}
                   </span>
                   <span className="qualification__year">2019 - 2022</span>
                 </div>
@@ -396,10 +407,10 @@ function Template() {
               <div className="qualification__info">
                 <div>
                   <h3 className="qualification__name">
-                    {details?.profile?.title}
+                    {details?.resume?.profile?.title}
                   </h3>
                   <span className="qualification__country">
-                    Adobe - {details?.profile?.country}
+                    Adobe - {details?.resume?.profile?.country}
                   </span>
                   <span className="qualification__year">2014 - 2019</span>
                 </div>
@@ -407,7 +418,7 @@ function Template() {
                 <div>
                   <h3 className="qualification__name">Software Engineer</h3>
                   <span className="qualification__country">
-                    Microsoft - {details?.profile?.city}
+                    Microsoft - {details?.resume?.profile?.city}
                   </span>
                   <span className="qualification__year">2018 - 2020</span>
                 </div>
@@ -415,7 +426,7 @@ function Template() {
                 <div>
                   <h3 className="qualification__name">Graphic Designer</h3>
                   <span className="qualification__country">
-                    Figma - {details?.profile?.city}
+                    Figma - {details?.resume?.profile?.city}
                   </span>
                   <span className="qualification__year">2020 - Present</span>
                 </div>
@@ -569,15 +580,15 @@ function Template() {
               </div>
 
               {/* <!-- Swiper arrows --> */}
-              <div className="swiper-button-next">
+              {/* <div className="swiper-button-next">
                 <i className="ri-arrow-right-s-line"></i>
               </div>
               <div className="swiper-button-prev">
                 <i className="ri-arrow-left-s-line"></i>
-              </div>
+              </div> */}
 
               {/* <!-- Swiper pagination --> */}
-              <div className="swiper-pagination"></div>
+              {/* <div className="swiper-pagination"></div> */}
             </div>
           </div>
         </section>
@@ -593,8 +604,8 @@ function Template() {
                 {/* <!--==================== TESTIMONIAL 1 ====================--> */}
                 <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
-                    “Working with {details?.profile?.name} is to give a good
-                    impression, I carry out my project at a good cost, with
+                    “Working with {details?.resume?.profile?.name} is to give a
+                    good impression, I carry out my project at a good cost, with
                     excellent quality and attention. Great service and
                     recommended.”
                   </p>
@@ -608,8 +619,8 @@ function Template() {
                 {/* <!--==================== TESTIMONIAL 2 ====================--> */}
                 <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
-                    “Working with {details?.profile?.name} is to give a good
-                    impression, I carry out my project at a good cost, with
+                    “Working with {details?.resume?.profile?.name} is to give a
+                    good impression, I carry out my project at a good cost, with
                     excellent quality and attention. Great service and
                     recommended.”
                   </p>
@@ -622,8 +633,8 @@ function Template() {
                 {/* <!--==================== TESTIMONIAL 3 ====================--> */}
                 <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
-                    “Working with {details?.profile?.name} is to give a good
-                    impression, I carry out my project at a good cost, with
+                    “Working with {details?.resume?.profile?.name} is to give a
+                    good impression, I carry out my project at a good cost, with
                     excellent quality and attention. Great service and
                     recommended.”
                   </p>
@@ -668,14 +679,15 @@ function Template() {
                 <div className="contact__data">
                   <span className="contact__data-title">Email</span>
                   <span className="contact__data-info">
-                    {details?.profile?.email}
+                    {details?.resume?.profile?.email}
                   </span>
                 </div>
 
                 <div className="contact__data">
                   <span className="contact__data-title">Whatsapp</span>
                   <span className="contact__data-info">
-                    {details?.profile?.countryCode} {details?.profile?.phone}
+                    {details?.resume?.profile?.countryCode}{" "}
+                    {details?.resume?.profile?.phone}
                   </span>
 
                   {/* <!-- Insert a real number plus country code --> */}
@@ -758,8 +770,8 @@ function Template() {
       {/* <!--==================== FOOTER ====================--> */}
       <footer className="footer">
         <div className="footer__container container">
-          <div className="footer__title">{details?.profile?.name}</div>
-          <p>{details?.profile?.title}</p>
+          <div className="footer__title">{details?.resume?.profile?.name}</div>
+          <p>{details?.resume?.profile?.title}</p>
 
           <ul className="footer__list">
             <li>
