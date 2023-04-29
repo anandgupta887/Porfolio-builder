@@ -22,6 +22,7 @@ import sketch2 from "../Template/assets/img/sketch-2.svg";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 
 // console.log(details?.profile?.name);
 // console.log(details?.id);
@@ -31,36 +32,7 @@ import axios from "axios";
 //   }
 // }
 
-function Template() {
-  const [details, setDetails] = useState();
-
-  const userData = useSelector((state) => state?.user);
-
-  // setDetails(userData);
-
-  // console.log(userData);
-
-  // const loadDetails = async () => {
-  //   try {
-  //     const response = await axios
-  //       .get("http://localhost:4000/get-profile", {
-  //         header: {
-  //           authorization: "Bearer adhh",
-  //         },
-  //       })
-  //       .then((res) => {
-  //         setDetails(res);
-  //       });
-  //   } catch (err) {
-  //     alert(err);
-  //   }
-  // };
-
-  useEffect(() => {
-    // loadDetails();
-    setDetails(userData);
-  }, [userData]);
-
+function Template({ details }) {
   return (
     <>
       {/* {console.log(details?.profile?.name)}
@@ -186,9 +158,8 @@ function Template() {
                 <h3 className="home__info-title">BIOGRAPHY</h3>
 
                 <p className="home__info-description">
-                  Hi, I'm {details?.profile?.name},{" "}
-                  {details?.profile?.title}. Passionate about designing
-                  beautiful web interfaces. Based in{" "}
+                  Hi, I'm {details?.profile?.name}, {details?.profile?.title}.
+                  Passionate about designing beautiful web interfaces. Based in{" "}
                   {details?.profile?.city}.
                 </p>
               </div>
@@ -604,8 +575,8 @@ function Template() {
                 {/* <!--==================== TESTIMONIAL 1 ====================--> */}
                 <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
-                    “Working with {details?.profile?.name} is to give a
-                    good impression, I carry out my project at a good cost, with
+                    “Working with {details?.profile?.name} is to give a good
+                    impression, I carry out my project at a good cost, with
                     excellent quality and attention. Great service and
                     recommended.”
                   </p>
@@ -619,8 +590,8 @@ function Template() {
                 {/* <!--==================== TESTIMONIAL 2 ====================--> */}
                 <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
-                    “Working with {details?.profile?.name} is to give a
-                    good impression, I carry out my project at a good cost, with
+                    “Working with {details?.profile?.name} is to give a good
+                    impression, I carry out my project at a good cost, with
                     excellent quality and attention. Great service and
                     recommended.”
                   </p>
@@ -633,8 +604,8 @@ function Template() {
                 {/* <!--==================== TESTIMONIAL 3 ====================--> */}
                 <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
-                    “Working with {details?.profile?.name} is to give a
-                    good impression, I carry out my project at a good cost, with
+                    “Working with {details?.profile?.name} is to give a good
+                    impression, I carry out my project at a good cost, with
                     excellent quality and attention. Great service and
                     recommended.”
                   </p>
@@ -686,8 +657,7 @@ function Template() {
                 <div className="contact__data">
                   <span className="contact__data-title">Whatsapp</span>
                   <span className="contact__data-info">
-                    {details?.profile?.countryCode}{" "}
-                    {details?.profile?.phone}
+                    {details?.profile?.countryCode} {details?.profile?.phone}
                   </span>
 
                   {/* <!-- Insert a real number plus country code --> */}

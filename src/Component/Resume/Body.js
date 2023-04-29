@@ -91,8 +91,14 @@ function Body() {
         sectionTitle: sections.project,
         details: userDetails?.projects,
       },
+      [sections.education]: {
+        id: sections.education,
+        sectionTitle: sections.education,
+        details: userDetails?.education,
+      },
     });
   };
+  console.log(userDetails?.education);
 
   useEffect(() => {
     handleSetResumeInformation();

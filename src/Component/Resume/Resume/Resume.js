@@ -230,22 +230,6 @@ const Resume = forwardRef((props, ref) => {
         </div>
       </div>
     ),
-    [sections.summary]: (
-      <div
-        key={"summary"}
-        draggable
-        onDragOver={() => seTarget(info.summary?.id)}
-        onDragEnd={() => setSource(info.summary?.id)}
-        className={`${styles.section} ${
-          info.summary?.sectionTitle ? "" : styles.hidden
-        }`}
-      >
-        <div className={styles.sectionTitle}>{info.summary?.sectionTitle}</div>
-        <div className={styles.content}>
-          <p className={styles.overview}>{info.summary?.detail}</p>
-        </div>
-      </div>
-    ),
     [sections.other]: (
       <div
         key={"other"}
@@ -262,6 +246,22 @@ const Resume = forwardRef((props, ref) => {
         </div>
       </div>
     ),
+    // [sections.summary]: (
+    //   <div
+    //     key={"summary"}
+    //     draggable
+    //     onDragOver={() => seTarget(info.summary?.id)}
+    //     onDragEnd={() => setSource(info.summary?.id)}
+    //     className={`${styles.section} ${
+    //       info.summary?.sectionTitle ? "" : styles.hidden
+    //     }`}
+    //   >
+    //     <div className={styles.sectionTitle}>{info.summary?.sectionTitle}</div>
+    //     <div className={styles.content}>
+    //       <p className={styles.overview}>{info.summary?.detail}</p>
+    //     </div>
+    //   </div>
+    // ),
   };
 
   const swapSourceTarget = (source, target) => {
