@@ -13,6 +13,7 @@ import Education from "./Component/FillDetails/Education";
 import Template from "./Component/Template/Template";
 import { useSelector } from "react-redux";
 import TemplateHandler from "./Component/TemplateRoot/TemplateHandler";
+import Achievement from "./Component/FillDetails/Achievement";
 
 function App() {
   const userDetails = useSelector((state) => state);
@@ -24,6 +25,9 @@ function App() {
         <Switch>
           <Route path="/choose-template">
             <ChooseTemplate />
+          </Route>
+          <Route path="/achievement">
+            <Achievement />
           </Route>
           <Route path="/template">
             <TemplateHandler />

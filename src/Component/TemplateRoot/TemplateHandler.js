@@ -15,7 +15,7 @@ function TemplateHandler({ browse }) {
   const loadDetails = async () => {
     if (browse) {
       try {
-        await axios.get(`${backendUrl}profiles/${username}`).then((res) => {
+        await axios.get(`${backendUrl}/profiles/${username}`).then((res) => {
           setDetails(res.data.data);
         });
       } catch (err) {
