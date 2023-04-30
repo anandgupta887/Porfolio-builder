@@ -12,7 +12,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { backendUrl } from "../config/config";
-import Popup from "../Popup";
+import Popup from "../SnackBarPopup";
 
 function Register() {
   const [values, setValues] = useState({});

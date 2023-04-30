@@ -9,43 +9,33 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 // inside the Popup function parameter, "props" will come
-function Popup(props) {
-  const [open, setOpen] = React.useState(false);
-
-  const handleClick = () => {
-    setOpen(true);
-  };
-
+function Popup({ open, set, data }) {
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
       return;
     }
-    setOpen(false);
+    set(false);
   };
 
   return (
     <Stack spacing={2} sx={{ width: "100%" }}>
-      <Button variant="outlined" onClick={handleClick}>
-        Open success snackbar
-      </Button>
-      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+      <Snackbar
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+      >
         {/* <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
           This is a success message!
         </Alert> */}
         <Alert
           onClose={handleClose}
-          severity={props.message}
+          severity={data.severity}
           sx={{ width: "100%" }}
         >
-          This is a {props.message} message!
+          {data.message}
         </Alert>
       </Snackbar>
-      <div style={{ display: "none" }}>
-        <Alert severity="error">This is an error message!</Alert>
-        <Alert severity="warning">This is a warning message!</Alert>
-        <Alert severity="info">This is an information message!</Alert>
-        <Alert severity="success">This is a success message!</Alert>
-      </div>
     </Stack>
   );
 }
