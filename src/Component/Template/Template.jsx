@@ -33,6 +33,7 @@ import { useParams } from "react-router-dom";
 // }
 
 function Template({ details }) {
+  console.log(details)
   return (
     <>
       {/* {console.log(details?.profile?.name)}

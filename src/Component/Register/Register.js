@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { backendUrl } from "../config/config";
 import { updateNewUser } from "../../state/actions/userAction";
+import Popup from "../SnackBarPopup";
 
 function Register() {
   const [values, setValues] = useState({});
@@ -44,8 +45,10 @@ function Register() {
       dispatch(updateNewUser(response.data.token));
       // Redirect to dashboard page
       window.location.pathname = "/personal-details";
+      <Popup message="success" />;
     } catch (err) {
       alert(err.response.data.error);
+      <Popup message="error" />;
     }
   };
 
