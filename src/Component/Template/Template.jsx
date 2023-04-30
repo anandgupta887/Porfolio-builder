@@ -23,6 +23,7 @@ import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import { useParams } from "react-router-dom";
+import moment from "moment/moment";
 
 // console.log(details?.profile?.name);
 // console.log(details?.id);
@@ -33,7 +34,7 @@ import { useParams } from "react-router-dom";
 // }
 
 function Template({ details }) {
-  console.log(details)
+  console.log(details);
   return (
     <>
       {/* {console.log(details?.profile?.name)}
@@ -43,7 +44,7 @@ function Template({ details }) {
       <header className="header" id="header">
         <nav className="nav container">
           <a href="#" className="nav__logo">
-            Chris Evans
+            {details?.profile?.name}
           </a>
 
           <div className="nav__menu" id="nav-menu">
@@ -114,7 +115,7 @@ function Template({ details }) {
                 {/* <h1>{{ details }.id}</h1> */}
                 Hi, I'm {details?.profile?.name} <br />
                 {details?.profile?.title} <br />
-                Based In {details?.profile?.city} <br />
+                Based In {details?.profile?.location} <br />
               </h1>
               {/* <img src="./profile?.png" /> */}
               <div className="home__blob grid">
@@ -198,16 +199,15 @@ function Template({ details }) {
               <div>
                 <h3 className="home__info-title">COMPLETED PROJECTS</h3>
 
-                <p className="home__info-number">
-                  24+
-                  {/* {details?.profile?.projects?.length}+ */}
-                </p>
+                <p className="home__info-number">{details?.projects?.length}</p>
               </div>
 
               <div>
                 <h3 className="home__info-title">COMPANIES WORKED</h3>
 
-                <p className="home__info-number">07+</p>
+                <p className="home__info-number">
+                  {details?.experience?.length}
+                </p>
               </div>
             </div>
           </div>
@@ -342,31 +342,21 @@ function Template({ details }) {
               </h3>
 
               <div className="qualification__info">
-                <div>
-                  <h3 className="qualification__name">
-                    Master in Web Developer
-                  </h3>
-                  <span className="qualification__country">
-                    {details?.profile?.location} - University
-                  </span>
-                  <span className="qualification__year">2014 - 2019</span>
-                </div>
-
-                <div>
-                  <h3 className="qualification__name">UI/UX Design</h3>
-                  <span className="qualification__country">
-                    Institute - {details?.profile?.country}
-                  </span>
-                  <span className="qualification__year">2017 - 2019</span>
-                </div>
-
-                <div>
-                  <h3 className="qualification__name">Computer Engineer</h3>
-                  <span className="qualification__country">
-                    Institute - {details?.profile?.city}
-                  </span>
-                  <span className="qualification__year">2019 - 2022</span>
-                </div>
+                {details?.education?.map((data) => (
+                  <div>
+                    <h3 className="qualification__name">
+                      {data?.degree} in {data?.fieldOfStudy}
+                    </h3>
+                    <span className="qualification__country">
+                      {data?.institution}
+                    </span>
+                    <span className="qualification__year">{`${moment(
+                      data?.from
+                    ).format("yyyy")} - ${moment(data?.to).format(
+                      "yyyy"
+                    )}`}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -377,31 +367,19 @@ function Template({ details }) {
               </h3>
 
               <div className="qualification__info">
-                <div>
-                  <h3 className="qualification__name">
-                    {details?.profile?.title}
-                  </h3>
-                  <span className="qualification__country">
-                    Adobe - {details?.profile?.country}
-                  </span>
-                  <span className="qualification__year">2014 - 2019</span>
-                </div>
-
-                <div>
-                  <h3 className="qualification__name">Software Engineer</h3>
-                  <span className="qualification__country">
-                    Microsoft - {details?.profile?.city}
-                  </span>
-                  <span className="qualification__year">2018 - 2020</span>
-                </div>
-
-                <div>
-                  <h3 className="qualification__name">Graphic Designer</h3>
-                  <span className="qualification__country">
-                    Figma - {details?.profile?.city}
-                  </span>
-                  <span className="qualification__year">2020 - Present</span>
-                </div>
+                {details?.experience.map((data) => (
+                  <div>
+                    <h3 className="qualification__name">{data.title}</h3>
+                    <span className="qualification__country">
+                      {data.company} {data?.location && "-"} {data?.location}
+                    </span>
+                    <span className="qualification__year">{`${moment(
+                      data?.from
+                    ).format("yyyy")} - ${moment(data?.to).format(
+                      "yyyy"
+                    )}`}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
@@ -478,77 +456,25 @@ function Template({ details }) {
           <div className="container section__border">
             <div className="projects__container swiper">
               <div className="swiper-wrapper">
-                {/* <!--==================== PROJECT 1 ====================--> */}
-                <div className="projects__content swiper-slide">
-                  <img
-                    src={project1}
-                    alt="projects image"
-                    className="projects__img"
-                  />
+                {details?.projects.map((data) => (
+                  <div className="projects__content swiper-slide">
+                    <img
+                      src={project1}
+                      alt="projects image"
+                      className="projects__img"
+                    />
 
-                  <div>
-                    <span className="projects__subtitle">Web</span>
-                    <h1 className="projects__title">Modern Website</h1>
+                    <div>
+                      <span className="projects__subtitle">Web</span>
+                      <h1 className="projects__title">{data?.title}</h1>
 
-                    <a href="#" className="projects__button">
-                      View demo <i className="ri-arrow-right-line"></i>
-                    </a>
+                      <a href={data.link} className="projects__button">
+                        View demo <i className="ri-arrow-right-line"></i>
+                      </a>
+                    </div>
                   </div>
-                </div>
-
-                {/* <!--==================== PROJECT 2 ====================--> */}
-                <div className="projects__content swiper-slide">
-                  <img
-                    src={project2}
-                    alt="projects image"
-                    className="projects__img"
-                  />
-
-                  <div>
-                    <span className="projects__subtitle">Web</span>
-                    <h1 className="projects__title">E-commerce Store</h1>
-
-                    <a href="#" className="projects__button">
-                      View demo <i className="ri-arrow-right-line"></i>
-                    </a>
-                  </div>
-                </div>
-
-                {/* <!--==================== PROJECT 3 ====================--> */}
-                <div className="projects__content swiper-slide">
-                  <img
-                    src={project3}
-                    alt="projects image"
-                    className="projects__img"
-                  />
-
-                  <div>
-                    <span className="projects__subtitle">Design</span>
-                    <h1 className="projects__title">Application Design</h1>
-
-                    <a href="#" className="projects__button">
-                      View demo <i className="ri-arrow-right-line"></i>
-                    </a>
-                  </div>
-                </div>
-
-                {/* <!--==================== PROJECT 4 ====================--> */}
-                <div className="projects__content swiper-slide">
-                  <img
-                    src={project4}
-                    alt="projects image"
-                    className="projects__img"
-                  />
-
-                  <div>
-                    <span className="projects__subtitle">Animation</span>
-                    <h1 className="projects__title">Application Prototypes</h1>
-
-                    <a href="#" className="projects__button">
-                      View demo <i className="ri-arrow-right-line"></i>
-                    </a>
-                  </div>
-                </div>
+                ))}
+                
               </div>
 
               {/* <!-- Swiper arrows --> */}
@@ -619,12 +545,12 @@ function Template({ details }) {
         {/* </div> */}
 
         {/* <!-- Swiper arrows --> */}
-        <div className="swiper-button-next">
+        {/* <div className="swiper-button-next">
           <i className="ri-arrow-right-s-line"></i>
         </div>
         <div className="swiper-button-prev">
           <i className="ri-arrow-left-s-line"></i>
-        </div>
+        </div> */}
         {/* </div> */}
         {/* </div> */}
 

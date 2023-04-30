@@ -191,7 +191,7 @@ function Education() {
                       </Grid>
                       <Grid item xs={12}>
                         <TextField
-                          name="field"
+                          name="fieldOfStudy"
                           label="Specialized in"
                           size="small"
                           fullWidth

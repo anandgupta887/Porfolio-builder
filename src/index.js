@@ -16,7 +16,6 @@ root.render(
     <Provider store={store}>
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={theme}>
-          <Header />
           <App />
         </ThemeProvider>
       </PersistGate>
