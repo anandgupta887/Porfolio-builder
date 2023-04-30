@@ -26,7 +26,7 @@ function App() {
             <ChooseTemplate />
           </Route>
           <Route path="/template">
-            <Template />
+            <TemplateHandler />
           </Route>
           <Route path="/login">
             <Login />
