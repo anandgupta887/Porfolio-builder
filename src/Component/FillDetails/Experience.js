@@ -76,7 +76,7 @@ function Experience() {
   const dispatch = useDispatch();
 
   const [values, setValues] = useState([
-    { company: "", title: "", startDate: "", endDate: "", description: "" },
+    { company: "", title: "", startDate: "", endDate: "", description: "",location:'' },
   ]);
 
   console.log(userData, values);
@@ -90,7 +90,14 @@ function Experience() {
   const handleAddNewInput = () => {
     setValues([
       ...values,
-      { company: "", title: "", startDate: "", endDate: "", description: "" },
+      {
+        company: "",
+        title: "",
+        startDate: "",
+        endDate: "",
+        description: "",
+        location: "",
+      },
     ]);
   };
 
@@ -110,7 +117,7 @@ function Experience() {
   const handleOnSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios
+      await axios
         .post(
           `${backendUrl}/experience`,
           { experience: values },
@@ -202,7 +209,7 @@ function Experience() {
                         <TextField
                           name="location"
                           label="Location"
-                          placeholder='fdf'
+                          placeholder="Eg. Remote"
                           size="small"
                           fullWidth
                           value={data.location}
