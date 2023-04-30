@@ -85,7 +85,7 @@ function Login() {
 
   return (
     <>
-    {/* This below components is adding the snackbar component to the page and passing the props  */}
+      {/* This below components is adding the snackbar component to the page and passing the props  */}
       <Popup open={snackbarState} set={setSnackbarState} data={snackbarData} />
       <Box
         sx={{
@@ -120,7 +120,7 @@ function Login() {
           >
             <Box sx={{ maxWidth: { xs: "400px" }, m: "auto" }}>
               <Typography variant="h6" sx={{ mb: 1 }}>
-                Welcome back
+                Welcome back!
               </Typography>
               <Typography variant="body2" sx={{ mb: 2 }}>
                 Please enter your details
