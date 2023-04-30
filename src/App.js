@@ -12,7 +12,7 @@ import ResumeBody from "./Component/Resume/Body";
 import Education from "./Component/FillDetails/Education";
 import Template from "./Component/Template/Template";
 import { useSelector } from "react-redux";
-import TemplateHandler from './Component/TemplateRoot/TemplateHandler'
+import TemplateHandler from "./Component/TemplateRoot/TemplateHandler";
 
 function App() {
   const userDetails = useSelector((state) => state);
@@ -26,7 +26,7 @@ function App() {
             <ChooseTemplate />
           </Route>
           <Route path="/template">
-            <Template />
+            <TemplateHandler />
           </Route>
           <Route path="/login">
             <Login />

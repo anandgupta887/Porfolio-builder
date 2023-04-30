@@ -79,18 +79,22 @@ function PersonalDetails() {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    const {
+      name,
+      title,
+      linkedIn,
+      github,
+      email,
+      phone,
+      profile,
+      location,
+      about,
+    } = profileData;
+    if (!(name && email && phone && location)) {
+      console.log('returned')
+      return;
+    }
     try {
-      const {
-        name,
-        title,
-        linkedIn,
-        github,
-        email,
-        phone,
-        profile,
-        location,
-        about,
-      } = profileData;
       // handleUploadImage();
       const response = await axios
         .post(

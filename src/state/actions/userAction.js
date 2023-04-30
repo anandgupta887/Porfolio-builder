@@ -6,11 +6,27 @@ import {
   UPDATE_EXPERIENCE,
   UPDATE_PROJECT,
   UPDATE_EDUCATION,
+  UPDATE_TEMPLATE,
+  UPDATE_NEW_USER,
 } from "../actionTypes/actionTypes";
 
 const updateUserDetails = (payload) => {
   return {
     type: UPDATE_USER_DETAILS,
+    payload: payload,
+  };
+};
+
+const updateNewUser = (payload) => {
+  return {
+    type: UPDATE_NEW_USER,
+    payload: payload,
+  };
+};
+
+const updateTemplateId = (payload) => {
+  return {
+    type: UPDATE_TEMPLATE,
     payload: payload,
   };
 };
@@ -64,4 +80,6 @@ export {
   updateExperience,
   updateProject,
   updateEducation,
+  updateTemplateId,
+  updateNewUser,
 };
