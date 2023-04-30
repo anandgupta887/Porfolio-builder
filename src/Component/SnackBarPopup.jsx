@@ -9,6 +9,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 // inside the Popup function parameter, "props" will come
+// below we are destructuring the props to avoid writing "props.this/that"
 function Popup({ open, set, data }) {
   const handleClose = (event, reason) => {
     if (reason === "clickaway") {
@@ -28,6 +29,7 @@ function Popup({ open, set, data }) {
         {/* <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
           This is a success message!
         </Alert> */}
+        {/* Below we are using the state to render accordingly */}
         <Alert
           onClose={handleClose}
           severity={data.severity}

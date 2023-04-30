@@ -30,15 +30,17 @@ function Login() {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
+  // this is a state that will handle the state for visibility of snackbar
   const [snackbarState, setSnackbarState] = useState(false);
+  //this is the state to owns the data to be visible n kind of severity it has - success or error
   const [snackbarData, setSnackbarData] = useState({
     message: "",
     severity: "",
   });
 
   const handleOpenSnackbar = (severity, message) => {
+    // this function is setting the states
     setSnackbarData({
-      ...snackbarData,
       message: message,
       severity: severity,
     });
@@ -69,19 +71,22 @@ function Login() {
         .then((res) => {
           dispatch(updateUserDetails(res.data));
           //   alert(`Welcome back, ${response.data.name}`);
+          // On successfull login the below function calls the function to update all snackbar state to display
           handleOpenSnackbar("success", "Logged in successfully");
           window.location.pathname = "/personal-details";
         });
       // alert(response.data.message);
     } catch (err) {
       // alert(err.response.data.error);
+      // On error the below function calls the function to update all snackbar state to display
       handleOpenSnackbar("error", err.response.data.error);
     }
   };
 
   return (
     <>
-      <Popup open={snackbarState} set={setSnackbarState} data={snackbarData}/>
+    {/* This below components is adding the snackbar component to the page and passing the props  */}
+      <Popup open={snackbarState} set={setSnackbarState} data={snackbarData} />
       <Box
         sx={{
           display: "flex",
