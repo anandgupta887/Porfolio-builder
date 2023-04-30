@@ -11,6 +11,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { backendUrl } from "../config/config";
 
 function Register() {
   const [values, setValues] = useState({});
@@ -29,7 +30,7 @@ function Register() {
 
   const handleOnSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:4000/auth/signup", {
+      const response = await axios.post(`${backendUrl}/auth/signup`, {
         name: values.name,
         email: values.email,
         password: values.password,
