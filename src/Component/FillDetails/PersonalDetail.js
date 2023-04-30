@@ -111,7 +111,7 @@ function PersonalDetails() {
         .then((res) => {
           dispatch(updateProfile(res?.data.profile));
           console.log(res?.data);
-          window.location.pathname = "/skills";
+          // window.location.pathname = "/skills";
         });
     } catch (err) {
       alert(err);
