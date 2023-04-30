@@ -1,5 +1,5 @@
 const skillsApiKey = 'RgK5cYcyEaisDFE9qLqtgoezyMT9yvkV'
 
-const backendUrl = 'http://localhost:4000'
+const backendUrl = 'https://portfolio-backend-production-bc73.up.railway.app'
 
-export {skillsApiKey}
+export {skillsApiKey,backendUrl}

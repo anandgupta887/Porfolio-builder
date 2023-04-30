@@ -25,6 +25,7 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProject } from "../../state/actions/userAction";
+import { backendUrl } from "../config/config";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -105,7 +106,7 @@ function ProjectDetails() {
     try {
       const response = await axios
         .post(
-          "http://localhost:4000/projects",
+          `${backendUrl}/projects`,
           { projects: values },
           {
             headers: {

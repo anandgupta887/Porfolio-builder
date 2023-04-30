@@ -14,7 +14,7 @@ import React, { useState } from "react";
 import Chip from "@mui/material/Chip";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EastOutlinedIcon from "@mui/icons-material/EastOutlined";
-import { skillsApiKey } from "../config/config";
+import { backendUrl, skillsApiKey } from "../config/config";
 import Stats from "./Stats";
 import BottomButton from "./BottomButton";
 import axios from "axios";
@@ -72,7 +72,7 @@ function Skills() {
     try {
       const response = await axios
         .post(
-          "http://localhost:4000/skills",
+          `${backendUrl}/skills`,
           { skills: values },
           {
             headers: {

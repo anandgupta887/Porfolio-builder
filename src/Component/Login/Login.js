@@ -15,6 +15,7 @@ import { validateEmail } from "../constant/commonFunction";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserDetails } from "../../state/actions/userAction";
 import { useEffect } from "react";
+import { backendUrl } from "../config/config";
 import Popup from "../Popup";
 
 function Login() {
@@ -46,7 +47,7 @@ function Login() {
     }
     try {
       const response = await axios
-        .post("http://localhost:4000/auth/login", {
+        .post(`${backendUrl}/auth/login`, {
           email: values?.email,
           password: values?.password,
         })

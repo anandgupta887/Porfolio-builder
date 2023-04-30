@@ -19,6 +19,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { updateProfile } from "../../state/actions/userAction";
+import { backendUrl } from "../config/config";
 
 function PersonalDetails() {
   const [profileData, setProfileData] = useState({});
@@ -64,7 +65,10 @@ function PersonalDetails() {
     const image = profileData.profile;
     try {
       const response = await axios
-        .post("http://localhost:4000/upload", { image })
+        .post(
+          "https://portfolio-backend-production-bc73.up.railway.app/upload",
+          { image }
+        )
         .then((res) => {
           console.log("uploaded");
         });
@@ -90,7 +94,7 @@ function PersonalDetails() {
       // handleUploadImage();
       const response = await axios
         .post(
-          "http://localhost:4000/profiles",
+          `${backendUrl}/profiles`,
           {
             name,
             title,
@@ -111,7 +115,7 @@ function PersonalDetails() {
         .then((res) => {
           dispatch(updateProfile(res?.data.profile));
           console.log(res?.data);
-          // window.location.pathname = "/skills";
+          window.location.pathname = "/skills";
         });
     } catch (err) {
       alert(err);
