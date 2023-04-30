@@ -25,6 +25,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { updateExperience } from "../../state/actions/userAction";
+import { backendUrl } from "../config/config";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -111,7 +112,7 @@ function Experience() {
     try {
       const response = await axios
         .post(
-          "http://localhost:4000/experience",
+          `${backendUrl}/experience`,
           { experience: values },
           {
             headers: {

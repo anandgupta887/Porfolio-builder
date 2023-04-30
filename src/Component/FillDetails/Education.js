@@ -24,7 +24,11 @@ import MuiAccordionDetails from "@mui/material/AccordionDetails";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
-import { updateEducation, updateExperience } from "../../state/actions/userAction";
+import {
+  updateEducation,
+  updateExperience,
+} from "../../state/actions/userAction";
+import { backendUrl } from "../config/config";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -110,7 +114,7 @@ function Education() {
     try {
       const response = await axios
         .post(
-          "http://localhost:4000/education",
+          `${backendUrl}/education`,
           { education: values },
           {
             headers: {
