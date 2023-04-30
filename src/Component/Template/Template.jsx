@@ -565,15 +565,15 @@ function Template({ details }) {
         </section>
 
         {/* <!--==================== TESTIMONIAL ====================--> */}
-        <section className="testimonial section">
-          <h2 className="section__title">Testimonial</h2>
-          <span className="section__subtitle">My client saying</span>
+        {/* <section className="testimonial section"> */}
+        {/* <h2 className="section__title">Testimonial</h2>
+          <span className="section__subtitle">My client saying</span> */}
 
-          <div className="container section__border">
-            <div className="testimonial__container swiper">
-              <div className="swiper-wrapper">
-                {/* <!--==================== TESTIMONIAL 1 ====================--> */}
-                <div className="testimonial__content swiper-slide">
+        {/* <div className="container section__border"> */}
+        {/* <div className="testimonial__container swiper"> */}
+        {/* <div className="swiper-wrapper"> */}
+        {/* <!--==================== TESTIMONIAL 1 ====================--> */}
+        {/* <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
                     “Working with {details?.profile?.name} is to give a good
                     impression, I carry out my project at a good cost, with
@@ -585,10 +585,10 @@ function Template({ details }) {
                     <h3 className="testimonial__name">Klay Harris</h3>
                     <span className="testimonial__subtitle">Client</span>
                   </div>
-                </div>
+                </div> */}
 
-                {/* <!--==================== TESTIMONIAL 2 ====================--> */}
-                <div className="testimonial__content swiper-slide">
+        {/* <!--==================== TESTIMONIAL 2 ====================--> */}
+        {/* <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
                     “Working with {details?.profile?.name} is to give a good
                     impression, I carry out my project at a good cost, with
@@ -600,9 +600,9 @@ function Template({ details }) {
                     <h3 className="testimonial__name">Mary Lens</h3>
                     <span className="testimonial__subtitle">Client</span>
                   </div>
-                </div>
-                {/* <!--==================== TESTIMONIAL 3 ====================--> */}
-                <div className="testimonial__content swiper-slide">
+                </div> */}
+        {/* <!--==================== TESTIMONIAL 3 ====================--> */}
+        {/* <div className="testimonial__content swiper-slide">
                   <p className="testimonial__description">
                     “Working with {details?.profile?.name} is to give a good
                     impression, I carry out my project at a good cost, with
@@ -614,25 +614,25 @@ function Template({ details }) {
                     <h3 className="testimonial__name">Anna Chel</h3>
                     <span className="testimonial__subtitle">Client</span>
                   </div>
-                </div>
-              </div>
+                </div> */}
+        {/* </div> */}
 
-              {/* <!-- Swiper arrows --> */}
-              <div className="swiper-button-next">
-                <i className="ri-arrow-right-s-line"></i>
-              </div>
-              <div className="swiper-button-prev">
-                <i className="ri-arrow-left-s-line"></i>
-              </div>
-            </div>
-          </div>
+        {/* <!-- Swiper arrows --> */}
+        <div className="swiper-button-next">
+          <i className="ri-arrow-right-s-line"></i>
+        </div>
+        <div className="swiper-button-prev">
+          <i className="ri-arrow-left-s-line"></i>
+        </div>
+        {/* </div> */}
+        {/* </div> */}
 
-          <img
+        {/* <img
             src="assets/img/shape-waves.svg"
             alt="testimonial image"
             className="testimonial__img"
-          />
-        </section>
+          /> */}
+        {/* </section> */}
 
         {/* <!--==================== CONTACT ====================--> */}
         <section className="contact section" id="contact">
