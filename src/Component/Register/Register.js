@@ -11,6 +11,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import Popup from "../Popup";
 
 function Register() {
   const [values, setValues] = useState({});
@@ -39,8 +40,10 @@ function Register() {
       // localStorage.setItem("token", response.data.token);
       // Redirect to dashboard page
       window.location.pathname = "/personal-details";
+      <Popup message="success" />;
     } catch (err) {
       alert(err.response.data.error);
+      <Popup message="error" />;
     }
   };
 

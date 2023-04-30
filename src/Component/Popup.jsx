@@ -9,7 +9,7 @@ const Alert = React.forwardRef(function Alert(props, ref) {
 });
 
 // inside the Popup function parameter, "props" will come
-function Popup() {
+function Popup(props) {
   const [open, setOpen] = React.useState(false);
 
   const handleClick = () => {
@@ -29,12 +29,16 @@ function Popup() {
         Open success snackbar
       </Button>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
-        <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
+        {/* <Alert onClose={handleClose} severity="success" sx={{ width: "100%" }}>
           This is a success message!
-        </Alert>
-        {/* <Alert onClose={handleClose} severity={props.message} sx={{ width: "100%" }}>
-          This is a {props.message} message!
         </Alert> */}
+        <Alert
+          onClose={handleClose}
+          severity={props.message}
+          sx={{ width: "100%" }}
+        >
+          This is a {props.message} message!
+        </Alert>
       </Snackbar>
       <div style={{ display: "none" }}>
         <Alert severity="error">This is an error message!</Alert>

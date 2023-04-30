@@ -15,6 +15,7 @@ import { validateEmail } from "../constant/commonFunction";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserDetails } from "../../state/actions/userAction";
 import { useEffect } from "react";
+import Popup from "../Popup";
 
 function Login() {
   const [values, setValues] = useState({});
@@ -53,11 +54,13 @@ function Login() {
           console.log(res.data);
           dispatch(updateUserDetails(res.data));
           //   alert(`Welcome back, ${response.data.name}`);
+          <Popup message="success" />;
           window.location.pathname = "/personal-details";
         });
       // alert(response.data.message);
     } catch (err) {
-      alert(err.response.data.error);
+      // alert(err.response.data.error);
+      <Popup message="error" />;
     }
   };
 
