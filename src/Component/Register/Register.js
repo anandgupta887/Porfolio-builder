@@ -10,14 +10,17 @@ import {
 import { useState } from "react";
 import axios from "axios";
 import { useEffect } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { backendUrl } from "../config/config";
+import { updateNewUser } from "../../state/actions/userAction";
 import Popup from "../SnackBarPopup";
 
 function Register() {
   const [values, setValues] = useState({});
 
   const userAuth = useSelector((state) => state.token);
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (userAuth) {
@@ -29,7 +32,8 @@ function Register() {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
 
-  const handleOnSubmit = async () => {
+  const handleOnSubmit = async (e) => {
+    e.preventDefault();
     try {
       const response = await axios.post(`${backendUrl}/auth/signup`, {
         name: values.name,
@@ -38,7 +42,7 @@ function Register() {
         username: values.username,
       });
       alert(response.data.message);
-      // localStorage.setItem("token", response.data.token);
+      dispatch(updateNewUser(response.data.token));
       // Redirect to dashboard page
       window.location.pathname = "/personal-details";
       <Popup message="success" />;

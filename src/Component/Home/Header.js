@@ -36,7 +36,9 @@ const Header = () => {
 
   const handleLogout = (e) => {
     e.preventDefault();
+    console.log('logout');
     dispatch(logoutUser());
+    window.location.pathname = "/login";
   };
 
   const handleOpenNavMenu = (event) => {

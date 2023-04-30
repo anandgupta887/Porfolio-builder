@@ -5,11 +5,20 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
+import { useDispatch } from "react-redux";
+import { updateTemplateId } from "../../state/actions/userAction";
 
 function TemplateCard({ data }) {
-  console.log("datafdfdfc");
+  const dispatch = useDispatch();
+
   return (
-    <Card key={data?.id} sx={{ borderRadius: "30px" }}>
+    <Card
+      key={data?.id}
+      sx={{ borderRadius: "30px" }}
+      onClick={() => {
+        dispatch(updateTemplateId(data.id));
+      }}
+    >
       <CardActionArea
         sx={{
           minHeight: 350,
