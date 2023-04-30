@@ -31,9 +31,9 @@ function Home() {
                 backgroundColor: "#B57EDC !important",
               },
             }}
-            href="/choose-template"
+            href="/register"
           >
-            Get started
+            Get started for free
           </Button>
         </Box>
       </Box>
