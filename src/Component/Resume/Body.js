@@ -19,7 +19,7 @@ function Body() {
   ];
   const sections = {
     basicInfo: "Personal details",
-    workExp: "Work Experience",
+    workExp: "Experience",
     project: "Projects",
     education: "Education",
     achievement: "Achievements",
@@ -69,7 +69,7 @@ function Body() {
     },
   });
 
-  console.log("body info", resumeInformation);
+ 
 
   const handleSetResumeInformation = () => {
     setResumeInformation({
@@ -98,7 +98,7 @@ function Body() {
       },
     });
   };
-  console.log(userDetails?.education);
+
 
   useEffect(() => {
     handleSetResumeInformation();
@@ -132,12 +132,12 @@ function Body() {
         />
       </div>
       <div className={styles.main}>
-        <Editor
+        {/* <Editor
           // activeColor={activeColor}
           sections={sections}
           information={resumeInformation}
           setInformation={setResumeInformation}
-        />
+        /> */}
         <Resume
           ref={resumeRef}
           sections={sections}

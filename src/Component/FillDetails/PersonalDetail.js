@@ -20,11 +20,38 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { updateProfile } from "../../state/actions/userAction";
 import { backendUrl } from "../config/config";
+import { useHistory } from "react-router-dom";
+import { storage } from "../config/firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import Popup from "../SnackBarPopup";
 
 function PersonalDetails() {
   const [profileData, setProfileData] = useState({});
   const userData = useSelector((state) => state?.user?.profile);
   const userAuth = useSelector((state) => state?.token);
+
+  const [imageData, setImageData] = useState("");
+
+  // this is a state that will handle the state for visibility of snackbar
+  const [snackbarState, setSnackbarState] = useState(false); // "false" is the initial "snackbarState"
+  // this is the state to owns the data to be visible n kind of severity it has - success or error
+  const [snackbarData, setSnackbarData] = useState({
+    // the following is the initial "snackbarData"
+    message: "",
+    severity: "",
+  });
+
+  const handleOpenSnackbar = (severity, message) => {
+    // this function is setting the states
+    setSnackbarData({
+      // changing initial/previous "snackbarState" to re-render the "Popup" component
+      message: message,
+      severity: severity,
+    });
+    setSnackbarState(true); // changing initial/previous "snackbarData" to re-render the "Popup" component
+  };
+
+  const history = useHistory();
 
   useEffect(() => {
     if (userData) {
@@ -35,7 +62,6 @@ function PersonalDetails() {
   const dispatch = useDispatch();
 
   const handleInput = (e) => {
-    console.log(profileData);
     setProfileData({
       ...profileData,
       [e.target.name]: e.target.value,
@@ -50,31 +76,26 @@ function PersonalDetails() {
     } else if (e.target) {
       files = e.target.files;
     }
-    const reader = new FileReader();
-    reader.onload = () => {
-      setProfileData({
-        ...profileData,
-        profile: reader.result,
-      });
-    };
-
-    reader.readAsDataURL(files[0]);
+    if (files && files.length > 0) {
+      const imageData = files[0];
+      setImageData(imageData);
+      handleUploadImage(imageData);
+    }
   };
 
-  const handleUploadImage = async () => {
-    const image = profileData.profile;
-    try {
-      const response = await axios
-        .post(
-          "https://portfolio-backend-production-bc73.up.railway.app/upload",
-          { image }
-        )
-        .then((res) => {
-          console.log("uploaded");
+  const handleUploadImage = async (imageData) => {
+    const storageRef = ref(storage, `portfolio/images/${imageData.name}`);
+
+    await uploadBytes(storageRef, imageData, imageData.type).then(
+      async (snapshot) => {
+        await getDownloadURL(snapshot.ref).then(async (downloadURL) => {
+          setProfileData({
+            ...profileData,
+            image: downloadURL,
+          });
         });
-    } catch (err) {
-      alert(err.response.data.error);
-    }
+      }
+    );
   };
 
   const handleOnSubmit = async (e) => {
@@ -86,17 +107,29 @@ function PersonalDetails() {
       github,
       email,
       phone,
-      profile,
+      image,
       location,
       about,
     } = profileData;
-    if (!(name && email && phone && location)) {
-      console.log('returned')
+    if (
+      !(
+        name &&
+        title &&
+        linkedIn &&
+        github &&
+        email &&
+        phone &&
+        image &&
+        location &&
+        about
+      )
+    ) {
+      handleOpenSnackbar("error", "Fill up the details!");
       return;
     }
     try {
       // handleUploadImage();
-      const response = await axios
+      await axios
         .post(
           `${backendUrl}/profiles`,
           {
@@ -108,7 +141,7 @@ function PersonalDetails() {
             phone,
             about,
             location,
-            image: "profile",
+            image,
           },
           {
             headers: {
@@ -118,8 +151,7 @@ function PersonalDetails() {
         )
         .then((res) => {
           dispatch(updateProfile(res?.data.profile));
-          console.log(res?.data);
-          window.location.pathname = "/skills";
+          history.push("/skills");
         });
     } catch (err) {
       alert(err);
@@ -128,6 +160,7 @@ function PersonalDetails() {
 
   return (
     <Container maxWidth="lg">
+      <Popup open={snackbarState} set={setSnackbarState} data={snackbarData} />
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography variant="h4">Personal details</Typography>
@@ -145,12 +178,12 @@ function PersonalDetails() {
                 Upload Profile Pic
               </Typography>
 
-              {profileData?.profile ? (
+              {profileData?.image ? (
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <Avatar
-                    src={profileData?.profile}
+                    src={profileData?.image}
                     sx={{ width: 80, height: 80 }}
                   />
                   <div>
@@ -160,7 +193,7 @@ function PersonalDetails() {
                       onClick={() => {
                         setProfileData({
                           ...profileData,
-                          profile: "",
+                          image: "",
                         });
                       }}
                     >

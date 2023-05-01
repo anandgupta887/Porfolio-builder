@@ -17,12 +17,15 @@ import { updateUserDetails } from "../../state/actions/userAction";
 import { useEffect } from "react";
 import { backendUrl } from "../config/config";
 import Popup from "../SnackBarPopup";
+import { useHistory } from "react-router-dom";
 
 function Login() {
   const [values, setValues] = useState({});
   const [error, setError] = useState(false);
 
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   const userAuth = useSelector((state) => state.token);
 
@@ -31,9 +34,10 @@ function Login() {
   };
 
   // this is a state that will handle the state for visibility of snackbar
-  const [snackbarState, setSnackbarState] = useState(false);
-  //this is the state to owns the data to be visible n kind of severity it has - success or error
+  const [snackbarState, setSnackbarState] = useState(false); // "false" is the initial "snackbarState"
+  // this is the state to owns the data to be visible n kind of severity it has - success or error
   const [snackbarData, setSnackbarData] = useState({
+    // the following is the initial "snackbarData"
     message: "",
     severity: "",
   });
@@ -41,15 +45,16 @@ function Login() {
   const handleOpenSnackbar = (severity, message) => {
     // this function is setting the states
     setSnackbarData({
+      // changing initial/previous "snackbarState" to re-render the "Popup" component
       message: message,
       severity: severity,
     });
-    setSnackbarState(true);
+    setSnackbarState(true); // changing initial/previous "snackbarData" to re-render the "Popup" component
   };
 
   useEffect(() => {
     if (userAuth) {
-      window.location.pathname = "/personal-details";
+      history.push("/choose-template");
     }
   }, []);
 
@@ -70,14 +75,12 @@ function Login() {
         })
         .then((res) => {
           dispatch(updateUserDetails(res.data));
-          //   alert(`Welcome back, ${response.data.name}`);
+
           // On successfull login the below function calls the function to update all snackbar state to display
           handleOpenSnackbar("success", "Logged in successfully");
-          window.location.pathname = "/personal-details";
+          history.push("/personal-details");
         });
-      // alert(response.data.message);
     } catch (err) {
-      // alert(err.response.data.error);
       // On error the below function calls the function to update all snackbar state to display
       handleOpenSnackbar("error", err.response.data.error);
     }
@@ -85,7 +88,7 @@ function Login() {
 
   return (
     <>
-    {/* This below components is adding the snackbar component to the page and passing the props  */}
+      {/* This below components is adding the snackbar component to the page and passing the props  */}
       <Popup open={snackbarState} set={setSnackbarState} data={snackbarData} />
       <Box
         sx={{
@@ -120,7 +123,7 @@ function Login() {
           >
             <Box sx={{ maxWidth: { xs: "400px" }, m: "auto" }}>
               <Typography variant="h6" sx={{ mb: 1 }}>
-                Welcome back
+                Welcome back!
               </Typography>
               <Typography variant="body2" sx={{ mb: 2 }}>
                 Please enter your details
@@ -157,7 +160,7 @@ function Login() {
                 Login
               </Button>
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Link href="/forgot-password">Forgot password</Link>
+                <Typography></Typography>
                 <Link href="/register">New user?</Link>
               </Box>
             </Box>

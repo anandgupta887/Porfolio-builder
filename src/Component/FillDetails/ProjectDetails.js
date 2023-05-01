@@ -1,5 +1,6 @@
 import {
   Autocomplete,
+  Avatar,
   Box,
   Button,
   Card,
@@ -26,6 +27,10 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProject } from "../../state/actions/userAction";
 import { backendUrl } from "../config/config";
+import { useHistory } from "react-router-dom/";
+import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
+import { storage } from "../config/firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -76,6 +81,10 @@ function ProjectDetails() {
   const userData = useSelector((state) => state?.user?.projects);
   const userAuth = useSelector((state) => state?.token);
 
+  const history = useHistory();
+
+  const [imageUrl, setImageUrl] = useState([]);
+
   useEffect(() => {
     if (userData) {
       setValues(userData);
@@ -93,18 +102,51 @@ function ProjectDetails() {
   };
 
   const handleInputChange = (index, event) => {
-    console.log(values);
     const { name, value } = event.target;
     const updatedValues = [...values];
     updatedValues[index][name] = value;
     setValues(updatedValues);
   };
 
+  const handleImage = async (e, index) => {
+    let files;
+    if (e?.dataTransfer) {
+      files = e?.dataTransfer.files;
+    } else if (e.target) {
+      files = e.target.files;
+    }
+    if (files && files.length > 0) {
+      const imageData = files[0];
+      handleUploadImage(imageData, index);
+    }
+  };
+
+  const handleDelete = (index) => {
+    const updatedValues = [...values];
+    updatedValues[index]["imageRaw"] = null;
+    updatedValues[index]["image"] = null;
+    setValues(updatedValues);
+  };
+
+  const handleUploadImage = async (imageData, index) => {
+    const storageRef = ref(storage, `portfolio/projects/${imageData.name}`);
+
+    await uploadBytes(storageRef, imageData, imageData.type).then(
+      async (snapshot) => {
+        await getDownloadURL(snapshot.ref).then((downloadURL) => {
+          const updatedValues = [...values];
+          updatedValues[index]["image"] = downloadURL;
+          setValues(updatedValues);
+        });
+      }
+    );
+  };
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
     try {
-      const response = await axios
+      await axios
         .post(
           `${backendUrl}/projects`,
           { projects: values },
@@ -116,8 +158,8 @@ function ProjectDetails() {
         )
         .then((res) => {
           dispatch(updateProject(res?.data?.projects));
-          console.log(`Welcome back, ${res}`);
-          window.location.pathname = "/education";
+
+          history.push("/education");
         });
     } catch (err) {
       alert(err.response.data.error);
@@ -171,6 +213,61 @@ function ProjectDetails() {
                   </AccordionSummary>
                   <AccordionDetails>
                     <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        {data?.image ? (
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <img
+                              src={data?.image}
+                              style={{ width: "auto", height: 80 }}
+                            />
+                            <div>
+                              <Button
+                                variant="contained"
+                                startIcon={<DeleteIcon />}
+                                onClick={() => {
+                                  handleDelete(idx);
+                                }}
+                              >
+                                Delete
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <Box sx={{ display: "flex" }}>
+                            <Typography
+                              variant="body2"
+                              sx={{ flex: 1, alignSelf: "center" }}
+                            >
+                              Upload image
+                            </Typography>
+                            <input
+                              accept="image/*"
+                              style={{ display: "none" }}
+                              id="upload-profile-button"
+                              hidden
+                              type="file"
+                              onChange={(e) => handleImage(e, idx)}
+                            />
+                            <label htmlFor="upload-profile-button">
+                              <Button
+                                variant="contained"
+                                startIcon={<CloudUploadOutlinedIcon />}
+                                component="span"
+                                sx={{
+                                  backgroundColor: "rgba(217, 209, 209, 1)",
+                                }}
+                              >
+                                Upload
+                              </Button>
+                            </label>
+                          </Box>
+                        )}
+                      </Grid>
                       <Grid item xs={12}>
                         <TextField
                           name="title"

@@ -1,7 +1,9 @@
 import { Box, Button, Container, Typography } from "@mui/material";
 import image from "./home3.png";
+import { useHistory } from "react-router-dom";
 
 function Home() {
+  const history = useHistory()
   return (
     <>
       <Box
@@ -31,7 +33,9 @@ function Home() {
                 backgroundColor: "#B57EDC !important",
               },
             }}
-            href="/register"
+            onClick={() => {
+              history.push("/register");
+            }}
           >
             Get started for free
           </Button>

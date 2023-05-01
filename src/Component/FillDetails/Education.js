@@ -29,6 +29,7 @@ import {
   updateExperience,
 } from "../../state/actions/userAction";
 import { backendUrl } from "../config/config";
+import { useHistory } from "react-router-dom";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -81,7 +82,7 @@ function Education() {
   const userAuth = useSelector((state) => state?.token);
   const dispatch = useDispatch();
 
-  console.log(userData, values);
+  const history = useHistory();
 
   useEffect(() => {
     if (userData) {
@@ -124,7 +125,7 @@ function Education() {
         )
         .then((res) => {
           dispatch(updateEducation(res?.data?.education));
-          window.location.pathname = "/template";
+          history.push("/template");
         });
     } catch (err) {
       alert(err.response.data.error);
@@ -195,7 +196,7 @@ function Education() {
                           label="Specialized in"
                           size="small"
                           fullWidth
-                          value={data.field}
+                          value={data.fieldOfStudy}
                           onChange={(e) => handleInputChange(e, idx)}
                         />
                       </Grid>

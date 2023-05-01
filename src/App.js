@@ -19,10 +19,8 @@ import NewTemplate from "./Component/NewTemplate/NewTemplate";
 
 function App() {
   const userDetails = useSelector((state) => state);
-  console.log(userDetails);
 
   return (
-    <div style={{ margin: "1rem" }}>
       <Router>
         <Switch>
           <Route path="/choose-template">
@@ -80,7 +78,6 @@ function App() {
           </Route>
         </Switch>
       </Router>
-    </div>
   );
 }
 

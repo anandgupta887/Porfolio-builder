@@ -179,20 +179,22 @@ const Resume = forwardRef((props, ref) => {
         <div className={styles.content}>
           {info.education?.details?.map((item) => (
             <div className={styles.item}>
-              {item.title ? (
-                <p className={styles.title}>{item.title}</p>
+              {item?.degree ? (
+                <p className={styles.title}>
+                  {item?.degree} in {item?.fieldOfStudy}
+                </p>
               ) : (
                 <span />
               )}
-              {item.college ? (
-                <p className={styles.subTitle}>{item.college}</p>
+              {item.institution ? (
+                <p className={styles.subTitle}>{item.institution}</p>
               ) : (
                 <span />
               )}
-              {item.startDate && item.endDate ? (
+              {item.from && item.to ? (
                 <div className={styles.date}>
-                  <Calendar /> {getFormattedDate(item.startDate)} -
-                  {getFormattedDate(item.endDate)}
+                  <Calendar /> {getFormattedDate(item.from)} -
+                  {getFormattedDate(item.to)}
                 </div>
               ) : (
                 ""
@@ -203,48 +205,60 @@ const Resume = forwardRef((props, ref) => {
       </div>
     ),
     [sections.achievement]: (
-      <div
-        key={"achievement"}
-        draggable
-        onDragOver={() => seTarget(info.achievement?.id)}
-        onDragEnd={() => setSource(info.achievement?.id)}
-        className={`${styles.section} ${
-          info.achievement?.sectionTitle ? "" : styles.hidden
-        }`}
-      >
-        <div className={styles.sectionTitle}>
-          {info.achievement?.sectionTitle}
-        </div>
-        <div className={styles.content}>
-          {info.achievement?.points?.length > 0 ? (
-            <ul className={styles.numbered}>
-              {info.achievement?.points?.map((elem, index) => (
-                <li className={styles.point} key={elem + index}>
-                  {elem}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <span />
-          )}
-        </div>
-      </div>
+      <>
+        {info.achievement?.points.length ? (
+          <div
+            key={"achievement"}
+            draggable
+            onDragOver={() => seTarget(info.achievement?.id)}
+            onDragEnd={() => setSource(info.achievement?.id)}
+            className={`${styles.section} ${
+              info.achievement?.sectionTitle ? "" : styles.hidden
+            }`}
+          >
+            <div className={styles.sectionTitle}>
+              {info.achievement?.sectionTitle}
+            </div>
+            <div className={styles.content}>
+              {info.achievement?.points?.length > 0 ? (
+                <ul className={styles.numbered}>
+                  {info.achievement?.points?.map((elem, index) => (
+                    <li className={styles.point} key={elem + index}>
+                      {elem}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <span />
+              )}
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
+      </>
     ),
     [sections.other]: (
-      <div
-        key={"other"}
-        draggable
-        onDragOver={() => seTarget(info.other?.id)}
-        onDragEnd={() => setSource(info.other?.id)}
-        className={`${styles.section} ${
-          info.other?.sectionTitle ? "" : styles.hidden
-        }`}
-      >
-        <div className={styles.sectionTitle}>{info.other?.sectionTitle}</div>
-        <div className={styles.content}>
-          <p className={styles.overview}>{info?.other?.detail}</p>
-        </div>
-      </div>
+      <>
+        {info.other?.details && (
+          <div
+            key={"other"}
+            draggable
+            onDragOver={() => seTarget(info.other?.id)}
+            onDragEnd={() => setSource(info.other?.id)}
+            className={`${styles.section} ${
+              info.other?.sectionTitle ? "" : styles.hidden
+            }`}
+          >
+            <div className={styles.sectionTitle}>
+              {info.other?.sectionTitle}
+            </div>
+            <div className={styles.content}>
+              <p className={styles.overview}>{info?.other?.detail}</p>
+            </div>
+          </div>
+        )}
+      </>
     ),
     // [sections.summary]: (
     //   <div
@@ -293,8 +307,8 @@ const Resume = forwardRef((props, ref) => {
 
   useEffect(() => {
     setColumns([
-      [sections.project, sections.education, sections.summary],
-      [sections.workExp, sections.achievement, sections.other],
+      [sections.project, sections.education, sections.other],
+      [sections.workExp, sections.achievement],
     ]);
   }, []);
 
@@ -309,7 +323,7 @@ const Resume = forwardRef((props, ref) => {
     container.style.setProperty("--color", props.activeColor);
   }, [props.activeColor]);
 
-  console.log(info);
+
 
   return (
     <div ref={ref}>
@@ -317,31 +331,44 @@ const Resume = forwardRef((props, ref) => {
         <div className={styles.header}>
           <p className={styles.heading}>{info.basicInfo?.detail?.name}</p>
           <p className={styles.subHeading}>{info.basicInfo?.detail?.title}</p>
+          <p className={styles.subHeadingtitle}>{info.basicInfo?.detail?.location}</p>
 
           <div className={styles.links}>
             {info.basicInfo?.detail?.email ? (
-              <a className={styles.link} type="email">
+              <a
+                className={styles.link}
+                href={`mailto:${info.basicInfo?.detail?.email}`}
+              >
                 <AtSign /> {info.basicInfo?.detail?.email}
               </a>
             ) : (
               <span />
             )}
             {info.basicInfo?.detail?.phone ? (
-              <a className={styles.link}>
+              <a
+                className={styles.link}
+                href={`tel:${info.basicInfo?.detail?.phone}`}
+              >
                 <Phone /> {info.basicInfo?.detail?.phone}
               </a>
             ) : (
               <span />
             )}
-            {info.basicInfo?.detail?.linkedin ? (
-              <a className={styles.link}>
-                <Linkedin /> {info.basicInfo?.detail?.linkedin}
+            {info.basicInfo?.detail?.linkedIn ? (
+              <a
+                className={styles.link}
+                href={`https://linkedin.com/in/${info.basicInfo?.detail?.linkedIn}`}
+              >
+                <Linkedin /> {info.basicInfo?.detail?.linkedIn}
               </a>
             ) : (
               <span />
             )}
             {info.basicInfo?.detail?.github ? (
-              <a className={styles.link}>
+              <a
+                className={styles.link}
+                href={`https://github.com/${info.basicInfo?.detail?.github}`}
+              >
                 <GitHub /> {info.basicInfo?.detail?.github}
               </a>
             ) : (
