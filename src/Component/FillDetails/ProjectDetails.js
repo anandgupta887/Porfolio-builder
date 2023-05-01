@@ -224,9 +224,9 @@ function ProjectDetails() {
                               justifyContent: "space-between",
                             }}
                           >
-                            <Avatar
+                            <img
                               src={data?.image}
-                              sx={{ width: 80, height: 80 }}
+                              style={{ width: "auto", height: 80 }}
                             />
                             <div>
                               <Button
@@ -241,7 +241,10 @@ function ProjectDetails() {
                             </div>
                           </div>
                         ) : (
-                          <>
+                          <Box sx={{ display: "flex" }}>
+                            <Typography variant="body2" sx={{ flex: 1, alignSelf: "center" }}>
+                              Upload image
+                            </Typography>
                             <input
                               accept="image/*"
                               style={{ display: "none" }}
@@ -262,7 +265,7 @@ function ProjectDetails() {
                                 Upload
                               </Button>
                             </label>
-                          </>
+                          </Box>
                         )}
                       </Grid>
                       <Grid item xs={12}>
