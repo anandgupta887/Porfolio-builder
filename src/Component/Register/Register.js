@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { backendUrl } from "../config/config";
 import { updateNewUser } from "../../state/actions/userAction";
 import Popup from "../SnackBarPopup";
+import { useHistory } from "react-router-dom";
 
 function Register() {
   const [values, setValues] = useState({});
@@ -22,6 +23,8 @@ function Register() {
   const userAuth = useSelector((state) => state.token);
 
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   const handleOnInputChange = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -48,7 +51,7 @@ function Register() {
 
   useEffect(() => {
     if (userAuth) {
-      window.location.pathname = "/personal-details";
+      history.push("/personal-details");
     }
   }, []);
 
@@ -67,7 +70,7 @@ function Register() {
           //   alert(`Welcome back, ${response.data.name}`);
           // On successfull login the below function calls the function to update all snackbar state to display
           handleOpenSnackbar("success", "Signed up successfully");
-          window.location.pathname = "/personal-details";
+          history.push("/personal-details");
         });
 
       // alert(response.data.message);

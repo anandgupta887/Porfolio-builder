@@ -54,7 +54,7 @@ function Login() {
 
   useEffect(() => {
     if (userAuth) {
-      window.location.pathname = "/personal-details";
+      history.push("/personal-details");
     }
   }, []);
 
@@ -78,7 +78,7 @@ function Login() {
           //   alert(`Welcome back, ${response.data.name}`);
           // On successfull login the below function calls the function to update all snackbar state to display
           handleOpenSnackbar("success", "Logged in successfully");
-          window.location.pathname = "/personal-details";
+          history.push("/personal-details");
         });
       // alert(response.data.message);
     } catch (err) {

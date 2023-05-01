@@ -26,6 +26,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { updateExperience } from "../../state/actions/userAction";
 import { backendUrl } from "../config/config";
+import { useHistory } from "react-router-dom";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -75,8 +76,17 @@ function Experience() {
 
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
   const [values, setValues] = useState([
-    { company: "", title: "", startDate: "", endDate: "", description: "",location:'' },
+    {
+      company: "",
+      title: "",
+      startDate: "",
+      endDate: "",
+      description: "",
+      location: "",
+    },
   ]);
 
   console.log(userData, values);
@@ -130,7 +140,7 @@ function Experience() {
         .then((res) => {
           dispatch(updateExperience(res?.data?.experience));
           console.log(res);
-          window.location.pathname = "/project-details";
+          history.push("/project-details");
         });
     } catch (err) {
       alert(err.response.data.error);

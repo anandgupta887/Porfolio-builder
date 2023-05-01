@@ -58,12 +58,6 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
-  const [path, setPath] = useState("");
-
-  useEffect(() => {
-    setPath(window.location.pathname);
-  }, []);
-
   return (
     <AppBar
       position="sticky"
@@ -198,28 +192,25 @@ const Header = () => {
             </Box>
           ) : (
             <Box sx={{ flexGrow: 0, display: "flex" }}>
-              {path != "/login" && (
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    history.push("/login");
-                  }}
-                >
-                  Login
-                </Button>
-              )}
+              <Button
+                variant="contained"
+                onClick={() => {
+                  history.push("/login");
+                }}
+              >
+                Login
+              </Button>
 
-              {path != "/register" && (
-                <Button
-                  variant="contained"
-                  sx={{ ml: 2 }}
-                  onClick={() => {
-                    history.push("/register");
-                  }}
-                >
-                  Sign up
-                </Button>
-              )}
+              <Button
+                variant="contained"
+                sx={{ ml: 2 }}
+                onClick={() => {
+                  history.push("/register");
+                }}
+              >
+                Sign up
+              </Button>
+
               {/* <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
