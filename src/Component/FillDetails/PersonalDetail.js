@@ -30,7 +30,7 @@ function PersonalDetails() {
   const userAuth = useSelector((state) => state?.token);
 
   const [imageData, setImageData] = useState("");
-  console.log("files updates", imageData);
+  
 
   const history = useHistory();
 
@@ -43,7 +43,7 @@ function PersonalDetails() {
   const dispatch = useDispatch();
 
   const handleInput = (e) => {
-    console.log(profileData);
+    
     setProfileData({
       ...profileData,
       [e.target.name]: e.target.value,
@@ -94,7 +94,7 @@ function PersonalDetails() {
       about,
     } = profileData;
     if (!(name && email && phone && location)) {
-      console.log("returned");
+      alert("Fill up the details!")
       return;
     }
     try {

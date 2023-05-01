@@ -67,19 +67,17 @@ function Register() {
         })
         .then((res) => {
           dispatch(updateNewUser(res.data));
-          //   alert(`Welcome back, ${response.data.name}`);
+
           // On successfull login the below function calls the function to update all snackbar state to display
           handleOpenSnackbar("success", "Signed up successfully");
           history.push("/personal-details");
         });
 
-      // alert(response.data.message);
       // dispatch(updateNewUser(response.data.token));
       // // Redirect to dashboard page
       // window.location.pathname = "/personal-details";
       // <Popup message="success" />;
     } catch (err) {
-      // alert(err.response.data.error);
       // On error the below function calls the function to update all snackbar state to display
       handleOpenSnackbar("error", err.response.data.error);
     }

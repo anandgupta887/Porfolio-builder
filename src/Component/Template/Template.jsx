@@ -26,8 +26,7 @@ import { useParams } from "react-router-dom";
 import moment from "moment/moment";
 // import "./assets/js/main";
 
-// console.log(details?.profile?.name);
-// console.log(details?.id);
+//
 // {
 //   {
 //     details?.profile?.name;
@@ -35,12 +34,8 @@ import moment from "moment/moment";
 // }
 
 function Template({ details }) {
-  console.log(details);
   return (
     <>
-      {/* {console.log(details?.profile?.name)}
-      {console.log(details?.id)} */}
-      {/* {console.log({ details })} */}
       {/* <!--==================== HEADER ====================--> */}
       <header className="header" id="header">
         <nav className="nav container">

@@ -30,7 +30,7 @@ function Editor(props) {
     email: activeInformation?.detail?.email || "",
   });
 
-  console.log(values);
+  
 
   const handlePointUpdate = (value, index) => {
     const tempValues = { ...values };
@@ -274,7 +274,7 @@ function Editor(props) {
           isMultiline
           onChange={(event) => {
             setValues((prev) => ({ ...prev, about: event.target.value }));
-            console.log(values);
+          
           }}
         />
       </div>

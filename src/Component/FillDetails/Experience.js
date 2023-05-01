@@ -89,8 +89,6 @@ function Experience() {
     },
   ]);
 
-  console.log(userData, values);
-
   useEffect(() => {
     if (userData) {
       setValues(userData);
@@ -139,7 +137,7 @@ function Experience() {
         )
         .then((res) => {
           dispatch(updateExperience(res?.data?.experience));
-          console.log(res);
+          
           history.push("/project-details");
         });
     } catch (err) {
