@@ -31,7 +31,6 @@ function App() {
           <Achievement />
         </Route>
         <Route path="/template">
-          <Header />
           <TemplateHandler />
         </Route>
         <Route path="/login">
