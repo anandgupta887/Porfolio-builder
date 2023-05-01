@@ -179,20 +179,22 @@ const Resume = forwardRef((props, ref) => {
         <div className={styles.content}>
           {info.education?.details?.map((item) => (
             <div className={styles.item}>
-              {item.title ? (
-                <p className={styles.title}>{item.title}</p>
+              {item?.degree ? (
+                <p className={styles.title}>
+                  {item?.degree} in {item?.fieldOfStudy}
+                </p>
               ) : (
                 <span />
               )}
-              {item.college ? (
-                <p className={styles.subTitle}>{item.college}</p>
+              {item.institution ? (
+                <p className={styles.subTitle}>{item.institution}</p>
               ) : (
                 <span />
               )}
-              {item.startDate && item.endDate ? (
+              {item.from && item.to ? (
                 <div className={styles.date}>
-                  <Calendar /> {getFormattedDate(item.startDate)} -
-                  {getFormattedDate(item.endDate)}
+                  <Calendar /> {getFormattedDate(item.from)} -
+                  {getFormattedDate(item.to)}
                 </div>
               ) : (
                 ""
@@ -203,48 +205,60 @@ const Resume = forwardRef((props, ref) => {
       </div>
     ),
     [sections.achievement]: (
-      <div
-        key={"achievement"}
-        draggable
-        onDragOver={() => seTarget(info.achievement?.id)}
-        onDragEnd={() => setSource(info.achievement?.id)}
-        className={`${styles.section} ${
-          info.achievement?.sectionTitle ? "" : styles.hidden
-        }`}
-      >
-        <div className={styles.sectionTitle}>
-          {info.achievement?.sectionTitle}
-        </div>
-        <div className={styles.content}>
-          {info.achievement?.points?.length > 0 ? (
-            <ul className={styles.numbered}>
-              {info.achievement?.points?.map((elem, index) => (
-                <li className={styles.point} key={elem + index}>
-                  {elem}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <span />
-          )}
-        </div>
-      </div>
+      <>
+        {info.achievement?.points.length ? (
+          <div
+            key={"achievement"}
+            draggable
+            onDragOver={() => seTarget(info.achievement?.id)}
+            onDragEnd={() => setSource(info.achievement?.id)}
+            className={`${styles.section} ${
+              info.achievement?.sectionTitle ? "" : styles.hidden
+            }`}
+          >
+            <div className={styles.sectionTitle}>
+              {info.achievement?.sectionTitle}
+            </div>
+            <div className={styles.content}>
+              {info.achievement?.points?.length > 0 ? (
+                <ul className={styles.numbered}>
+                  {info.achievement?.points?.map((elem, index) => (
+                    <li className={styles.point} key={elem + index}>
+                      {elem}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <span />
+              )}
+            </div>
+          </div>
+        ) : (
+          <></>
+        )}
+      </>
     ),
     [sections.other]: (
-      <div
-        key={"other"}
-        draggable
-        onDragOver={() => seTarget(info.other?.id)}
-        onDragEnd={() => setSource(info.other?.id)}
-        className={`${styles.section} ${
-          info.other?.sectionTitle ? "" : styles.hidden
-        }`}
-      >
-        <div className={styles.sectionTitle}>{info.other?.sectionTitle}</div>
-        <div className={styles.content}>
-          <p className={styles.overview}>{info?.other?.detail}</p>
-        </div>
-      </div>
+      <>
+        {info.other?.details && (
+          <div
+            key={"other"}
+            draggable
+            onDragOver={() => seTarget(info.other?.id)}
+            onDragEnd={() => setSource(info.other?.id)}
+            className={`${styles.section} ${
+              info.other?.sectionTitle ? "" : styles.hidden
+            }`}
+          >
+            <div className={styles.sectionTitle}>
+              {info.other?.sectionTitle}
+            </div>
+            <div className={styles.content}>
+              <p className={styles.overview}>{info?.other?.detail}</p>
+            </div>
+          </div>
+        )}
+      </>
     ),
     // [sections.summary]: (
     //   <div
