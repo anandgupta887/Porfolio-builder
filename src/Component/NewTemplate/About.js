@@ -35,7 +35,9 @@ class About extends Component {
                   Contact Details
                 </h2>
                 <p className="address">
-                  <span className="text-[#7A7A7A] text-md">{name}</span>
+                  <span className="text-[#7A7A7A] text-md">
+                    {details?.data?.profile?.name}
+                  </span>
                   <br />
                   <span className="text-[#7A7A7A] text-md">
                     {street}

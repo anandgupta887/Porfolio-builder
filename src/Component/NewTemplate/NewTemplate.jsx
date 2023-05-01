@@ -11,7 +11,8 @@ import Resume from "./Resume";
 import Contact from "./Contact";
 import Portfolio from "./Portfolio";
 
-function NewTemplate() {
+function NewTemplate({ details }) {
+  const userId = useSelector((state) => state?.user?.userId);
   const [resumeData, setResumeData] = useState({});
 
   useEffect(() => {
