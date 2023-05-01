@@ -66,10 +66,10 @@ function Register() {
           username: values.username,
         })
         .then((res) => {
-          dispatch(updateNewUser(res.data));
-
           // On successfull login the below function calls the function to update all snackbar state to display
           handleOpenSnackbar("success", "Signed up successfully");
+          dispatch(updateNewUser(res.data));
+
           history.push("/personal-details");
         });
 
