@@ -16,7 +16,9 @@ function Achievement() {
                 <Typography variant="body2">Section 6</Typography>
               </Divider>
             </Grid>
-            <Grid item xs={12}></Grid>
+            <Grid item xs={12}>
+              
+            </Grid>
           </Grid>
         </Grid>
         <Grid item xs={1}></Grid>
