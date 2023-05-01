@@ -24,8 +24,14 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import moment from "moment/moment";
+import { Button } from "@mui/material";
+import { useHistory } from "react-router-dom";
 
 function Template({ details }) {
+  const userId = useSelector((state) => state?.user?.userId);
+
+  const history = useHistory();
+
   const getSkillLevel = (type) => {
     switch (type) {
       case "1":
@@ -67,8 +73,6 @@ function Template({ details }) {
         return "";
     }
   };
-
-  console.log(details);
 
   return (
     <>
@@ -125,13 +129,21 @@ function Template({ details }) {
           </div>
 
           <div className="nav__buttons">
-            {/* <!-- Theme change button --> */}
-            <i className="ri-moon-line change-theme" id="theme-button"></i>
-
-            {/* <!-- Toggle bitton --> */}
+            {userId === details?.userId ? (
+              <Button
+                onClick={() => {
+                  history.push("/choose-template");
+                }}
+              >
+                Edit
+              </Button>
+            ) : (
+              <></>
+            )}
+            {/* <i className="ri-moon-line change-theme" id="theme-button"></i>
             <div className="nav__toggle" id="nav-toggle">
               <i className="ri-menu-4-fill"></i>
-            </div>
+            </div> */}
           </div>
         </nav>
       </header>
@@ -168,7 +180,7 @@ function Template({ details }) {
 
               <ul className="home__social">
                 <a
-                  href="https://www.linkedin.com/"
+                  href={`https://www.linkedin.com/in/${details?.profile?.linkedIn}`}
                   target="_blank"
                   className="home__social-link"
                 >
@@ -176,19 +188,11 @@ function Template({ details }) {
                 </a>
 
                 <a
-                  href="https://github.com/"
+                  href={`https://github.com/${details?.profile?.github}`}
                   target="_blank"
                   className="home__social-link"
                 >
                   <i className="ri-github-line"></i>
-                </a>
-
-                <a
-                  href="https://twitter.com/"
-                  target="_blank"
-                  className="home__social-link"
-                >
-                  <i className="ri-twitter-line"></i>
                 </a>
               </ul>
             </div>
@@ -639,7 +643,7 @@ function Template({ details }) {
 
           <ul className="footer__social">
             <a
-              href="https://www.linkedin.com/"
+              href={`https://www.linkedin.com/in/${details?.profile?.linkedIn}`}
               target="_blank"
               className="footer__social-link"
             >
@@ -647,19 +651,11 @@ function Template({ details }) {
             </a>
 
             <a
-              href="https://www.linkedin.com/"
+              href={`https://github.com/${details?.profile?.github}`}
               target="_blank"
               className="footer__social-link"
             >
               <i className="ri-github-line"></i>
-            </a>
-
-            <a
-              href="https://www.twitter.com/"
-              target="_blank"
-              className="footer__social-link"
-            >
-              <i className="ri-twitter-line"></i>
             </a>
           </ul>
 
