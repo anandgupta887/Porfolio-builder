@@ -1,0 +1,129 @@
+{
+  "main": {
+    "name": "Anand Gupta",
+    "occupation": "ReactJS Developer",
+    "description": "Full Stack React Developer  && Freelancer",
+    "image": "Git_Anand.jpeg",
+    "bio": "My name is Anand, I'm a Full Stack Web Developer. Recently completed my first internship with Cloud Counselage Pvt Ltd and currently working as a Freelancer",
+    "contactmessage": "Get in touch with me to receive further details, get coached or anything else.",
+    "email": "anandguptav9@gmail.com",
+    "phone": "+91 9323996997",
+    "address": {
+      "street": "Malad East",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "zip": "400097"
+    },
+    "website": "https://anand-portfolio.netlify.app/",
+    "resumedownload": "https://drive.google.com/u/0/uc?id=1234TBmStffTE3oW2AEtPNlEYPAlpLWxz&export=download",
+    "social": [
+      {
+        "name": "facebook",
+        "url": "https://www.facebook.com/anandgupta887",
+        "className": "ri-facebook-fill"
+      },
+      {
+        "name": "linkedin",
+        "url": "https://www.linkedin.com/in/anandgupta887/",
+        "className": "ri-linkedin-fill"
+      },
+      {
+        "name": "instagram",
+        "url": "https://www.instagram.com/__mr.anand___/",
+        "className": "ri-instagram-fill"
+      },
+      {
+        "name": "github",
+        "url": "https://github.com/anandgupta887",
+        "className": "ri-github-fill"
+      }
+    ]
+  },
+  "resume": {
+    "skillmessage": "Here you can create a short write-up of your skills to show off to employers",
+    "education": [
+      {
+        "school": "Theem College Of Engineering",
+        "degree": "B.E Computer Engineering",
+        "graduated": "2019 - Present",
+        "description": "Still Pursuing"
+      },
+      {
+        "school": "Thakur College of Science & Commerce (TCSC)",
+        "degree": "H.S.C (Science)",
+        "graduated": "Feb 2018",
+        "description": "Graduated with Distinction"
+      }
+    ],
+    "work": [
+      {
+        "company": "Instalanes",
+        "title": "Frontend Developer Intern",
+        "years": "Dec 2021 - Dec 2022",
+        "description": ""
+      }
+    ],
+    "skills": [
+      {
+        "name": "ReactJs",
+        "level": "100%"
+      },
+      {
+        "name": "HTML5",
+        "level": "100%"
+      },
+      {
+        "name": "CSS",
+        "level": "100%"
+      },
+      {
+        "name": "MongoDB",
+        "level": "70%"
+      },
+      {
+        "name": "Git",
+        "level": "60%"
+      }
+    ]
+  },
+  "portfolio": {
+    "projects": [
+      {
+        "title": "Amazon Clone",
+        "category": "Amazon Clone built with ReactJS",
+        "image": "https://anand-portfolio.netlify.app/images/portfolio/amazon-clone.png",
+        "url": "https://store-clone-1c32d.web.app/"
+      },
+      {
+        "title": "Netflix Clone with React",
+        "category": "Netflix Clone built with ReactJS",
+        "image": "https://anand-portfolio.netlify.app/images/portfolio/netflix-clone.png",
+        "url": "https://netflix-clone-1bfb5.web.app/"
+      },
+      {
+        "title": "Instagram Clone",
+        "category": "Instagram Clone built with ReactJS",
+        "image": "https://anand-portfolio.netlify.app/images/portfolio/instagram-clone.png",
+        "url": "https://instagram-clone-f508e.web.app/"
+      },
+      {
+        "title": "Messenger Clone",
+        "category": "Facebook Messenger built with ReactJS",
+        "image": "https://anand-portfolio.netlify.app/images/portfolio/messenger-clone.png",
+        "url": "https://facebook-messen.web.app/"
+      }
+    ]
+  },
+  "testimonials": {
+    "testimonials": [
+      {
+        "text": "Here you should write some nice things that someone has said about you. No lies though, employers can tell when you are lying.",
+        "user": "Kareem Abdul Jabbar"
+      },
+      {
+        "text": "That Sonny Sangha must be one of the most brilliant developers I've ever met! It is amazing that nobody has hired him yet. Hey you, you should hire this guy, he may be fresh out of University and have zero on the job experience but I am confident that he will be one of your best developers in no time!",
+        "user": "Steve Wozniak... impersonator"
+      }
+    ]
+  }
+}
