@@ -24,6 +24,7 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import moment from "moment/moment";
+// import "./assets/js/main";
 
 // console.log(details?.profile?.name);
 // console.log(details?.id);
@@ -474,7 +475,6 @@ function Template({ details }) {
                     </div>
                   </div>
                 ))}
-                
               </div>
 
               {/* <!-- Swiper arrows --> */}
@@ -721,6 +721,26 @@ function Template({ details }) {
           </span>
         </div>
       </footer>
+
+      {/* <!--========== SCROLL UP ==========-->
+      <a href="#" class="scrollup" id="scroll-up">
+        <i class="ri-arrow-up-line"></i>
+      </a>
+
+      <!--=============== SCROLLREVEAL ===============-->
+      <script src="assets/js/scrollreveal.min.js"></script>
+
+      <!--=============== SWIPER JS ===============-->
+      <script src="assets/js/swiper-bundle.min.js"></script>
+
+      <!--=============== EMAIL JS ===============-->
+      <script
+        type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"
+      ></script>
+
+      <!--=============== MAIN JS ===============-->
+      <script src="assets/js/main.js"></script> */}
     </>
   );
 }
