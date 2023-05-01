@@ -29,6 +29,11 @@
   font-weight: 500;
   font-size: 1.1rem;
 }
+.header .subHeadingtitle {
+  color: var(--color);
+  font-weight: 500;
+  font-size: 0.8rem;
+}
 
 .header .links {
   margin-top: 15px;

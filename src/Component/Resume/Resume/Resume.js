@@ -331,31 +331,44 @@ const Resume = forwardRef((props, ref) => {
         <div className={styles.header}>
           <p className={styles.heading}>{info.basicInfo?.detail?.name}</p>
           <p className={styles.subHeading}>{info.basicInfo?.detail?.title}</p>
+          <p className={styles.subHeadingtitle}>{info.basicInfo?.detail?.location}</p>
 
           <div className={styles.links}>
             {info.basicInfo?.detail?.email ? (
-              <a className={styles.link} type="email">
+              <a
+                className={styles.link}
+                href={`mailto:${info.basicInfo?.detail?.email}`}
+              >
                 <AtSign /> {info.basicInfo?.detail?.email}
               </a>
             ) : (
               <span />
             )}
             {info.basicInfo?.detail?.phone ? (
-              <a className={styles.link}>
+              <a
+                className={styles.link}
+                href={`tel:${info.basicInfo?.detail?.phone}`}
+              >
                 <Phone /> {info.basicInfo?.detail?.phone}
               </a>
             ) : (
               <span />
             )}
-            {info.basicInfo?.detail?.linkedin ? (
-              <a className={styles.link}>
-                <Linkedin /> {info.basicInfo?.detail?.linkedin}
+            {info.basicInfo?.detail?.linkedIn ? (
+              <a
+                className={styles.link}
+                href={`https://linkedin.com/in/${info.basicInfo?.detail?.linkedIn}`}
+              >
+                <Linkedin /> {info.basicInfo?.detail?.linkedIn}
               </a>
             ) : (
               <span />
             )}
             {info.basicInfo?.detail?.github ? (
-              <a className={styles.link}>
+              <a
+                className={styles.link}
+                href={`https://github.com/${info.basicInfo?.detail?.github}`}
+              >
                 <GitHub /> {info.basicInfo?.detail?.github}
               </a>
             ) : (
