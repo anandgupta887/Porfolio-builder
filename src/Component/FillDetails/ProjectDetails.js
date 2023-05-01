@@ -29,6 +29,8 @@ import { updateProject } from "../../state/actions/userAction";
 import { backendUrl } from "../config/config";
 import { useHistory } from "react-router-dom/";
 import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
+import { storage } from "../config/firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -81,6 +83,8 @@ function ProjectDetails() {
 
   const history = useHistory();
 
+  const [imageUrl, setImageUrl] = useState([]);
+
   useEffect(() => {
     if (userData) {
       setValues(userData);
@@ -105,7 +109,7 @@ function ProjectDetails() {
     setValues(updatedValues);
   };
 
-  const handleImage = (e, index) => {
+  const handleImage = async (e, index) => {
     let files;
     if (e?.dataTransfer) {
       files = e?.dataTransfer.files;
@@ -114,54 +118,55 @@ function ProjectDetails() {
     }
     if (files && files.length > 0) {
       const imageData = files[0];
-      const updatedValues = [...values];
-      updatedValues[index]["imageRaw"] = imageData;
-      setValues(updatedValues);
+      handleUploadImage(imageData, index);
     }
   };
 
   const handleDelete = (index) => {
     const updatedValues = [...values];
     updatedValues[index]["imageRaw"] = null;
+    updatedValues[index]["image"] = null;
     setValues(updatedValues);
   };
 
-  const uploadImagesToFirebase = (data,idx) => {
-   
+  const handleUploadImage = async (imageData, index) => {
+    const storageRef = ref(storage, `portfolio/projects/${imageData.name}`);
+
+    await uploadBytes(storageRef, imageData, imageData.type).then(
+      async (snapshot) => {
+        await getDownloadURL(snapshot.ref).then((downloadURL) => {
+          const updatedValues = [...values];
+          updatedValues[index]["image"] = downloadURL;
+          setValues(updatedValues);
+        });
+      }
+    );
   };
+
+  console.log(values);
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    values.forEach((data, idx) => {
-      console.log(data)
-      // if (data?.files && files.length > 0) {
-      //   const imageData = files[0];
-      //   setImageData(imageData);
-      //   handleUploadImage(imageData);
-      // }
-      uploadImagesToFirebase(data, idx);
-    });
-
-    // try {
-    //   await axios
-    //     .post(
-    //       `${backendUrl}/projects`,
-    //       { projects: values },
-    //       {
-    //         headers: {
-    //           authorization: `Bearer ${userAuth}`,
-    //         },
-    //       }
-    //     )
-    //     .then((res) => {
-    //       dispatch(updateProject(res?.data?.projects));
-    //       console.log(`Welcome back, ${res}`);
-    //       history.push("/education");
-    //     });
-    // } catch (err) {
-    //   alert(err.response.data.error);
-    // }
+    try {
+      await axios
+        .post(
+          `${backendUrl}/projects`,
+          { projects: values },
+          {
+            headers: {
+              authorization: `Bearer ${userAuth}`,
+            },
+          }
+        )
+        .then((res) => {
+          dispatch(updateProject(res?.data?.projects));
+          console.log(`Welcome back, ${res}`);
+          history.push("/education");
+        });
+    } catch (err) {
+      alert(err.response.data.error);
+    }
   };
 
   return (
@@ -212,16 +217,16 @@ function ProjectDetails() {
                   <AccordionDetails>
                     <Grid container spacing={2}>
                       <Grid item xs={12}>
-                        {data?.image || data?.imageRaw ? (
+                        {data?.image ? (
                           <div
                             style={{
                               display: "flex",
                               justifyContent: "space-between",
                             }}
                           >
-                            <Avatar
+                            <img
                               src={data?.image}
-                              sx={{ width: 80, height: 80 }}
+                              style={{ width: "auto", height: 80 }}
                             />
                             <div>
                               <Button
@@ -236,7 +241,10 @@ function ProjectDetails() {
                             </div>
                           </div>
                         ) : (
-                          <>
+                          <Box sx={{ display: "flex" }}>
+                            <Typography variant="body2" sx={{ flex: 1, alignSelf: "center" }}>
+                              Upload image
+                            </Typography>
                             <input
                               accept="image/*"
                               style={{ display: "none" }}
@@ -257,7 +265,7 @@ function ProjectDetails() {
                                 Upload
                               </Button>
                             </label>
-                          </>
+                          </Box>
                         )}
                       </Grid>
                       <Grid item xs={12}>
