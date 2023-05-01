@@ -6,7 +6,8 @@ import {
   UPDATE_EXPERIENCE,
   UPDATE_PROJECT,
   UPDATE_EDUCATION,
-  UPDATE_TEMPLATE,UPDATE_NEW_USER
+  UPDATE_TEMPLATE,
+  UPDATE_NEW_USER,
 } from "../actionTypes/actionTypes";
 
 const initialState = {};
@@ -27,7 +28,10 @@ const userReducer = (state = initialState, action) => {
     case UPDATE_TEMPLATE:
       return {
         ...state,
-        templateId: action.payload,
+        user: {
+          ...state.user,
+          template: action.payload,
+        },
       };
     case UPDATE_PROFILE:
       return {

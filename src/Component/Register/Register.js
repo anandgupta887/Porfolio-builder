@@ -51,7 +51,7 @@ function Register() {
 
   useEffect(() => {
     if (userAuth) {
-      history.push("/personal-details");
+      history.push("/choose-template");
     }
   }, []);
 
