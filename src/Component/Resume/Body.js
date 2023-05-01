@@ -19,7 +19,7 @@ function Body() {
   ];
   const sections = {
     basicInfo: "Personal details",
-    workExp: "Work Experience",
+    workExp: "Experience",
     project: "Projects",
     education: "Education",
     achievement: "Achievements",
