@@ -1151,7 +1151,7 @@ transform: translateX(.25rem);
     color: var(--text-color-light);
   }
   .section{
-    padding-block: 8rem 0;
+    padding-block: 2rem 0;
   }
   .home__title{
     font-size: 2.5rem;

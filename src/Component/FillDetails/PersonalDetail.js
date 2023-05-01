@@ -20,12 +20,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { updateProfile } from "../../state/actions/userAction";
 import { backendUrl } from "../config/config";
-import {useHistory} from 'react-router-dom'
+import { useHistory } from "react-router-dom";
+import { storage } from "../config/firebase";
+import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 
 function PersonalDetails() {
   const [profileData, setProfileData] = useState({});
   const userData = useSelector((state) => state?.user?.profile);
   const userAuth = useSelector((state) => state?.token);
+
+  const [imageData, setImageData] = useState("");
+  console.log("files updates", imageData);
 
   const history = useHistory();
 
@@ -53,31 +58,26 @@ function PersonalDetails() {
     } else if (e.target) {
       files = e.target.files;
     }
-    const reader = new FileReader();
-    reader.onload = () => {
-      setProfileData({
-        ...profileData,
-        profile: reader.result,
-      });
-    };
-
-    reader.readAsDataURL(files[0]);
+    if (files && files.length > 0) {
+      const imageData = files[0];
+      setImageData(imageData);
+      handleUploadImage(imageData);
+    }
   };
 
-  const handleUploadImage = async () => {
-    const image = profileData.profile;
-    try {
-      const response = await axios
-        .post(
-          "https://portfolio-backend-production-bc73.up.railway.app/upload",
-          { image }
-        )
-        .then((res) => {
-          console.log("uploaded");
+  const handleUploadImage = async (imageData) => {
+    const storageRef = ref(storage, `portfolio/images/${imageData.name}`);
+
+    await uploadBytes(storageRef, imageData, imageData.type).then(
+      async (snapshot) => {
+        await getDownloadURL(snapshot.ref).then(async (downloadURL) => {
+          setProfileData({
+            ...profileData,
+            image: downloadURL,
+          });
         });
-    } catch (err) {
-      alert(err.response.data.error);
-    }
+      }
+    );
   };
 
   const handleOnSubmit = async (e) => {
@@ -89,17 +89,17 @@ function PersonalDetails() {
       github,
       email,
       phone,
-      profile,
+      image,
       location,
       about,
     } = profileData;
     if (!(name && email && phone && location)) {
-      console.log('returned')
+      console.log("returned");
       return;
     }
     try {
       // handleUploadImage();
-      const response = await axios
+      await axios
         .post(
           `${backendUrl}/profiles`,
           {
@@ -111,7 +111,7 @@ function PersonalDetails() {
             phone,
             about,
             location,
-            image: "profile",
+            image,
           },
           {
             headers: {
@@ -121,8 +121,7 @@ function PersonalDetails() {
         )
         .then((res) => {
           dispatch(updateProfile(res?.data.profile));
-          
-          history.push("/skills")
+          // history.push("/skills");
         });
     } catch (err) {
       alert(err);
@@ -148,12 +147,12 @@ function PersonalDetails() {
                 Upload Profile Pic
               </Typography>
 
-              {profileData?.profile ? (
+              {profileData?.image ? (
                 <div
                   style={{ display: "flex", justifyContent: "space-between" }}
                 >
                   <Avatar
-                    src={profileData?.profile}
+                    src={profileData?.image}
                     sx={{ width: 80, height: 80 }}
                   />
                   <div>
@@ -163,7 +162,7 @@ function PersonalDetails() {
                       onClick={() => {
                         setProfileData({
                           ...profileData,
-                          profile: "",
+                          image: "",
                         });
                       }}
                     >
