@@ -2,8 +2,6 @@ import { Box, Typography, Container } from "@mui/material";
 import TemplateCard from "./TemplateCard";
 import templateList from "./TemplateList";
 
-// console.log(details);
-
 function ChooseTemplate() {
   return (
     <Container>

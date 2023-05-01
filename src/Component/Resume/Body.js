@@ -69,7 +69,7 @@ function Body() {
     },
   });
 
-  console.log("body info", resumeInformation);
+ 
 
   const handleSetResumeInformation = () => {
     setResumeInformation({
@@ -98,7 +98,7 @@ function Body() {
       },
     });
   };
-  console.log(userDetails?.education);
+
 
   useEffect(() => {
     handleSetResumeInformation();

@@ -102,7 +102,6 @@ function ProjectDetails() {
   };
 
   const handleInputChange = (index, event) => {
-    console.log(values);
     const { name, value } = event.target;
     const updatedValues = [...values];
     updatedValues[index][name] = value;
@@ -143,8 +142,6 @@ function ProjectDetails() {
     );
   };
 
-  console.log(values);
-
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
@@ -161,7 +158,7 @@ function ProjectDetails() {
         )
         .then((res) => {
           dispatch(updateProject(res?.data?.projects));
-          console.log(`Welcome back, ${res}`);
+
           history.push("/education");
         });
     } catch (err) {
@@ -242,7 +239,10 @@ function ProjectDetails() {
                           </div>
                         ) : (
                           <Box sx={{ display: "flex" }}>
-                            <Typography variant="body2" sx={{ flex: 1, alignSelf: "center" }}>
+                            <Typography
+                              variant="body2"
+                              sx={{ flex: 1, alignSelf: "center" }}
+                            >
                               Upload image
                             </Typography>
                             <input

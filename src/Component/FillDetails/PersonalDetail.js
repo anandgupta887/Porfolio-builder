@@ -23,6 +23,7 @@ import { backendUrl } from "../config/config";
 import { useHistory } from "react-router-dom";
 import { storage } from "../config/firebase";
 import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import Popup from "../SnackBarPopup";
 
 function PersonalDetails() {
   const [profileData, setProfileData] = useState({});
@@ -30,7 +31,25 @@ function PersonalDetails() {
   const userAuth = useSelector((state) => state?.token);
 
   const [imageData, setImageData] = useState("");
-  console.log("files updates", imageData);
+
+  // this is a state that will handle the state for visibility of snackbar
+  const [snackbarState, setSnackbarState] = useState(false); // "false" is the initial "snackbarState"
+  // this is the state to owns the data to be visible n kind of severity it has - success or error
+  const [snackbarData, setSnackbarData] = useState({
+    // the following is the initial "snackbarData"
+    message: "",
+    severity: "",
+  });
+
+  const handleOpenSnackbar = (severity, message) => {
+    // this function is setting the states
+    setSnackbarData({
+      // changing initial/previous "snackbarState" to re-render the "Popup" component
+      message: message,
+      severity: severity,
+    });
+    setSnackbarState(true); // changing initial/previous "snackbarData" to re-render the "Popup" component
+  };
 
   const history = useHistory();
 
@@ -43,7 +62,6 @@ function PersonalDetails() {
   const dispatch = useDispatch();
 
   const handleInput = (e) => {
-    console.log(profileData);
     setProfileData({
       ...profileData,
       [e.target.name]: e.target.value,
@@ -93,8 +111,20 @@ function PersonalDetails() {
       location,
       about,
     } = profileData;
-    if (!(name && email && phone && location)) {
-      console.log("returned");
+    if (
+      !(
+        name &&
+        title &&
+        linkedIn &&
+        github &&
+        email &&
+        phone &&
+        image &&
+        location &&
+        about
+      )
+    ) {
+      handleOpenSnackbar("error", "Fill up the details!");
       return;
     }
     try {
@@ -130,6 +160,7 @@ function PersonalDetails() {
 
   return (
     <Container maxWidth="lg">
+      <Popup open={snackbarState} set={setSnackbarState} data={snackbarData} />
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography variant="h4">Personal details</Typography>

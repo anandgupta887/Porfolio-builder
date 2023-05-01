@@ -309,7 +309,7 @@ body.dark-theme {
 /*=============== HOME ===============*/
 .home__container {
   row-gap: 4rem;
-  padding-top: 2rem;
+  padding-top: 6rem;
 }
 
 .home__data {

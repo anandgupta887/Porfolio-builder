@@ -323,7 +323,7 @@ const Resume = forwardRef((props, ref) => {
     container.style.setProperty("--color", props.activeColor);
   }, [props.activeColor]);
 
-  console.log(info);
+
 
   return (
     <div ref={ref}>
