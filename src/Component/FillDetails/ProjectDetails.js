@@ -1,5 +1,6 @@
 import {
   Autocomplete,
+  Avatar,
   Box,
   Button,
   Card,
@@ -27,6 +28,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateProject } from "../../state/actions/userAction";
 import { backendUrl } from "../config/config";
 import { useHistory } from "react-router-dom/";
+import CloudUploadOutlinedIcon from "@mui/icons-material/CloudUploadOutlined";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -103,28 +105,63 @@ function ProjectDetails() {
     setValues(updatedValues);
   };
 
+  const handleImage = (e, index) => {
+    let files;
+    if (e?.dataTransfer) {
+      files = e?.dataTransfer.files;
+    } else if (e.target) {
+      files = e.target.files;
+    }
+    if (files && files.length > 0) {
+      const imageData = files[0];
+      const updatedValues = [...values];
+      updatedValues[index]["imageRaw"] = imageData;
+      setValues(updatedValues);
+    }
+  };
+
+  const handleDelete = (index) => {
+    const updatedValues = [...values];
+    updatedValues[index]["imageRaw"] = null;
+    setValues(updatedValues);
+  };
+
+  const uploadImagesToFirebase = (data,idx) => {
+   
+  };
+
   const handleOnSubmit = async (e) => {
     e.preventDefault();
 
-    try {
-      const response = await axios
-        .post(
-          `${backendUrl}/projects`,
-          { projects: values },
-          {
-            headers: {
-              authorization: `Bearer ${userAuth}`,
-            },
-          }
-        )
-        .then((res) => {
-          dispatch(updateProject(res?.data?.projects));
-          console.log(`Welcome back, ${res}`);
-          history.push("/education");
-        });
-    } catch (err) {
-      alert(err.response.data.error);
-    }
+    values.forEach((data, idx) => {
+      console.log(data)
+      // if (data?.files && files.length > 0) {
+      //   const imageData = files[0];
+      //   setImageData(imageData);
+      //   handleUploadImage(imageData);
+      // }
+      uploadImagesToFirebase(data, idx);
+    });
+
+    // try {
+    //   await axios
+    //     .post(
+    //       `${backendUrl}/projects`,
+    //       { projects: values },
+    //       {
+    //         headers: {
+    //           authorization: `Bearer ${userAuth}`,
+    //         },
+    //       }
+    //     )
+    //     .then((res) => {
+    //       dispatch(updateProject(res?.data?.projects));
+    //       console.log(`Welcome back, ${res}`);
+    //       history.push("/education");
+    //     });
+    // } catch (err) {
+    //   alert(err.response.data.error);
+    // }
   };
 
   return (
@@ -174,6 +211,55 @@ function ProjectDetails() {
                   </AccordionSummary>
                   <AccordionDetails>
                     <Grid container spacing={2}>
+                      <Grid item xs={12}>
+                        {data?.image || data?.imageRaw ? (
+                          <div
+                            style={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                            }}
+                          >
+                            <Avatar
+                              src={data?.image}
+                              sx={{ width: 80, height: 80 }}
+                            />
+                            <div>
+                              <Button
+                                variant="contained"
+                                startIcon={<DeleteIcon />}
+                                onClick={() => {
+                                  handleDelete(idx);
+                                }}
+                              >
+                                Delete
+                              </Button>
+                            </div>
+                          </div>
+                        ) : (
+                          <>
+                            <input
+                              accept="image/*"
+                              style={{ display: "none" }}
+                              id="upload-profile-button"
+                              hidden
+                              type="file"
+                              onChange={(e) => handleImage(e, idx)}
+                            />
+                            <label htmlFor="upload-profile-button">
+                              <Button
+                                variant="contained"
+                                startIcon={<CloudUploadOutlinedIcon />}
+                                component="span"
+                                sx={{
+                                  backgroundColor: "rgba(217, 209, 209, 1)",
+                                }}
+                              >
+                                Upload
+                              </Button>
+                            </label>
+                          </>
+                        )}
+                      </Grid>
                       <Grid item xs={12}>
                         <TextField
                           name="title"

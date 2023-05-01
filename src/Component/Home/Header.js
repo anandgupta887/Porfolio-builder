@@ -11,21 +11,23 @@ import Button from "@mui/material/Button";
 import MenuItem from "@mui/material/MenuItem";
 import LaptopIcon from "@mui/icons-material/Laptop";
 import { Link, Tooltip } from "@mui/material";
-import { useEffect } from "react";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../state/actions/userAction";
 import { useHistory } from "react-router-dom";
 
 const pages = [
   {
-    label: "profile",
+    label: "PROFILE",
     link: "/personal-details",
   },
-  { label: "resume", link: "/resume" },
-  { label: "Premium" },
+  { label: "RESUME", link: "/resume" },
+
+  {
+    label: "PREVIEW",
+    link: "/template",
+  },
+  { label: "PREMIUM" },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 
 const Header = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -71,10 +73,9 @@ const Header = () => {
     >
       <Container maxWidth="xl" sx={{ p: "0 !important" }}>
         <Toolbar disableGutters sx={{ maxHeight: { xs: "56px", md: "64px" } }}>
-          <Box sx={{ display: "flex", cursor: "pointer" }}>
+          <Box sx={{ display: { xs: "none", md: "flex" }, cursor: "pointer" }}>
             <LaptopIcon
               sx={{
-                display: { xs: "none", md: "flex" },
                 mr: 1,
                 alignSelf: "center",
               }}
@@ -86,7 +87,6 @@ const Header = () => {
               onClick={() => history.push("/")}
               sx={{
                 mr: 2,
-                display: { xs: "none", md: "flex" },
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
@@ -97,7 +97,7 @@ const Header = () => {
               PORT4LEO
             </Typography>
           </Box>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+          <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
               aria-label="account of current user"
@@ -133,8 +133,14 @@ const Header = () => {
               ))}
             </Menu>
           </Box>
-          <Box>
-            <LaptopIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+          <Box
+            sx={{
+              cursor: "pointer",
+              display: { xs: "flex", md: "none" },
+              flex: 1,
+            }}
+          >
+            <LaptopIcon sx={{ mr: 1, alignSelf: "center" }} />
             <Typography
               variant="h5"
               noWrap
@@ -142,7 +148,6 @@ const Header = () => {
               onClick={() => history.push("/")}
               sx={{
                 mr: 2,
-                display: { xs: "flex", md: "none" },
                 flexGrow: 1,
                 fontFamily: "monospace",
                 fontWeight: 700,
