@@ -121,7 +121,14 @@ function Template({ details }) {
               {/* <img src="./profile?.png" /> */}
               <div className="home__blob grid">
                 <div className="home__profile">
-                  <img src={details?.profile?.image?details?.profile?.image : profile} alt="profile-pic" />
+                  <img
+                    src={
+                      details?.profile?.image
+                        ? details?.profile?.image
+                        : profile
+                    }
+                    alt="profile-pic"
+                  />
                 </div>
 
                 {/* <img src={shapeWaves} alt="" className="home__shape-waves" />
@@ -460,7 +467,7 @@ function Template({ details }) {
                 {details?.projects.map((data) => (
                   <div className="projects__content swiper-slide">
                     <img
-                      src={project1}
+                      src={data?.image ? data?.image : project1}
                       alt="projects image"
                       className="projects__img"
                     />
