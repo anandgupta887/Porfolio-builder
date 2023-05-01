@@ -20,11 +20,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { updateProfile } from "../../state/actions/userAction";
 import { backendUrl } from "../config/config";
+import {useHistory} from 'react-router-dom'
 
 function PersonalDetails() {
   const [profileData, setProfileData] = useState({});
   const userData = useSelector((state) => state?.user?.profile);
   const userAuth = useSelector((state) => state?.token);
+
+  const history = useHistory();
 
   useEffect(() => {
     if (userData) {
@@ -118,8 +121,8 @@ function PersonalDetails() {
         )
         .then((res) => {
           dispatch(updateProfile(res?.data.profile));
-          console.log(res?.data);
-          window.location.pathname = "/skills";
+          
+          history.push("/skills")
         });
     } catch (err) {
       alert(err);

@@ -15,13 +15,14 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { logoutUser } from "../../state/actions/userAction";
+import { useHistory } from "react-router-dom";
 
 const pages = [
   {
     label: "profile",
-    link: "personal-details",
+    link: "/personal-details",
   },
-  { label: "resume", link: "resume" },
+  { label: "resume", link: "/resume" },
   { label: "Premium" },
 ];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
@@ -34,11 +35,12 @@ const Header = () => {
 
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
   const handleLogout = (e) => {
     e.preventDefault();
-    console.log('logout');
     dispatch(logoutUser());
-    window.location.pathname = "/login";
+    history.push("/login");
   };
 
   const handleOpenNavMenu = (event) => {
@@ -56,12 +58,6 @@ const Header = () => {
     setAnchorElUser(null);
   };
 
-  const [path, setPath] = useState("");
-
-  useEffect(() => {
-    setPath(window.location.pathname);
-  }, []);
-
   return (
     <AppBar
       position="sticky"
@@ -75,25 +71,32 @@ const Header = () => {
     >
       <Container maxWidth="xl" sx={{ p: "0 !important" }}>
         <Toolbar disableGutters sx={{ maxHeight: { xs: "56px", md: "64px" } }}>
-          <LaptopIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            PORT4LEO
-          </Typography>
-
+          <Box sx={{ display: "flex", cursor: "pointer" }}>
+            <LaptopIcon
+              sx={{
+                display: { xs: "none", md: "flex" },
+                mr: 1,
+                alignSelf: "center",
+              }}
+            />
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              onClick={() => history.push("/")}
+              sx={{
+                mr: 2,
+                display: { xs: "none", md: "flex" },
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              PORT4LEO
+            </Typography>
+          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -130,40 +133,40 @@ const Header = () => {
               ))}
             </Menu>
           </Box>
-          <LaptopIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            PORT4LEO
-          </Typography>
+          <Box>
+            <LaptopIcon sx={{ display: { xs: "flex", md: "none" }, mr: 1 }} />
+            <Typography
+              variant="h5"
+              noWrap
+              component="a"
+              onClick={() => history.push("/")}
+              sx={{
+                mr: 2,
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
+                fontFamily: "monospace",
+                fontWeight: 700,
+                letterSpacing: ".3rem",
+                color: "inherit",
+                textDecoration: "none",
+              }}
+            >
+              PORT4LEO
+            </Typography>
+          </Box>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page, idx) => (
               <>
                 {page.link ? (
-                  <Link href={page.link} sx={{ textDecoration: "none" }}>
-                    <Button
-                      key={idx}
-                      onClick={() => {
-                        handleCloseNavMenu();
-                      }}
-                      sx={{ my: 2, color: "black", display: "block" }}
-                    >
-                      {page.label}
-                    </Button>
-                  </Link>
+                  <Button
+                    key={idx}
+                    onClick={() => {
+                      history.push(page.link);
+                    }}
+                    sx={{ my: 2, color: "black", display: "block" }}
+                  >
+                    {page.label}
+                  </Button>
                 ) : (
                   <Tooltip title="Coming Soon...!">
                     <Button
@@ -189,17 +192,25 @@ const Header = () => {
             </Box>
           ) : (
             <Box sx={{ flexGrow: 0, display: "flex" }}>
-              {path != "/login" && (
-                <Button variant="contained" href="/login">
-                  Login
-                </Button>
-              )}
+              <Button
+                variant="contained"
+                onClick={() => {
+                  history.push("/login");
+                }}
+              >
+                Login
+              </Button>
 
-              {path != "/register" && (
-                <Button variant="contained" sx={{ ml: 2 }} href="/register">
-                  Sign up
-                </Button>
-              )}
+              <Button
+                variant="contained"
+                sx={{ ml: 2 }}
+                onClick={() => {
+                  history.push("/register");
+                }}
+              >
+                Sign up
+              </Button>
+
               {/* <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                 <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />

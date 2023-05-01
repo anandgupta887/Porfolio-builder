@@ -132,12 +132,12 @@ function Body() {
         />
       </div>
       <div className={styles.main}>
-        <Editor
+        {/* <Editor
           // activeColor={activeColor}
           sections={sections}
           information={resumeInformation}
           setInformation={setResumeInformation}
-        />
+        /> */}
         <Resume
           ref={resumeRef}
           sections={sections}

@@ -1,8 +1,10 @@
 import WestIcon from "@mui/icons-material/West";
 import { Box, Button } from "@mui/material";
 import EastIcon from "@mui/icons-material/East";
+import { useHistory } from "react-router-dom";
 
 function BottomButton({ prevLink, nextLink, nextText, nextSubmit }) {
+  const history = useHistory();
   return (
     <div style={{ display: "flex", justifyContent: "space-between" }}>
       <Box>
@@ -15,7 +17,9 @@ function BottomButton({ prevLink, nextLink, nextText, nextSubmit }) {
               mr: 2,
             }}
             startIcon={<WestIcon />}
-            href={prevLink}
+            onClick={() => {
+              history.push(prevLink);
+            }}
           >
             Previous
           </Button>
@@ -29,7 +33,7 @@ function BottomButton({ prevLink, nextLink, nextText, nextSubmit }) {
             color: "white",
           }}
           endIcon={<EastIcon />}
-          href={nextLink}
+          href={() => history.push(nextLink)}
           onClick={nextSubmit}
         >
           {nextText ? nextText : "Next"}

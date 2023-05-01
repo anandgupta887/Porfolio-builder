@@ -21,6 +21,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { updateSkills } from "../../state/actions/userAction";
+import { useHistory } from "react-router-dom";
 
 function Skills() {
   const [values, setValues] = useState([]);
@@ -28,6 +29,7 @@ function Skills() {
   const userData = useSelector((state) => state?.user?.skills);
   const userAuth = useSelector((state) => state?.token);
 
+  const history = useHistory();
   console.log(userData, values);
 
   useEffect(() => {
@@ -82,7 +84,7 @@ function Skills() {
         )
         .then((res) => {
           dispatch(updateSkills(res?.data?.skills));
-          window.location.pathname = "/experience";
+          history.push("/experience");
         });
     } catch (err) {
       alert(err.response.data.error);

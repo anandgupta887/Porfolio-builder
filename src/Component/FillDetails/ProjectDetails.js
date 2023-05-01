@@ -26,6 +26,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProject } from "../../state/actions/userAction";
 import { backendUrl } from "../config/config";
+import { useHistory } from "react-router-dom/";
 
 const Accordion = styled((props) => (
   <MuiAccordion disableGutters elevation={0} square {...props} />
@@ -76,6 +77,8 @@ function ProjectDetails() {
   const userData = useSelector((state) => state?.user?.projects);
   const userAuth = useSelector((state) => state?.token);
 
+  const history = useHistory();
+
   useEffect(() => {
     if (userData) {
       setValues(userData);
@@ -117,7 +120,7 @@ function ProjectDetails() {
         .then((res) => {
           dispatch(updateProject(res?.data?.projects));
           console.log(`Welcome back, ${res}`);
-          window.location.pathname = "/education";
+          history.push("/education");
         });
     } catch (err) {
       alert(err.response.data.error);
