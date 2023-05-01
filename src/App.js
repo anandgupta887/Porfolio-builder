@@ -21,62 +21,62 @@ function App() {
   console.log(userDetails);
 
   return (
-    <div style={{ margin: "1rem" }}>
-      <Router>
-        <Switch>
-          <Route path="/choose-template">
-            <Header />
-            <ChooseTemplate />
-          </Route>
-          <Route path="/achievement">
-            <Header />
-            <Achievement />
-          </Route>
-          <Route path="/template">
-            <TemplateHandler />
-          </Route>
-          <Route path="/login">
-            <Header />
-            <Login />
-          </Route>
-          <Route path="/register">
-            <Header />
-            <Register />
-          </Route>
-          <Route path="/personal-details">
-            <Header />
-            <PersonalDetails />
-          </Route>
-          <Route path="/skills">
-            <Header />
-            <Skills />
-          </Route>
-          <Route path="/experience">
-            <Header />
-            <Experience />
-          </Route>
-          <Route path="/education">
-            <Header />
-            <Education />
-          </Route>
-          <Route path="/project-details">
-            <Header />
-            <ProjectDetails />
-          </Route>
-          <Route path="/resume">
-            <Header />
-            <ResumeBody />
-          </Route>
-          <Route path="/portfolio/:username">
-            <TemplateHandler browse />
-          </Route>
-          <Route path="/">
-            <Header />
-            <Home />
-          </Route>
-        </Switch>
-      </Router>
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/choose-template">
+          <Header />
+          <ChooseTemplate />
+        </Route>
+        <Route path="/achievement">
+          <Header />
+          <Achievement />
+        </Route>
+        <Route path="/template">
+          <Header />
+          <TemplateHandler />
+        </Route>
+        <Route path="/login">
+          <Header />
+          <Login />
+        </Route>
+        <Route path="/register">
+          <Header />
+          <Register />
+        </Route>
+        <Route path="/personal-details">
+          <Header />
+          <PersonalDetails />
+        </Route>
+        <Route path="/skills">
+          <Header />
+          <Skills />
+        </Route>
+        <Route path="/experience">
+          <Header />
+          <Experience />
+        </Route>
+        <Route path="/education">
+          <Header />
+          <Education />
+        </Route>
+        <Route path="/project-details">
+          <Header />
+          <ProjectDetails />
+        </Route>
+        <Route path="/resume">
+          <Header />
+          <ResumeBody />
+        </Route>
+        <Route path="/portfolio/:username">
+          <Header />
+          <TemplateHandler browse />
+        </Route>
+        <Route path="/">
+          <Header />
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

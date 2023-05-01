@@ -17,12 +17,15 @@ import { updateUserDetails } from "../../state/actions/userAction";
 import { useEffect } from "react";
 import { backendUrl } from "../config/config";
 import Popup from "../SnackBarPopup";
+import { useHistory } from "react-router-dom";
 
 function Login() {
   const [values, setValues] = useState({});
   const [error, setError] = useState(false);
 
   const dispatch = useDispatch();
+
+  const history = useHistory();
 
   const userAuth = useSelector((state) => state.token);
 
@@ -85,7 +88,7 @@ function Login() {
 
   return (
     <>
-    {/* This below components is adding the snackbar component to the page and passing the props  */}
+      {/* This below components is adding the snackbar component to the page and passing the props  */}
       <Popup open={snackbarState} set={setSnackbarState} data={snackbarData} />
       <Box
         sx={{
@@ -157,7 +160,7 @@ function Login() {
                 Login
               </Button>
               <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-                <Link href="/forgot-password">Forgot password</Link>
+                <Typography></Typography>
                 <Link href="/register">New user?</Link>
               </Box>
             </Box>

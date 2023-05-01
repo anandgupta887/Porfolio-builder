@@ -65,7 +65,7 @@
 }
 
 .col1 {
-  flex: 1.3;
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -155,5 +155,3 @@
 .hidden {
   display: none;
 }
-
-

@@ -293,8 +293,8 @@ const Resume = forwardRef((props, ref) => {
 
   useEffect(() => {
     setColumns([
-      [sections.project, sections.education, sections.summary],
-      [sections.workExp, sections.achievement, sections.other],
+      [sections.project, sections.education, sections.other],
+      [sections.workExp, sections.achievement],
     ]);
   }, []);
 
