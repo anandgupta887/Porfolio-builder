@@ -1,6 +1,5 @@
 import { Box, Typography, Container } from "@mui/material";
 import TemplateCard from "./TemplateCard";
-import { Link } from "react-router-dom";
 import templateList from "./TemplateList";
 
 // console.log(details);
@@ -21,9 +20,7 @@ function ChooseTemplate() {
         }}
       >
         {templateList?.map((data, i) => (
-          <Link to="/personal-details">
-            <TemplateCard key={i} data={data} />
-          </Link>
+          <TemplateCard key={i} data={data} />
         ))}
       </Box>
     </Container>

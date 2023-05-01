@@ -5,18 +5,50 @@ import {
   CardMedia,
   Typography,
 } from "@mui/material";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { updateTemplateId } from "../../state/actions/userAction";
+import { useHistory } from "react-router-dom";
+import axios from "axios";
+import { backendUrl } from "../config/config";
 
 function TemplateCard({ data }) {
   const dispatch = useDispatch();
+
+  const history = useHistory();
+
+  const userData = useSelector((state) => state?.user?.profile);
+  const userAuth = useSelector((state) => state?.token);
+
+  const selectTemplate = async (data) => {
+    try {
+      // handleUploadImage();
+      await axios
+        .post(
+          `${backendUrl}/template`,
+          {
+            templateId: parseInt(data),
+          },
+          {
+            headers: {
+              authorization: `Bearer ${userAuth}`,
+            },
+          }
+        )
+        .then((res) => {
+          dispatch(updateTemplateId(res.data.resume.template));
+          history.push("/personal-details");
+        });
+    } catch (err) {
+      alert(err);
+    }
+  };
 
   return (
     <Card
       key={data?.id}
       sx={{ borderRadius: "30px" }}
       onClick={() => {
-        dispatch(updateTemplateId(data.id));
+        selectTemplate(data.id);
       }}
     >
       <CardActionArea
