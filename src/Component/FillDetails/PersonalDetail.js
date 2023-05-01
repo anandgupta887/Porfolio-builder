@@ -121,7 +121,7 @@ function PersonalDetails() {
         )
         .then((res) => {
           dispatch(updateProfile(res?.data.profile));
-          // history.push("/skills");
+          history.push("/skills");
         });
     } catch (err) {
       alert(err);

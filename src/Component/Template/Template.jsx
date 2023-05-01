@@ -121,11 +121,11 @@ function Template({ details }) {
               {/* <img src="./profile?.png" /> */}
               <div className="home__blob grid">
                 <div className="home__profile">
-                  <img src={profile} alt="profile-pic" />
+                  <img src={details?.profile?.image?details?.profile?.image : profile} alt="profile-pic" />
                 </div>
 
-                <img src={shapeWaves} alt="" className="home__shape-waves" />
-                <img src={shapeCircle} alt="" className="home__shape-waves" />
+                {/* <img src={shapeWaves} alt="" className="home__shape-waves" />
+                <img src={shapeCircle} alt="" className="home__shape-waves" /> */}
               </div>
 
               <ul className="home__social">

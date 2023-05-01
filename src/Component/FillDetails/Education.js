@@ -196,7 +196,7 @@ function Education() {
                           label="Specialized in"
                           size="small"
                           fullWidth
-                          value={data.field}
+                          value={data.fieldOfStudy}
                           onChange={(e) => handleInputChange(e, idx)}
                         />
                       </Grid>
