@@ -18,7 +18,6 @@ import Header from "./Component/Home/Header";
 
 function App() {
   const userDetails = useSelector((state) => state);
-  console.log(userDetails);
 
   return (
     <Router>
@@ -32,7 +31,6 @@ function App() {
           <Achievement />
         </Route>
         <Route path="/template">
-          <Header />
           <TemplateHandler />
         </Route>
         <Route path="/login">

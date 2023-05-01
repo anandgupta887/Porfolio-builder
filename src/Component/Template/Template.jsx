@@ -24,23 +24,54 @@ import { useSelector } from "react-redux";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import moment from "moment/moment";
-// import "./assets/js/main";
-
-// console.log(details?.profile?.name);
-// console.log(details?.id);
-// {
-//   {
-//     details?.profile?.name;
-//   }
-// }
 
 function Template({ details }) {
+  const getSkillLevel = (type) => {
+    switch (type) {
+      case "1":
+        return "Beginner";
+      case "2":
+        return "Intermediate";
+      case "3":
+        return "Expert";
+      case "4":
+        return "Proficient";
+      case "5":
+        return "Master";
+    }
+  };
+
+  const getImage = (type) => {
+    switch (type) {
+      case "HTML":
+        return html1;
+      case "CSS":
+        return css3;
+      case "Javascript":
+        return logoJavaScript;
+      case "React":
+        return react2;
+      case "Git":
+        return gitIcon;
+      case "Figma":
+        return figma1;
+      case "Sketch":
+        return sketch2;
+      case "Adobe XD":
+        return adobeXD1;
+      case "InvisionApp":
+        return invision;
+      case "Photoshop":
+        return adobePhotoshop2;
+      default:
+        return "";
+    }
+  };
+
   console.log(details);
+
   return (
     <>
-      {/* {console.log(details?.profile?.name)}
-      {console.log(details?.id)} */}
-      {/* {console.log({ details })} */}
       {/* <!--==================== HEADER ====================--> */}
       <header className="header" id="header">
         <nav className="nav container">
@@ -227,111 +258,20 @@ function Template({ details }) {
           <span className="section__subtitle">My favourite skills</span>
 
           <div className="skills__container container grid section__border">
-            {/* <!--==================== SKILLS 1 ====================--> */}
             <div className="skills__content">
-              <h3 className="skills__title">
-                <i className="ri-braces-line"></i> Frontend Developer
-              </h3>
-
               <div className="skills__info">
-                <div className="skills__data">
-                  <div className="skills__blob">
-                    <img src={html1} alt="skills" />
+                {details?.skills.map((data) => (
+                  <div className="skills__data">
+                    <div className="skills__blob">
+                      <img src={getImage(data?.name)} alt="skills" />
+                    </div>
+
+                    <h3 className="skills__name">{data?.name}</h3>
+                    <span className="skills__subtitle">
+                      {getSkillLevel(data?.level)}
+                    </span>
                   </div>
-
-                  <h3 className="skills__name">HTML</h3>
-                  <span className="skills__subtitle">Intermediate</span>
-                </div>
-
-                <div className="skills__data">
-                  <div className="skills__blob">
-                    <img src={css3} alt="skills" />
-                  </div>
-
-                  <h3 className="skills__name">CSS</h3>
-                  <span className="skills__subtitle">Advanced</span>
-                </div>
-
-                <div className="skills__data">
-                  <div className="skills__blob">
-                    <img src={logoJavaScript} alt="skills-image" />
-                  </div>
-
-                  <h3 className="skills__name">JavaScript</h3>
-                  <span className="skills__subtitle">Intermediate</span>
-                </div>
-
-                <div className="skills__data">
-                  <div className="skills__blob">
-                    <img src={react2} alt="skills-image" />
-                  </div>
-
-                  <h3 className="skills__name">React</h3>
-                  <span className="skills__subtitle">Basic</span>
-                </div>
-
-                <div className="skills__data">
-                  <div className="skills__blob">
-                    <img src={gitIcon} alt="skills-image" />
-                  </div>
-
-                  <h3 className="skills__name">Git</h3>
-                  <span className="skills__subtitle">Intermediate</span>
-                </div>
-              </div>
-            </div>
-
-            {/* <!--==================== SKILLS 2 ====================--> */}
-            <div className="skills__content">
-              <h3 className="skills__title">
-                <i className="ri-pantone-line"></i> Web Designer
-              </h3>
-
-              <div className="skills__info">
-                <div className="skills__data">
-                  <div className="skills__blob">
-                    <img src={figma1} alt="skills-image" />
-                  </div>
-
-                  <h3 className="skills__name">Figma</h3>
-                  <span className="skills__subtitle">Advanced</span>
-                </div>
-
-                <div className="skills__data">
-                  <div className="skills__blob">
-                    <img src={sketch2} alt="skills-image" />
-                  </div>
-
-                  <h3 className="skills__name">Sketch</h3>
-                  <span className="skills__subtitle">Basic</span>
-                </div>
-
-                <div className="skills__data">
-                  <div className="skills__blob">
-                    <img src={adobeXD1} alt="skills-image" />
-                  </div>
-
-                  <h3 className="skills__name">Adobe XD</h3>
-                  <span className="skills__subtitle">Intermediate</span>
-                </div>
-
-                <div className="skills__data">
-                  <div className="skills__blob">
-                    <img src={invision} alt="skills-image" />
-                  </div>
-
-                  <h3 className="skills__name">InvisionApp</h3>
-                  <span className="skills__subtitle">Basic</span>
-                </div>
-
-                <div className="skills__data">
-                  <div className="skills__blob">
-                    <img src={adobePhotoshop2} alt="skills-image" />
-                  </div>
-
-                  <h3 className="skills__name">Photoshop</h3>
-                  <span className="skills__subtitle">Intermediate</span>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -591,12 +531,12 @@ function Template({ details }) {
                 <div className="contact__data">
                   <span className="contact__data-title">Whatsapp</span>
                   <span className="contact__data-info">
-                    {details?.profile?.countryCode} {details?.profile?.phone}
+                    {details?.profile?.phone}
                   </span>
 
                   {/* <!-- Insert a real number plus country code --> */}
                   <a
-                    href="https://api.whatsapp.com/send?phone=519876543210&text=Hello, more information!"
+                    href={`https://api.whatsapp.com/send?phone=${details?.profile?.phone}&text=Hello, more information!`}
                     className="contact__button"
                     target="_blank"
                   >
@@ -604,11 +544,11 @@ function Template({ details }) {
                   </a>
                 </div>
 
-                <div className="contact__data">
+                {/* <div className="contact__data">
                   <span className="contact__data-title">Messenger</span>
                   <span className="contact__data-info">@alan.fb123</span>
 
-                  {/* <!-- Insert your brand name or profile --> */}
+                  
                   <a
                     href="https://m.me/bedimcode"
                     className="contact__button"
@@ -616,7 +556,7 @@ function Template({ details }) {
                   >
                     Write me <i className="ri-arrow-right-line"></i>
                   </a>
-                </div>
+                </div> */}
               </div>
             </div>
 

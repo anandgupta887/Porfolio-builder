@@ -75,14 +75,12 @@ function Login() {
         })
         .then((res) => {
           dispatch(updateUserDetails(res.data));
-          //   alert(`Welcome back, ${response.data.name}`);
+
           // On successfull login the below function calls the function to update all snackbar state to display
           handleOpenSnackbar("success", "Logged in successfully");
           history.push("/personal-details");
         });
-      // alert(response.data.message);
     } catch (err) {
-      // alert(err.response.data.error);
       // On error the below function calls the function to update all snackbar state to display
       handleOpenSnackbar("error", err.response.data.error);
     }
