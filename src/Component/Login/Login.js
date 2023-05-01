@@ -31,9 +31,10 @@ function Login() {
   };
 
   // this is a state that will handle the state for visibility of snackbar
-  const [snackbarState, setSnackbarState] = useState(false);
-  //this is the state to owns the data to be visible n kind of severity it has - success or error
+  const [snackbarState, setSnackbarState] = useState(false); // "false" is the initial "snackbarState"
+  // this is the state to owns the data to be visible n kind of severity it has - success or error
   const [snackbarData, setSnackbarData] = useState({
+    // the following is the initial "snackbarData"
     message: "",
     severity: "",
   });
@@ -41,10 +42,11 @@ function Login() {
   const handleOpenSnackbar = (severity, message) => {
     // this function is setting the states
     setSnackbarData({
+      // changing initial/previous "snackbarState" to re-render the "Popup" component
       message: message,
       severity: severity,
     });
-    setSnackbarState(true);
+    setSnackbarState(true); // changing initial/previous "snackbarData" to re-render the "Popup" component
   };
 
   useEffect(() => {
@@ -85,7 +87,7 @@ function Login() {
 
   return (
     <>
-    {/* This below components is adding the snackbar component to the page and passing the props  */}
+      {/* This below components is adding the snackbar component to the page and passing the props  */}
       <Popup open={snackbarState} set={setSnackbarState} data={snackbarData} />
       <Box
         sx={{
@@ -120,7 +122,7 @@ function Login() {
           >
             <Box sx={{ maxWidth: { xs: "400px" }, m: "auto" }}>
               <Typography variant="h6" sx={{ mb: 1 }}>
-                Welcome back
+                Welcome back!
               </Typography>
               <Typography variant="body2" sx={{ mb: 2 }}>
                 Please enter your details
