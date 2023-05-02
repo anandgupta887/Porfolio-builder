@@ -1,25 +1,24 @@
 import React, { Component } from "react";
 
 import Banner from "./images/header-background.jpg";
-class Header extends Component {
-  render() {
-    if (this.props.data) {
-      var name = this.props.data.name;
-      var occupation = this.props.data.occupation;
-      var description = this.props.data.description;
-      var city = this.props.data.address.city;
-      var networks = this.props.data.social.map(function (network) {
-        return (
-          <li key={network.name}>
-            <a href={network.url}>
-              <i
-                className={`${network.className} text-2xl hover:text-[#F06000] ease-in-out duration-300`}
-              ></i>
-            </a>
-          </li>
-        );
-      });
-    }
+import React from "react";
+import Banner from "../images/banner.jpg";
+
+const Header = ({ data }) => {
+  if (data) {
+    const { name, occupation, description, address, social } = data;
+    const city = address.city;
+    const networks = social.map(function (network) {
+      return (
+        <li key={network.name}>
+          <a href={network.url}>
+            <i
+              className={`${network.className} text-2xl hover:text-[#F06000] ease-in-out duration-300`}
+            ></i>
+          </a>
+        </li>
+      );
+    });
 
     return (
       <header id="home">
@@ -94,7 +93,9 @@ class Header extends Component {
         </p>
       </header>
     );
+  } else {
+    return null;
   }
-}
+};
 
 export default Header;

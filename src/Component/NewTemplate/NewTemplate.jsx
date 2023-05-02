@@ -13,6 +13,7 @@ import Portfolio from "./Portfolio";
 
 function NewTemplate({ details }) {
   const userId = useSelector((state) => state?.user?.userId);
+  const userData = useSelector((state) => state?.user);
   const [resumeData, setResumeData] = useState({});
 
   useEffect(() => {

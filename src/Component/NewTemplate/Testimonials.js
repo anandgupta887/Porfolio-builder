@@ -1,21 +1,17 @@
 import React, { Component } from "react";
 
-class Testimonials extends Component {
-  render() {
-    if (this.props.data) {
-      var testimonials = this.props.data.testimonials.map(function (
-        testimonials
-      ) {
-        return (
-          <li key={testimonials.user}>
-            <blockquote>
-              <p>{testimonials.text}</p>
-              <cite>{testimonials.user}</cite>
-            </blockquote>
-          </li>
-        );
-      });
-    }
+function Testimonials(props) {
+  const { data } = props;
+
+  if (data) {
+    const testimonials = data.testimonials.map((testimonial) => (
+      <li key={testimonial.user}>
+        <blockquote>
+          <p>{testimonial.text}</p>
+          <cite>{testimonial.user}</cite>
+        </blockquote>
+      </li>
+    ));
 
     return (
       <section id="testimonials">
@@ -35,6 +31,8 @@ class Testimonials extends Component {
       </section>
     );
   }
+
+  return null;
 }
 
 export default Testimonials;
