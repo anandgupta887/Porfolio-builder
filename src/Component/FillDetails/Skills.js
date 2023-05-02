@@ -23,6 +23,7 @@ import { useEffect } from "react";
 import { updateSkills } from "../../state/actions/userAction";
 import { useHistory } from "react-router-dom";
 import SelectInput from "@mui/material/Select/SelectInput";
+import Popup from "../SnackBarPopup";
 
 function Skills() {
   const [values, setValues] = useState([]);
@@ -35,6 +36,25 @@ function Skills() {
   const userAuth = useSelector((state) => state?.token);
 
   const history = useHistory();
+
+  // this is a state that will handle the state for visibility of snackbar
+  const [snackbarState, setSnackbarState] = useState(false); // "false" is the initial "snackbarState"
+  // this is the state to owns the data to be visible n kind of severity it has - success or error
+  const [snackbarData, setSnackbarData] = useState({
+    // the following is the initial "snackbarData"
+    message: "",
+    severity: "",
+  });
+
+  const handleOpenSnackbar = (severity, message) => {
+    // this function is setting the states
+    setSnackbarData({
+      // changing initial/previous "snackbarState" to re-render the "Popup" component
+      message: message,
+      severity: severity,
+    });
+    setSnackbarState(true); // changing initial/previous "snackbarData" to re-render the "Popup" component
+  };
 
   useEffect(() => {
     if (userData?.length > 0) {
@@ -100,6 +120,20 @@ function Skills() {
 
   const handleOnSubmit = async (e) => {
     e.preventDefault();
+    if (localSkills.name !== "" && localSkills.level !== "") {
+      handleOpenSnackbar(
+        "error",
+        "You need to click on add to the list to save the list."
+      );
+      return;
+    }
+    if (!values?.length) {
+      handleOpenSnackbar(
+        "error",
+        "Please add atleast one skill"
+      );
+      return;
+    }
     try {
       await axios
         .post(
@@ -122,6 +156,7 @@ function Skills() {
 
   return (
     <Container maxWidth="lg">
+      <Popup open={snackbarState} set={setSnackbarState} data={snackbarData} />
       <Grid container spacing={2}>
         <Grid item xs={12}>
           <Typography variant="h4">Skills</Typography>
@@ -177,6 +212,17 @@ function Skills() {
               />
             </Grid>
             <Grid item xs={12} sx={{ textAlign: "end" }}>
+              <Button
+                sx={{ mr: 2 }}
+                onClick={() => {
+                  setLocalSkills({
+                    name: "",
+                    level: "",
+                  });
+                }}
+              >
+                Clear
+              </Button>
               <Button variant="contained" onClick={handleAddToTheList}>
                 Add to the list
               </Button>
