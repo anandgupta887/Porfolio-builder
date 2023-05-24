@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 import TemplateHandler from "./Component/TemplateRoot/TemplateHandler";
 import Achievement from "./Component/FillDetails/Achievement";
 import Header from "./Component/Home/Header";
+import NewTemplate from "./Component/NewTemplate/NewTemplate";
 
 function App() {
   const userDetails = useSelector((state) => state);
@@ -32,6 +33,9 @@ function App() {
         </Route>
         <Route path="/template">
           <TemplateHandler />
+        </Route>
+        <Route path="/new-template">
+          <NewTemplate />
         </Route>
         <Route path="/login">
           <Header />
@@ -66,7 +70,6 @@ function App() {
           <ResumeBody />
         </Route>
         <Route path="/portfolio/:username">
-          <Header />
           <TemplateHandler browse />
         </Route>
         <Route path="/">
